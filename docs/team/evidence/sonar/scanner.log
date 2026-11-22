@@ -1,0 +1,144 @@
+10:26:23.930 INFO  Scanner configuration file: /home/afnan/tools/sonar-scanner-7.2.0.5079/conf/sonar-scanner.properties
+10:26:23.942 INFO  Project root configuration file: /home/afnan/scan/sonar-project.properties
+10:26:23.992 INFO  SonarScanner CLI 7.2.0.5079
+10:26:24.018 INFO  Linux 6.18.33.2-microsoft-standard-WSL2 amd64
+10:26:27.768 INFO  Communicating with SonarQube Community Build 26.10.0.133078
+10:26:27.771 INFO  JRE provisioning: os[linux], arch[x86_64]
+10:26:28.922 INFO  Starting SonarScanner Engine...
+10:26:28.929 INFO  Java 21.0.12.1 Eclipse Adoptium (64-bit)
+10:26:33.004 INFO  Load global settings
+10:26:33.338 INFO  Load global settings (done) | time=331ms
+10:26:33.344 INFO  Server id: 147B411E-AaH91Jd-lwvHyIMLk7xb
+10:26:33.363 INFO  Loading required plugins
+10:26:33.365 INFO  Load plugins index
+10:26:33.405 INFO  Load plugins index (done) | time=40ms
+10:26:33.416 INFO  Load/download plugins
+10:26:33.464 INFO  Load/download plugins (done) | time=59ms
+10:26:34.400 INFO  Load project settings for component key: 'sqe-helpdesk'
+10:26:34.453 INFO  Load project settings for component key: 'sqe-helpdesk' (done) | time=52ms
+10:26:34.495 INFO  Process project properties
+10:26:34.525 INFO  Process project properties (done) | time=30ms
+10:26:34.561 INFO  Project key: sqe-helpdesk
+10:26:34.563 INFO  Base dir: /home/afnan/scan
+10:26:34.565 INFO  Working dir: /home/afnan/scan/.scannerwork
+10:26:34.723 INFO  Load quality profiles
+10:26:34.888 INFO  Load quality profiles (done) | time=165ms
+10:26:35.044 INFO  Load active rules
+10:26:36.520 INFO  Load active rules (done) | time=1470ms
+10:26:36.560 INFO  Load analysis cache
+10:26:36.952 INFO  Load analysis cache | time=392ms
+10:26:37.120 INFO  Preprocessing files...
+10:26:38.235 INFO  5 languages detected in 302 preprocessed files (done) | time=1113ms
+10:26:38.237 INFO  0 files ignored because of inclusion/exclusion patterns
+10:26:38.240 INFO  3 directories skipped because of exclusion patterns (content not counted)
+10:26:38.242 INFO  Loading plugins for detected languages
+10:26:38.245 INFO  Load/download plugins
+10:26:38.292 INFO  Load/download plugins (done) | time=51ms
+10:26:39.011 INFO  Load project repositories
+10:26:39.217 INFO  Load project repositories (done) | time=206ms
+10:26:39.284 INFO  Indexing files...
+10:26:39.287 INFO  Project configuration:
+10:26:39.290 INFO    Excluded sources: src/helpdesk/migrations/**, src/helpdesk/static/**, src/helpdesk/locale/**, src/helpdesk/tests/**
+10:26:39.422 INFO  301 files indexed (done) | time=137ms
+10:26:39.425 INFO  Quality profile for js: Sonar way core
+10:26:39.427 INFO  Quality profile for json: Sonar way comprehensive
+10:26:39.430 INFO  Quality profile for py: Sonar way core
+10:26:39.432 INFO  Quality profile for web: Sonar way core
+10:26:39.434 INFO  Quality profile for yaml: Sonar way comprehensive
+10:26:39.436 INFO  ------------- Run sensors on module sqe-helpdesk-testing
+10:26:39.564 INFO  Load metrics repository
+10:26:39.625 INFO  Load metrics repository (done) | time=61ms
+10:26:41.073 INFO  Reflections took 168 ms to scan 1 urls, producing 30 keys and 303 values
+10:26:41.297 INFO  Sensor IaC YAML File Type Classification Sensor [iac]
+10:26:41.458 INFO  Sensor IaC YAML File Type Classification Sensor [iac] (done) | time=160ms
+10:26:41.461 INFO  Sensor IaC CloudFormation Sensor [iac]
+10:26:41.463 INFO  There are no files to be analyzed for the CloudFormation language
+10:26:41.465 INFO  Sensor IaC CloudFormation Sensor [iac] (done) | time=1ms
+10:26:41.467 INFO  Sensor IaC cfn-lint report Sensor [iac]
+10:26:41.469 INFO  Sensor IaC cfn-lint report Sensor [iac] (done) | time=2ms
+10:26:41.471 INFO  Sensor IaC Kustomization Sensor [iac]
+10:26:41.472 INFO  Sensor IaC Kustomization Sensor [iac] (done) | time=1ms
+10:26:41.473 INFO  Sensor IaC hadolint report Sensor [iac]
+10:26:41.475 INFO  Sensor IaC hadolint report Sensor [iac] (done) | time=0ms
+10:26:41.477 INFO  Sensor IaC Azure Resource Manager Sensor [iac]
+10:26:41.478 INFO  There are no files to be analyzed for the Azure Resource Manager language
+10:26:41.480 INFO  Sensor IaC Azure Resource Manager Sensor [iac] (done) | time=3ms
+10:26:41.481 INFO  Sensor Java Config Sensor [iac]
+10:26:41.483 INFO  There are no files to be analyzed for the Java language
+10:26:41.484 INFO  Sensor Java Config Sensor [iac] (done) | time=0ms
+10:26:41.486 INFO  Sensor IaC Docker Sensor [iac]
+10:26:41.493 INFO  There are no files to be analyzed for the Docker language
+10:26:41.495 INFO  Sensor IaC Docker Sensor [iac] (done) | time=25ms
+10:26:41.497 INFO  Sensor Python Sensor [python]
+10:26:42.148 INFO  Starting global symbols computation
+10:26:42.152 INFO  73 source files to be analyzed
+10:26:46.829 INFO  73/73 source files have been analyzed
+10:26:46.831 INFO  Finished step global symbols computation in 4680ms
+10:26:46.946 INFO  Starting rules execution
+10:26:46.948 INFO  73 source files to be analyzed
+10:26:51.715 INFO  73/73 source files have been analyzed
+10:26:51.717 INFO  Finished step rules execution in 4769ms
+10:26:51.718 INFO  The Python analyzer was able to leverage cached data from previous analyses for 0 out of 73 files. These files were not parsed.
+10:26:51.723 INFO  Sensor Python Sensor [python] (done) | time=10229ms
+10:26:51.725 INFO  Sensor Cobertura Sensor for Python coverage [python]
+10:26:51.752 INFO  Python test coverage
+10:26:51.756 INFO  Parsing report '/home/afnan/scan/coverage.xml'
+10:26:51.816 ERROR Cannot resolve the file path '__init__.py' of the coverage report, ambiguity, the file exists in several 'source'.
+10:26:51.924 INFO  Sensor Cobertura Sensor for Python coverage [python] (done) | time=200ms
+10:26:51.926 INFO  Sensor PythonXUnitSensor [python]
+10:26:51.946 INFO  Sensor PythonXUnitSensor [python] (done) | time=21ms
+10:26:51.948 INFO  Sensor Python Dependency Sensor [python]
+10:26:51.955 INFO  Sensor Python Dependency Sensor [python] (done) | time=8ms
+10:26:51.956 INFO  Sensor HTML [web]
+10:26:52.945 INFO  Sensor HTML [web] (done) | time=990ms
+10:26:52.947 INFO  Sensor IaC Kubernetes Sensor [iac]
+10:26:53.033 INFO  There are no files to be analyzed for the Kubernetes language
+10:26:53.035 INFO  Sensor IaC Kubernetes Sensor [iac] (done) | time=88ms
+10:26:53.037 INFO  Sensor TextAndSecretsSensor [text]
+10:26:53.089 INFO  Available processors: 8
+10:26:53.091 INFO  Using 8 threads for analysis.
+10:26:53.577 INFO  Start fetching files for the text and secrets analysis
+10:26:53.603 INFO  Using Git CLI to retrieve dirty files
+10:26:53.609 WARN  Retrieving only language associated files, make sure to run the analysis inside a git repository to make use of inclusions specified via "sonar.text.inclusions"
+10:26:53.611 INFO  Starting the text and secrets analysis
+10:26:53.615 INFO  179 source files to be analyzed for the text and secrets analysis
+10:26:54.256 INFO  179/179 source files have been analyzed for the text and secrets analysis
+10:26:54.261 INFO  Sensor TextAndSecretsSensor [text] (done) | time=1227ms
+10:26:54.267 INFO  ------------- Run sensors on project
+10:26:54.607 INFO  Sensor JavaScript/TypeScript/CSS analysis [javascript]
+10:26:55.110 INFO  Detected os: Linux arch: amd64 alpine: false. Platform: LINUX_X64
+10:26:55.111 INFO  Deploy location /home/afnan/.sonar/js/node-runtime, tagetRuntime: /home/afnan/.sonar/js/node-runtime/node,  version: /home/afnan/.sonar/js/node-runtime/version.txt
+10:26:55.569 INFO  Using embedded Node.js runtime.
+10:26:55.571 INFO  Using Node.js executable: '/home/afnan/.sonar/js/node-runtime/node'.
+10:27:02.566 INFO  Memory configuration: OS (7759 MB), Node.js (2240 MB).
+10:27:02.666 INFO  gRPC analyze-project server listening on 127.0.0.1:43249
+10:27:03.077 INFO  Plugin version: [14.0.0.46108]
+10:27:09.540 INFO  Found 0 tsconfig.json file(s): []
+10:27:11.616 WARN  Failed to parse file [src/helpdesk/templates/helpdesk/ticket_list.html] at line 341: Unexpected token (341:21)
+10:27:11.798 WARN  Failed to parse file [src/helpdesk/templates/helpdesk/ticket.html] at line 151: Unexpected token (151:39)
+10:27:11.934 INFO  Hit the cache for 0 out of 100
+10:27:11.936 INFO  Miss the cache for 100 out of 100: ANALYSIS_MODE_INELIGIBLE [100/100]
+10:27:11.938 INFO  Sensor JavaScript/TypeScript/CSS analysis [javascript] (done) | time=17329ms
+10:27:11.940 INFO  Sensor IaC Project Sensor [iac]
+10:27:11.943 INFO  100 source files to be analyzed
+10:27:11.945 INFO  Analyzing 1 file(s) using default options [lib: lib.esnext.d.ts, lib.dom.d.ts]
+10:27:11.947 INFO  100/100 source files have been analyzed
+10:27:11.948 INFO  Sensor IaC Project Sensor [iac] (done) | time=4ms
+10:27:11.950 INFO  Sensor Zero Coverage Sensor
+10:27:11.953 INFO  Sensor Zero Coverage Sensor (done) | time=4ms
+10:27:11.957 INFO  ------------- Gather SCA dependencies on project
+10:27:11.965 INFO  Dependency analysis skipped
+10:27:11.969 INFO  SCM Publisher is disabled
+10:27:12.001 INFO  CPD Executor 31 files had no CPD blocks
+10:27:12.004 INFO  CPD Executor Calculating CPD for 117 files
+10:27:12.091 INFO  CPD Executor CPD calculation finished (done) | time=88ms
+10:27:12.313 INFO  Analysis report generated in 209ms, dir size=2.0 MB
+10:27:12.564 INFO  Analysis report compressed in 251ms, zip size=1.0 MB
+10:27:12.717 INFO  Analysis report uploaded in 153ms
+10:27:12.719 INFO  ------------- Check Quality Gate status
+10:27:12.720 INFO  Waiting for the analysis report to be processed (max 300s)
+10:27:32.918 INFO  QUALITY GATE STATUS: PASSED - View details on http://localhost:9000/dashboard?id=sqe-helpdesk
+10:27:33.205 INFO  Analysis total time: 1:04.086 min
+10:27:33.268 INFO  SonarScanner Engine completed successfully
+10:27:33.325 INFO  EXECUTION SUCCESS
+10:27:33.327 INFO  Total time: 1:09.405s

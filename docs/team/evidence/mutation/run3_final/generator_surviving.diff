@@ -1,0 +1,187 @@
+### tests.team.datagen.generate.x_text_of_length__mutmut_1
+# tests.team.datagen.generate.x_text_of_length__mutmut_1: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -1,6 +1,6 @@
+ def text_of_length(n):
+     """Deterministic printable string of exactly n characters (no edge spaces)."""
+-    if n <= 0:
++    if n < 0:
+         return ""
+     s = (TEXT * (n // len(TEXT) + 1))[:n]
+     return s[:-1] + "x" if s.endswith(" ") else s
+
+### tests.team.datagen.generate.x_text_of_length__mutmut_8
+# tests.team.datagen.generate.x_text_of_length__mutmut_8: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -2,5 +2,5 @@
+     """Deterministic printable string of exactly n characters (no edge spaces)."""
+     if n <= 0:
+         return ""
+-    s = (TEXT * (n // len(TEXT) + 1))[:n]
++    s = (TEXT * (n // len(TEXT) + 2))[:n]
+     return s[:-1] + "x" if s.endswith(" ") else s
+
+### tests.team.datagen.generate.x_resolve__mutmut_5
+# tests.team.datagen.generate.x_resolve__mutmut_5: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -1,5 +1,5 @@
+ def resolve(spec, ref):
+     node = spec
+-    for part in ref.lstrip("#/").split("/"):
++    for part in ref.lstrip("XX#/XX").split("/"):
+         node = node[part]
+     return node
+
+### tests.team.datagen.generate.x_generate__mutmut_7
+# tests.team.datagen.generate.x_generate__mutmut_7: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -1,7 +1,7 @@
+ def generate(spec):
+     cases = []
+     for op_id, _method, _path, ref in operations(spec):
+-        name = ref.rsplit("/", 1)[-1]
++        name = ref.rsplit("/", )[-1]
+         schema = resolve(spec, ref)
+         required = set(schema.get("required", []))
+         for field, prop in schema["properties"].items():
+
+### tests.team.datagen.generate.x_generate__mutmut_10
+# tests.team.datagen.generate.x_generate__mutmut_10: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -1,7 +1,7 @@
+ def generate(spec):
+     cases = []
+     for op_id, _method, _path, ref in operations(spec):
+-        name = ref.rsplit("/", 1)[-1]
++        name = ref.rsplit("/", 2)[-1]
+         schema = resolve(spec, ref)
+         required = set(schema.get("required", []))
+         for field, prop in schema["properties"].items():
+
+### tests.team.datagen.generate.x_generate__mutmut_11
+# tests.team.datagen.generate.x_generate__mutmut_11: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -1,7 +1,7 @@
+ def generate(spec):
+     cases = []
+     for op_id, _method, _path, ref in operations(spec):
+-        name = ref.rsplit("/", 1)[-1]
++        name = ref.rsplit("/", 1)[+1]
+         schema = resolve(spec, ref)
+         required = set(schema.get("required", []))
+         for field, prop in schema["properties"].items():
+
+### tests.team.datagen.generate.x_main__mutmut_2
+# tests.team.datagen.generate.x_main__mutmut_2: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -1,5 +1,5 @@
+ def main(argv=None):
+-    p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
++    p = argparse.ArgumentParser(description=None)
+     p.add_argument("--spec", type=Path, default=DEFAULT_SPEC)
+     p.add_argument("--out", type=Path, default=DEFAULT_OUT)
+     p.add_argument("--diff", nargs=2, type=Path, metavar=("OLD", "NEW"))
+
+### tests.team.datagen.generate.x_main__mutmut_3
+# tests.team.datagen.generate.x_main__mutmut_3: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -1,5 +1,5 @@
+ def main(argv=None):
+-    p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
++    p = argparse.ArgumentParser(description=__doc__.splitlines()[1])
+     p.add_argument("--spec", type=Path, default=DEFAULT_SPEC)
+     p.add_argument("--out", type=Path, default=DEFAULT_OUT)
+     p.add_argument("--diff", nargs=2, type=Path, metavar=("OLD", "NEW"))
+
+### tests.team.datagen.generate.x_main__mutmut_23
+# tests.team.datagen.generate.x_main__mutmut_23: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -2,7 +2,7 @@
+     p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+     p.add_argument("--spec", type=Path, default=DEFAULT_SPEC)
+     p.add_argument("--out", type=Path, default=DEFAULT_OUT)
+-    p.add_argument("--diff", nargs=2, type=Path, metavar=("OLD", "NEW"))
++    p.add_argument("--diff", nargs=2, type=Path, metavar=None)
+     args = p.parse_args(argv)
+ 
+     if args.diff:
+
+### tests.team.datagen.generate.x_main__mutmut_27
+# tests.team.datagen.generate.x_main__mutmut_27: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -2,7 +2,7 @@
+     p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+     p.add_argument("--spec", type=Path, default=DEFAULT_SPEC)
+     p.add_argument("--out", type=Path, default=DEFAULT_OUT)
+-    p.add_argument("--diff", nargs=2, type=Path, metavar=("OLD", "NEW"))
++    p.add_argument("--diff", nargs=2, type=Path, )
+     args = p.parse_args(argv)
+ 
+     if args.diff:
+
+### tests.team.datagen.generate.x_main__mutmut_31
+# tests.team.datagen.generate.x_main__mutmut_31: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -2,7 +2,7 @@
+     p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+     p.add_argument("--spec", type=Path, default=DEFAULT_SPEC)
+     p.add_argument("--out", type=Path, default=DEFAULT_OUT)
+-    p.add_argument("--diff", nargs=2, type=Path, metavar=("OLD", "NEW"))
++    p.add_argument("--diff", nargs=2, type=Path, metavar=("XXOLDXX", "NEW"))
+     args = p.parse_args(argv)
+ 
+     if args.diff:
+
+### tests.team.datagen.generate.x_main__mutmut_32
+# tests.team.datagen.generate.x_main__mutmut_32: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -2,7 +2,7 @@
+     p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+     p.add_argument("--spec", type=Path, default=DEFAULT_SPEC)
+     p.add_argument("--out", type=Path, default=DEFAULT_OUT)
+-    p.add_argument("--diff", nargs=2, type=Path, metavar=("OLD", "NEW"))
++    p.add_argument("--diff", nargs=2, type=Path, metavar=("old", "NEW"))
+     args = p.parse_args(argv)
+ 
+     if args.diff:
+
+### tests.team.datagen.generate.x_main__mutmut_33
+# tests.team.datagen.generate.x_main__mutmut_33: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -2,7 +2,7 @@
+     p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+     p.add_argument("--spec", type=Path, default=DEFAULT_SPEC)
+     p.add_argument("--out", type=Path, default=DEFAULT_OUT)
+-    p.add_argument("--diff", nargs=2, type=Path, metavar=("OLD", "NEW"))
++    p.add_argument("--diff", nargs=2, type=Path, metavar=("OLD", "XXNEWXX"))
+     args = p.parse_args(argv)
+ 
+     if args.diff:
+
+### tests.team.datagen.generate.x_main__mutmut_34
+# tests.team.datagen.generate.x_main__mutmut_34: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -2,7 +2,7 @@
+     p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+     p.add_argument("--spec", type=Path, default=DEFAULT_SPEC)
+     p.add_argument("--out", type=Path, default=DEFAULT_OUT)
+-    p.add_argument("--diff", nargs=2, type=Path, metavar=("OLD", "NEW"))
++    p.add_argument("--diff", nargs=2, type=Path, metavar=("OLD", "new"))
+     args = p.parse_args(argv)
+ 
+     if args.diff:
+

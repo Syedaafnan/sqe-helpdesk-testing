@@ -1,0 +1,1889 @@
+### tests.team.datagen.generate.x_text_of_length__mutmut_1
+# tests.team.datagen.generate.x_text_of_length__mutmut_1: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -1,6 +1,6 @@
+ def text_of_length(n):
+     """Deterministic printable string of exactly n characters (no edge spaces)."""
+-    if n <= 0:
++    if n < 0:
+         return ""
+     s = (TEXT * (n // len(TEXT) + 1))[:n]
+     return s[:-1] + "x" if s.endswith(" ") else s
+
+### tests.team.datagen.generate.x_text_of_length__mutmut_8
+# tests.team.datagen.generate.x_text_of_length__mutmut_8: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -2,5 +2,5 @@
+     """Deterministic printable string of exactly n characters (no edge spaces)."""
+     if n <= 0:
+         return ""
+-    s = (TEXT * (n // len(TEXT) + 1))[:n]
++    s = (TEXT * (n // len(TEXT) + 2))[:n]
+     return s[:-1] + "x" if s.endswith(" ") else s
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_6
+# tests.team.datagen.generate.x_integer_cases__mutmut_6: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -1,7 +1,7 @@
+ def integer_cases(op, schema, field, prop):
+     out = []
+     if "x-reference" in prop:
+-        out.append(case(op, schema, field, "EP", "existing_reference", "{ref}", True))
++        out.append(case(None, schema, field, "EP", "existing_reference", "{ref}", True))
+         out.append(case(op, schema, field, "EP", "unknown_reference", 999999, False))
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+         lo = prop.get("minimum")
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_7
+# tests.team.datagen.generate.x_integer_cases__mutmut_7: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -1,7 +1,7 @@
+ def integer_cases(op, schema, field, prop):
+     out = []
+     if "x-reference" in prop:
+-        out.append(case(op, schema, field, "EP", "existing_reference", "{ref}", True))
++        out.append(case(op, None, field, "EP", "existing_reference", "{ref}", True))
+         out.append(case(op, schema, field, "EP", "unknown_reference", 999999, False))
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+         lo = prop.get("minimum")
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_8
+# tests.team.datagen.generate.x_integer_cases__mutmut_8: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -1,7 +1,7 @@
+ def integer_cases(op, schema, field, prop):
+     out = []
+     if "x-reference" in prop:
+-        out.append(case(op, schema, field, "EP", "existing_reference", "{ref}", True))
++        out.append(case(op, schema, None, "EP", "existing_reference", "{ref}", True))
+         out.append(case(op, schema, field, "EP", "unknown_reference", 999999, False))
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+         lo = prop.get("minimum")
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_9
+# tests.team.datagen.generate.x_integer_cases__mutmut_9: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -1,7 +1,7 @@
+ def integer_cases(op, schema, field, prop):
+     out = []
+     if "x-reference" in prop:
+-        out.append(case(op, schema, field, "EP", "existing_reference", "{ref}", True))
++        out.append(case(op, schema, field, None, "existing_reference", "{ref}", True))
+         out.append(case(op, schema, field, "EP", "unknown_reference", 999999, False))
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+         lo = prop.get("minimum")
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_20
+# tests.team.datagen.generate.x_integer_cases__mutmut_20: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -1,7 +1,7 @@
+ def integer_cases(op, schema, field, prop):
+     out = []
+     if "x-reference" in prop:
+-        out.append(case(op, schema, field, "EP", "existing_reference", "{ref}", True))
++        out.append(case(op, schema, field, "XXEPXX", "existing_reference", "{ref}", True))
+         out.append(case(op, schema, field, "EP", "unknown_reference", 999999, False))
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+         lo = prop.get("minimum")
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_21
+# tests.team.datagen.generate.x_integer_cases__mutmut_21: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -1,7 +1,7 @@
+ def integer_cases(op, schema, field, prop):
+     out = []
+     if "x-reference" in prop:
+-        out.append(case(op, schema, field, "EP", "existing_reference", "{ref}", True))
++        out.append(case(op, schema, field, "ep", "existing_reference", "{ref}", True))
+         out.append(case(op, schema, field, "EP", "unknown_reference", 999999, False))
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+         lo = prop.get("minimum")
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_28
+# tests.team.datagen.generate.x_integer_cases__mutmut_28: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -2,7 +2,7 @@
+     out = []
+     if "x-reference" in prop:
+         out.append(case(op, schema, field, "EP", "existing_reference", "{ref}", True))
+-        out.append(case(op, schema, field, "EP", "unknown_reference", 999999, False))
++        out.append(case(None, schema, field, "EP", "unknown_reference", 999999, False))
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+         lo = prop.get("minimum")
+         if lo is not None:
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_29
+# tests.team.datagen.generate.x_integer_cases__mutmut_29: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -2,7 +2,7 @@
+     out = []
+     if "x-reference" in prop:
+         out.append(case(op, schema, field, "EP", "existing_reference", "{ref}", True))
+-        out.append(case(op, schema, field, "EP", "unknown_reference", 999999, False))
++        out.append(case(op, None, field, "EP", "unknown_reference", 999999, False))
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+         lo = prop.get("minimum")
+         if lo is not None:
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_30
+# tests.team.datagen.generate.x_integer_cases__mutmut_30: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -2,7 +2,7 @@
+     out = []
+     if "x-reference" in prop:
+         out.append(case(op, schema, field, "EP", "existing_reference", "{ref}", True))
+-        out.append(case(op, schema, field, "EP", "unknown_reference", 999999, False))
++        out.append(case(op, schema, None, "EP", "unknown_reference", 999999, False))
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+         lo = prop.get("minimum")
+         if lo is not None:
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_31
+# tests.team.datagen.generate.x_integer_cases__mutmut_31: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -2,7 +2,7 @@
+     out = []
+     if "x-reference" in prop:
+         out.append(case(op, schema, field, "EP", "existing_reference", "{ref}", True))
+-        out.append(case(op, schema, field, "EP", "unknown_reference", 999999, False))
++        out.append(case(op, schema, field, None, "unknown_reference", 999999, False))
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+         lo = prop.get("minimum")
+         if lo is not None:
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_42
+# tests.team.datagen.generate.x_integer_cases__mutmut_42: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -2,7 +2,7 @@
+     out = []
+     if "x-reference" in prop:
+         out.append(case(op, schema, field, "EP", "existing_reference", "{ref}", True))
+-        out.append(case(op, schema, field, "EP", "unknown_reference", 999999, False))
++        out.append(case(op, schema, field, "XXEPXX", "unknown_reference", 999999, False))
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+         lo = prop.get("minimum")
+         if lo is not None:
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_43
+# tests.team.datagen.generate.x_integer_cases__mutmut_43: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -2,7 +2,7 @@
+     out = []
+     if "x-reference" in prop:
+         out.append(case(op, schema, field, "EP", "existing_reference", "{ref}", True))
+-        out.append(case(op, schema, field, "EP", "unknown_reference", 999999, False))
++        out.append(case(op, schema, field, "ep", "unknown_reference", 999999, False))
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+         lo = prop.get("minimum")
+         if lo is not None:
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_49
+# tests.team.datagen.generate.x_integer_cases__mutmut_49: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -3,7 +3,7 @@
+     if "x-reference" in prop:
+         out.append(case(op, schema, field, "EP", "existing_reference", "{ref}", True))
+         out.append(case(op, schema, field, "EP", "unknown_reference", 999999, False))
+-        out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
++        out.append(case(None, schema, field, "EP", "wrong_type", "abc", False))
+         lo = prop.get("minimum")
+         if lo is not None:
+             out.append(case(op, schema, field, "BVA", "min-1", lo - 1, False))
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_50
+# tests.team.datagen.generate.x_integer_cases__mutmut_50: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -3,7 +3,7 @@
+     if "x-reference" in prop:
+         out.append(case(op, schema, field, "EP", "existing_reference", "{ref}", True))
+         out.append(case(op, schema, field, "EP", "unknown_reference", 999999, False))
+-        out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
++        out.append(case(op, None, field, "EP", "wrong_type", "abc", False))
+         lo = prop.get("minimum")
+         if lo is not None:
+             out.append(case(op, schema, field, "BVA", "min-1", lo - 1, False))
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_51
+# tests.team.datagen.generate.x_integer_cases__mutmut_51: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -3,7 +3,7 @@
+     if "x-reference" in prop:
+         out.append(case(op, schema, field, "EP", "existing_reference", "{ref}", True))
+         out.append(case(op, schema, field, "EP", "unknown_reference", 999999, False))
+-        out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
++        out.append(case(op, schema, None, "EP", "wrong_type", "abc", False))
+         lo = prop.get("minimum")
+         if lo is not None:
+             out.append(case(op, schema, field, "BVA", "min-1", lo - 1, False))
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_52
+# tests.team.datagen.generate.x_integer_cases__mutmut_52: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -3,7 +3,7 @@
+     if "x-reference" in prop:
+         out.append(case(op, schema, field, "EP", "existing_reference", "{ref}", True))
+         out.append(case(op, schema, field, "EP", "unknown_reference", 999999, False))
+-        out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
++        out.append(case(op, schema, field, None, "wrong_type", "abc", False))
+         lo = prop.get("minimum")
+         if lo is not None:
+             out.append(case(op, schema, field, "BVA", "min-1", lo - 1, False))
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_63
+# tests.team.datagen.generate.x_integer_cases__mutmut_63: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -3,7 +3,7 @@
+     if "x-reference" in prop:
+         out.append(case(op, schema, field, "EP", "existing_reference", "{ref}", True))
+         out.append(case(op, schema, field, "EP", "unknown_reference", 999999, False))
+-        out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
++        out.append(case(op, schema, field, "XXEPXX", "wrong_type", "abc", False))
+         lo = prop.get("minimum")
+         if lo is not None:
+             out.append(case(op, schema, field, "BVA", "min-1", lo - 1, False))
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_64
+# tests.team.datagen.generate.x_integer_cases__mutmut_64: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -3,7 +3,7 @@
+     if "x-reference" in prop:
+         out.append(case(op, schema, field, "EP", "existing_reference", "{ref}", True))
+         out.append(case(op, schema, field, "EP", "unknown_reference", 999999, False))
+-        out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
++        out.append(case(op, schema, field, "ep", "wrong_type", "abc", False))
+         lo = prop.get("minimum")
+         if lo is not None:
+             out.append(case(op, schema, field, "BVA", "min-1", lo - 1, False))
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_76
+# tests.team.datagen.generate.x_integer_cases__mutmut_76: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -6,7 +6,7 @@
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+         lo = prop.get("minimum")
+         if lo is not None:
+-            out.append(case(op, schema, field, "BVA", "min-1", lo - 1, False))
++            out.append(case(None, schema, field, "BVA", "min-1", lo - 1, False))
+         return out
+ 
+     if "enum" in prop:
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_77
+# tests.team.datagen.generate.x_integer_cases__mutmut_77: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -6,7 +6,7 @@
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+         lo = prop.get("minimum")
+         if lo is not None:
+-            out.append(case(op, schema, field, "BVA", "min-1", lo - 1, False))
++            out.append(case(op, None, field, "BVA", "min-1", lo - 1, False))
+         return out
+ 
+     if "enum" in prop:
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_78
+# tests.team.datagen.generate.x_integer_cases__mutmut_78: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -6,7 +6,7 @@
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+         lo = prop.get("minimum")
+         if lo is not None:
+-            out.append(case(op, schema, field, "BVA", "min-1", lo - 1, False))
++            out.append(case(op, schema, None, "BVA", "min-1", lo - 1, False))
+         return out
+ 
+     if "enum" in prop:
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_79
+# tests.team.datagen.generate.x_integer_cases__mutmut_79: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -6,7 +6,7 @@
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+         lo = prop.get("minimum")
+         if lo is not None:
+-            out.append(case(op, schema, field, "BVA", "min-1", lo - 1, False))
++            out.append(case(op, schema, field, None, "min-1", lo - 1, False))
+         return out
+ 
+     if "enum" in prop:
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_90
+# tests.team.datagen.generate.x_integer_cases__mutmut_90: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -6,7 +6,7 @@
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+         lo = prop.get("minimum")
+         if lo is not None:
+-            out.append(case(op, schema, field, "BVA", "min-1", lo - 1, False))
++            out.append(case(op, schema, field, "XXBVAXX", "min-1", lo - 1, False))
+         return out
+ 
+     if "enum" in prop:
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_91
+# tests.team.datagen.generate.x_integer_cases__mutmut_91: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -6,7 +6,7 @@
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+         lo = prop.get("minimum")
+         if lo is not None:
+-            out.append(case(op, schema, field, "BVA", "min-1", lo - 1, False))
++            out.append(case(op, schema, field, "bva", "min-1", lo - 1, False))
+         return out
+ 
+     if "enum" in prop:
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_105
+# tests.team.datagen.generate.x_integer_cases__mutmut_105: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -12,7 +12,7 @@
+     if "enum" in prop:
+         values = sorted(prop["enum"])
+         for v in values:
+-            out.append(case(op, schema, field, "EP", f"enum_{v}", v, True))
++            out.append(case(None, schema, field, "EP", f"enum_{v}", v, True))
+         lo, hi = values[0], values[-1]
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+     else:
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_106
+# tests.team.datagen.generate.x_integer_cases__mutmut_106: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -12,7 +12,7 @@
+     if "enum" in prop:
+         values = sorted(prop["enum"])
+         for v in values:
+-            out.append(case(op, schema, field, "EP", f"enum_{v}", v, True))
++            out.append(case(op, None, field, "EP", f"enum_{v}", v, True))
+         lo, hi = values[0], values[-1]
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+     else:
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_107
+# tests.team.datagen.generate.x_integer_cases__mutmut_107: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -12,7 +12,7 @@
+     if "enum" in prop:
+         values = sorted(prop["enum"])
+         for v in values:
+-            out.append(case(op, schema, field, "EP", f"enum_{v}", v, True))
++            out.append(case(op, schema, None, "EP", f"enum_{v}", v, True))
+         lo, hi = values[0], values[-1]
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+     else:
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_108
+# tests.team.datagen.generate.x_integer_cases__mutmut_108: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -12,7 +12,7 @@
+     if "enum" in prop:
+         values = sorted(prop["enum"])
+         for v in values:
+-            out.append(case(op, schema, field, "EP", f"enum_{v}", v, True))
++            out.append(case(op, schema, field, None, f"enum_{v}", v, True))
+         lo, hi = values[0], values[-1]
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+     else:
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_110
+# tests.team.datagen.generate.x_integer_cases__mutmut_110: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -12,7 +12,7 @@
+     if "enum" in prop:
+         values = sorted(prop["enum"])
+         for v in values:
+-            out.append(case(op, schema, field, "EP", f"enum_{v}", v, True))
++            out.append(case(op, schema, field, "EP", f"enum_{v}", None, True))
+         lo, hi = values[0], values[-1]
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+     else:
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_119
+# tests.team.datagen.generate.x_integer_cases__mutmut_119: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -12,7 +12,7 @@
+     if "enum" in prop:
+         values = sorted(prop["enum"])
+         for v in values:
+-            out.append(case(op, schema, field, "EP", f"enum_{v}", v, True))
++            out.append(case(op, schema, field, "XXEPXX", f"enum_{v}", v, True))
+         lo, hi = values[0], values[-1]
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+     else:
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_120
+# tests.team.datagen.generate.x_integer_cases__mutmut_120: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -12,7 +12,7 @@
+     if "enum" in prop:
+         values = sorted(prop["enum"])
+         for v in values:
+-            out.append(case(op, schema, field, "EP", f"enum_{v}", v, True))
++            out.append(case(op, schema, field, "ep", f"enum_{v}", v, True))
+         lo, hi = values[0], values[-1]
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+     else:
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_127
+# tests.team.datagen.generate.x_integer_cases__mutmut_127: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -14,7 +14,7 @@
+         for v in values:
+             out.append(case(op, schema, field, "EP", f"enum_{v}", v, True))
+         lo, hi = values[0], values[-1]
+-        out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
++        out.append(case(None, schema, field, "EP", "wrong_type", "abc", False))
+     else:
+         lo, hi = prop.get("minimum"), prop.get("maximum")
+         mid = (lo + hi) // 2 if lo is not None and hi is not None else (lo or hi or 0)
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_128
+# tests.team.datagen.generate.x_integer_cases__mutmut_128: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -14,7 +14,7 @@
+         for v in values:
+             out.append(case(op, schema, field, "EP", f"enum_{v}", v, True))
+         lo, hi = values[0], values[-1]
+-        out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
++        out.append(case(op, None, field, "EP", "wrong_type", "abc", False))
+     else:
+         lo, hi = prop.get("minimum"), prop.get("maximum")
+         mid = (lo + hi) // 2 if lo is not None and hi is not None else (lo or hi or 0)
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_129
+# tests.team.datagen.generate.x_integer_cases__mutmut_129: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -14,7 +14,7 @@
+         for v in values:
+             out.append(case(op, schema, field, "EP", f"enum_{v}", v, True))
+         lo, hi = values[0], values[-1]
+-        out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
++        out.append(case(op, schema, None, "EP", "wrong_type", "abc", False))
+     else:
+         lo, hi = prop.get("minimum"), prop.get("maximum")
+         mid = (lo + hi) // 2 if lo is not None and hi is not None else (lo or hi or 0)
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_130
+# tests.team.datagen.generate.x_integer_cases__mutmut_130: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -14,7 +14,7 @@
+         for v in values:
+             out.append(case(op, schema, field, "EP", f"enum_{v}", v, True))
+         lo, hi = values[0], values[-1]
+-        out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
++        out.append(case(op, schema, field, None, "wrong_type", "abc", False))
+     else:
+         lo, hi = prop.get("minimum"), prop.get("maximum")
+         mid = (lo + hi) // 2 if lo is not None and hi is not None else (lo or hi or 0)
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_132
+# tests.team.datagen.generate.x_integer_cases__mutmut_132: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -14,7 +14,7 @@
+         for v in values:
+             out.append(case(op, schema, field, "EP", f"enum_{v}", v, True))
+         lo, hi = values[0], values[-1]
+-        out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
++        out.append(case(op, schema, field, "EP", "wrong_type", None, False))
+     else:
+         lo, hi = prop.get("minimum"), prop.get("maximum")
+         mid = (lo + hi) // 2 if lo is not None and hi is not None else (lo or hi or 0)
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_141
+# tests.team.datagen.generate.x_integer_cases__mutmut_141: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -14,7 +14,7 @@
+         for v in values:
+             out.append(case(op, schema, field, "EP", f"enum_{v}", v, True))
+         lo, hi = values[0], values[-1]
+-        out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
++        out.append(case(op, schema, field, "XXEPXX", "wrong_type", "abc", False))
+     else:
+         lo, hi = prop.get("minimum"), prop.get("maximum")
+         mid = (lo + hi) // 2 if lo is not None and hi is not None else (lo or hi or 0)
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_142
+# tests.team.datagen.generate.x_integer_cases__mutmut_142: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -14,7 +14,7 @@
+         for v in values:
+             out.append(case(op, schema, field, "EP", f"enum_{v}", v, True))
+         lo, hi = values[0], values[-1]
+-        out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
++        out.append(case(op, schema, field, "ep", "wrong_type", "abc", False))
+     else:
+         lo, hi = prop.get("minimum"), prop.get("maximum")
+         mid = (lo + hi) // 2 if lo is not None and hi is not None else (lo or hi or 0)
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_145
+# tests.team.datagen.generate.x_integer_cases__mutmut_145: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -14,7 +14,7 @@
+         for v in values:
+             out.append(case(op, schema, field, "EP", f"enum_{v}", v, True))
+         lo, hi = values[0], values[-1]
+-        out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
++        out.append(case(op, schema, field, "EP", "wrong_type", "XXabcXX", False))
+     else:
+         lo, hi = prop.get("minimum"), prop.get("maximum")
+         mid = (lo + hi) // 2 if lo is not None and hi is not None else (lo or hi or 0)
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_146
+# tests.team.datagen.generate.x_integer_cases__mutmut_146: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -14,7 +14,7 @@
+         for v in values:
+             out.append(case(op, schema, field, "EP", f"enum_{v}", v, True))
+         lo, hi = values[0], values[-1]
+-        out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
++        out.append(case(op, schema, field, "EP", "wrong_type", "ABC", False))
+     else:
+         lo, hi = prop.get("minimum"), prop.get("maximum")
+         mid = (lo + hi) // 2 if lo is not None and hi is not None else (lo or hi or 0)
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_158
+# tests.team.datagen.generate.x_integer_cases__mutmut_158: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -17,7 +17,7 @@
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+     else:
+         lo, hi = prop.get("minimum"), prop.get("maximum")
+-        mid = (lo + hi) // 2 if lo is not None and hi is not None else (lo or hi or 0)
++        mid = (lo + hi) / 2 if lo is not None and hi is not None else (lo or hi or 0)
+         out.append(case(op, schema, field, "EP", "valid_in_range", mid, True))
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+         out.append(case(op, schema, field, "EP", "fraction", 2.5, False))
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_168
+# tests.team.datagen.generate.x_integer_cases__mutmut_168: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -18,7 +18,7 @@
+     else:
+         lo, hi = prop.get("minimum"), prop.get("maximum")
+         mid = (lo + hi) // 2 if lo is not None and hi is not None else (lo or hi or 0)
+-        out.append(case(op, schema, field, "EP", "valid_in_range", mid, True))
++        out.append(case(None, schema, field, "EP", "valid_in_range", mid, True))
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+         out.append(case(op, schema, field, "EP", "fraction", 2.5, False))
+         if lo is not None:
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_169
+# tests.team.datagen.generate.x_integer_cases__mutmut_169: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -18,7 +18,7 @@
+     else:
+         lo, hi = prop.get("minimum"), prop.get("maximum")
+         mid = (lo + hi) // 2 if lo is not None and hi is not None else (lo or hi or 0)
+-        out.append(case(op, schema, field, "EP", "valid_in_range", mid, True))
++        out.append(case(op, None, field, "EP", "valid_in_range", mid, True))
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+         out.append(case(op, schema, field, "EP", "fraction", 2.5, False))
+         if lo is not None:
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_170
+# tests.team.datagen.generate.x_integer_cases__mutmut_170: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -18,7 +18,7 @@
+     else:
+         lo, hi = prop.get("minimum"), prop.get("maximum")
+         mid = (lo + hi) // 2 if lo is not None and hi is not None else (lo or hi or 0)
+-        out.append(case(op, schema, field, "EP", "valid_in_range", mid, True))
++        out.append(case(op, schema, None, "EP", "valid_in_range", mid, True))
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+         out.append(case(op, schema, field, "EP", "fraction", 2.5, False))
+         if lo is not None:
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_188
+# tests.team.datagen.generate.x_integer_cases__mutmut_188: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -19,7 +19,7 @@
+         lo, hi = prop.get("minimum"), prop.get("maximum")
+         mid = (lo + hi) // 2 if lo is not None and hi is not None else (lo or hi or 0)
+         out.append(case(op, schema, field, "EP", "valid_in_range", mid, True))
+-        out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
++        out.append(case(None, schema, field, "EP", "wrong_type", "abc", False))
+         out.append(case(op, schema, field, "EP", "fraction", 2.5, False))
+         if lo is not None:
+             out.append(case(op, schema, field, "EP", "below_range", lo - 10, False))
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_189
+# tests.team.datagen.generate.x_integer_cases__mutmut_189: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -19,7 +19,7 @@
+         lo, hi = prop.get("minimum"), prop.get("maximum")
+         mid = (lo + hi) // 2 if lo is not None and hi is not None else (lo or hi or 0)
+         out.append(case(op, schema, field, "EP", "valid_in_range", mid, True))
+-        out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
++        out.append(case(op, None, field, "EP", "wrong_type", "abc", False))
+         out.append(case(op, schema, field, "EP", "fraction", 2.5, False))
+         if lo is not None:
+             out.append(case(op, schema, field, "EP", "below_range", lo - 10, False))
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_190
+# tests.team.datagen.generate.x_integer_cases__mutmut_190: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -19,7 +19,7 @@
+         lo, hi = prop.get("minimum"), prop.get("maximum")
+         mid = (lo + hi) // 2 if lo is not None and hi is not None else (lo or hi or 0)
+         out.append(case(op, schema, field, "EP", "valid_in_range", mid, True))
+-        out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
++        out.append(case(op, schema, None, "EP", "wrong_type", "abc", False))
+         out.append(case(op, schema, field, "EP", "fraction", 2.5, False))
+         if lo is not None:
+             out.append(case(op, schema, field, "EP", "below_range", lo - 10, False))
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_210
+# tests.team.datagen.generate.x_integer_cases__mutmut_210: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -20,7 +20,7 @@
+         mid = (lo + hi) // 2 if lo is not None and hi is not None else (lo or hi or 0)
+         out.append(case(op, schema, field, "EP", "valid_in_range", mid, True))
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+-        out.append(case(op, schema, field, "EP", "fraction", 2.5, False))
++        out.append(case(None, schema, field, "EP", "fraction", 2.5, False))
+         if lo is not None:
+             out.append(case(op, schema, field, "EP", "below_range", lo - 10, False))
+         if hi is not None:
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_211
+# tests.team.datagen.generate.x_integer_cases__mutmut_211: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -20,7 +20,7 @@
+         mid = (lo + hi) // 2 if lo is not None and hi is not None else (lo or hi or 0)
+         out.append(case(op, schema, field, "EP", "valid_in_range", mid, True))
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+-        out.append(case(op, schema, field, "EP", "fraction", 2.5, False))
++        out.append(case(op, None, field, "EP", "fraction", 2.5, False))
+         if lo is not None:
+             out.append(case(op, schema, field, "EP", "below_range", lo - 10, False))
+         if hi is not None:
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_212
+# tests.team.datagen.generate.x_integer_cases__mutmut_212: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -20,7 +20,7 @@
+         mid = (lo + hi) // 2 if lo is not None and hi is not None else (lo or hi or 0)
+         out.append(case(op, schema, field, "EP", "valid_in_range", mid, True))
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+-        out.append(case(op, schema, field, "EP", "fraction", 2.5, False))
++        out.append(case(op, schema, None, "EP", "fraction", 2.5, False))
+         if lo is not None:
+             out.append(case(op, schema, field, "EP", "below_range", lo - 10, False))
+         if hi is not None:
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_232
+# tests.team.datagen.generate.x_integer_cases__mutmut_232: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -22,7 +22,7 @@
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+         out.append(case(op, schema, field, "EP", "fraction", 2.5, False))
+         if lo is not None:
+-            out.append(case(op, schema, field, "EP", "below_range", lo - 10, False))
++            out.append(case(None, schema, field, "EP", "below_range", lo - 10, False))
+         if hi is not None:
+             out.append(case(op, schema, field, "EP", "above_range", hi + 10, False))
+ 
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_233
+# tests.team.datagen.generate.x_integer_cases__mutmut_233: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -22,7 +22,7 @@
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+         out.append(case(op, schema, field, "EP", "fraction", 2.5, False))
+         if lo is not None:
+-            out.append(case(op, schema, field, "EP", "below_range", lo - 10, False))
++            out.append(case(op, None, field, "EP", "below_range", lo - 10, False))
+         if hi is not None:
+             out.append(case(op, schema, field, "EP", "above_range", hi + 10, False))
+ 
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_234
+# tests.team.datagen.generate.x_integer_cases__mutmut_234: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -22,7 +22,7 @@
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+         out.append(case(op, schema, field, "EP", "fraction", 2.5, False))
+         if lo is not None:
+-            out.append(case(op, schema, field, "EP", "below_range", lo - 10, False))
++            out.append(case(op, schema, None, "EP", "below_range", lo - 10, False))
+         if hi is not None:
+             out.append(case(op, schema, field, "EP", "above_range", hi + 10, False))
+ 
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_235
+# tests.team.datagen.generate.x_integer_cases__mutmut_235: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -22,7 +22,7 @@
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+         out.append(case(op, schema, field, "EP", "fraction", 2.5, False))
+         if lo is not None:
+-            out.append(case(op, schema, field, "EP", "below_range", lo - 10, False))
++            out.append(case(op, schema, field, None, "below_range", lo - 10, False))
+         if hi is not None:
+             out.append(case(op, schema, field, "EP", "above_range", hi + 10, False))
+ 
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_246
+# tests.team.datagen.generate.x_integer_cases__mutmut_246: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -22,7 +22,7 @@
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+         out.append(case(op, schema, field, "EP", "fraction", 2.5, False))
+         if lo is not None:
+-            out.append(case(op, schema, field, "EP", "below_range", lo - 10, False))
++            out.append(case(op, schema, field, "XXEPXX", "below_range", lo - 10, False))
+         if hi is not None:
+             out.append(case(op, schema, field, "EP", "above_range", hi + 10, False))
+ 
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_247
+# tests.team.datagen.generate.x_integer_cases__mutmut_247: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -22,7 +22,7 @@
+         out.append(case(op, schema, field, "EP", "wrong_type", "abc", False))
+         out.append(case(op, schema, field, "EP", "fraction", 2.5, False))
+         if lo is not None:
+-            out.append(case(op, schema, field, "EP", "below_range", lo - 10, False))
++            out.append(case(op, schema, field, "ep", "below_range", lo - 10, False))
+         if hi is not None:
+             out.append(case(op, schema, field, "EP", "above_range", hi + 10, False))
+ 
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_255
+# tests.team.datagen.generate.x_integer_cases__mutmut_255: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -24,7 +24,7 @@
+         if lo is not None:
+             out.append(case(op, schema, field, "EP", "below_range", lo - 10, False))
+         if hi is not None:
+-            out.append(case(op, schema, field, "EP", "above_range", hi + 10, False))
++            out.append(case(None, schema, field, "EP", "above_range", hi + 10, False))
+ 
+     allowed = set(prop["enum"]) if "enum" in prop else None
+ 
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_256
+# tests.team.datagen.generate.x_integer_cases__mutmut_256: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -24,7 +24,7 @@
+         if lo is not None:
+             out.append(case(op, schema, field, "EP", "below_range", lo - 10, False))
+         if hi is not None:
+-            out.append(case(op, schema, field, "EP", "above_range", hi + 10, False))
++            out.append(case(op, None, field, "EP", "above_range", hi + 10, False))
+ 
+     allowed = set(prop["enum"]) if "enum" in prop else None
+ 
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_257
+# tests.team.datagen.generate.x_integer_cases__mutmut_257: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -24,7 +24,7 @@
+         if lo is not None:
+             out.append(case(op, schema, field, "EP", "below_range", lo - 10, False))
+         if hi is not None:
+-            out.append(case(op, schema, field, "EP", "above_range", hi + 10, False))
++            out.append(case(op, schema, None, "EP", "above_range", hi + 10, False))
+ 
+     allowed = set(prop["enum"]) if "enum" in prop else None
+ 
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_258
+# tests.team.datagen.generate.x_integer_cases__mutmut_258: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -24,7 +24,7 @@
+         if lo is not None:
+             out.append(case(op, schema, field, "EP", "below_range", lo - 10, False))
+         if hi is not None:
+-            out.append(case(op, schema, field, "EP", "above_range", hi + 10, False))
++            out.append(case(op, schema, field, None, "above_range", hi + 10, False))
+ 
+     allowed = set(prop["enum"]) if "enum" in prop else None
+ 
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_269
+# tests.team.datagen.generate.x_integer_cases__mutmut_269: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -24,7 +24,7 @@
+         if lo is not None:
+             out.append(case(op, schema, field, "EP", "below_range", lo - 10, False))
+         if hi is not None:
+-            out.append(case(op, schema, field, "EP", "above_range", hi + 10, False))
++            out.append(case(op, schema, field, "XXEPXX", "above_range", hi + 10, False))
+ 
+     allowed = set(prop["enum"]) if "enum" in prop else None
+ 
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_270
+# tests.team.datagen.generate.x_integer_cases__mutmut_270: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -24,7 +24,7 @@
+         if lo is not None:
+             out.append(case(op, schema, field, "EP", "below_range", lo - 10, False))
+         if hi is not None:
+-            out.append(case(op, schema, field, "EP", "above_range", hi + 10, False))
++            out.append(case(op, schema, field, "ep", "above_range", hi + 10, False))
+ 
+     allowed = set(prop["enum"]) if "enum" in prop else None
+ 
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_306
+# tests.team.datagen.generate.x_integer_cases__mutmut_306: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -35,7 +35,7 @@
+ 
+     if lo is not None:
+         for name, v in (("min-1", lo - 1), ("min", lo), ("min+1", lo + 1)):
+-            out.append(case(op, schema, field, "BVA", name, v, ok(v)))
++            out.append(case(None, schema, field, "BVA", name, v, ok(v)))
+     if hi is not None:
+         for name, v in (("max-1", hi - 1), ("max", hi), ("max+1", hi + 1)):
+             out.append(case(op, schema, field, "BVA", name, v, ok(v)))
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_307
+# tests.team.datagen.generate.x_integer_cases__mutmut_307: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -35,7 +35,7 @@
+ 
+     if lo is not None:
+         for name, v in (("min-1", lo - 1), ("min", lo), ("min+1", lo + 1)):
+-            out.append(case(op, schema, field, "BVA", name, v, ok(v)))
++            out.append(case(op, None, field, "BVA", name, v, ok(v)))
+     if hi is not None:
+         for name, v in (("max-1", hi - 1), ("max", hi), ("max+1", hi + 1)):
+             out.append(case(op, schema, field, "BVA", name, v, ok(v)))
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_308
+# tests.team.datagen.generate.x_integer_cases__mutmut_308: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -35,7 +35,7 @@
+ 
+     if lo is not None:
+         for name, v in (("min-1", lo - 1), ("min", lo), ("min+1", lo + 1)):
+-            out.append(case(op, schema, field, "BVA", name, v, ok(v)))
++            out.append(case(op, schema, None, "BVA", name, v, ok(v)))
+     if hi is not None:
+         for name, v in (("max-1", hi - 1), ("max", hi), ("max+1", hi + 1)):
+             out.append(case(op, schema, field, "BVA", name, v, ok(v)))
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_335
+# tests.team.datagen.generate.x_integer_cases__mutmut_335: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -38,5 +38,5 @@
+             out.append(case(op, schema, field, "BVA", name, v, ok(v)))
+     if hi is not None:
+         for name, v in (("max-1", hi - 1), ("max", hi), ("max+1", hi + 1)):
+-            out.append(case(op, schema, field, "BVA", name, v, ok(v)))
++            out.append(case(None, schema, field, "BVA", name, v, ok(v)))
+     return out
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_336
+# tests.team.datagen.generate.x_integer_cases__mutmut_336: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -38,5 +38,5 @@
+             out.append(case(op, schema, field, "BVA", name, v, ok(v)))
+     if hi is not None:
+         for name, v in (("max-1", hi - 1), ("max", hi), ("max+1", hi + 1)):
+-            out.append(case(op, schema, field, "BVA", name, v, ok(v)))
++            out.append(case(op, None, field, "BVA", name, v, ok(v)))
+     return out
+
+### tests.team.datagen.generate.x_integer_cases__mutmut_337
+# tests.team.datagen.generate.x_integer_cases__mutmut_337: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -38,5 +38,5 @@
+             out.append(case(op, schema, field, "BVA", name, v, ok(v)))
+     if hi is not None:
+         for name, v in (("max-1", hi - 1), ("max", hi), ("max+1", hi + 1)):
+-            out.append(case(op, schema, field, "BVA", name, v, ok(v)))
++            out.append(case(op, schema, None, "BVA", name, v, ok(v)))
+     return out
+
+### tests.team.datagen.generate.x_string_cases__mutmut_22
+# tests.team.datagen.generate.x_string_cases__mutmut_22: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -5,7 +5,7 @@
+     make = email_of_length if is_email else text_of_length
+ 
+     if is_email:
+-        out.append(case(op, schema, field, "EP", "valid_email", "sam.rivera@example.com", True))
++        out.append(case(None, schema, field, "EP", "valid_email", "sam.rivera@example.com", True))
+         out.append(case(op, schema, field, "EP", "missing_at_sign", "sam.rivera.example.com", False))
+         out.append(case(op, schema, field, "EP", "missing_domain", "sam.rivera@", False))
+     else:
+
+### tests.team.datagen.generate.x_string_cases__mutmut_23
+# tests.team.datagen.generate.x_string_cases__mutmut_23: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -5,7 +5,7 @@
+     make = email_of_length if is_email else text_of_length
+ 
+     if is_email:
+-        out.append(case(op, schema, field, "EP", "valid_email", "sam.rivera@example.com", True))
++        out.append(case(op, None, field, "EP", "valid_email", "sam.rivera@example.com", True))
+         out.append(case(op, schema, field, "EP", "missing_at_sign", "sam.rivera.example.com", False))
+         out.append(case(op, schema, field, "EP", "missing_domain", "sam.rivera@", False))
+     else:
+
+### tests.team.datagen.generate.x_string_cases__mutmut_24
+# tests.team.datagen.generate.x_string_cases__mutmut_24: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -5,7 +5,7 @@
+     make = email_of_length if is_email else text_of_length
+ 
+     if is_email:
+-        out.append(case(op, schema, field, "EP", "valid_email", "sam.rivera@example.com", True))
++        out.append(case(op, schema, None, "EP", "valid_email", "sam.rivera@example.com", True))
+         out.append(case(op, schema, field, "EP", "missing_at_sign", "sam.rivera.example.com", False))
+         out.append(case(op, schema, field, "EP", "missing_domain", "sam.rivera@", False))
+     else:
+
+### tests.team.datagen.generate.x_string_cases__mutmut_25
+# tests.team.datagen.generate.x_string_cases__mutmut_25: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -5,7 +5,7 @@
+     make = email_of_length if is_email else text_of_length
+ 
+     if is_email:
+-        out.append(case(op, schema, field, "EP", "valid_email", "sam.rivera@example.com", True))
++        out.append(case(op, schema, field, None, "valid_email", "sam.rivera@example.com", True))
+         out.append(case(op, schema, field, "EP", "missing_at_sign", "sam.rivera.example.com", False))
+         out.append(case(op, schema, field, "EP", "missing_domain", "sam.rivera@", False))
+     else:
+
+### tests.team.datagen.generate.x_string_cases__mutmut_36
+# tests.team.datagen.generate.x_string_cases__mutmut_36: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -5,7 +5,7 @@
+     make = email_of_length if is_email else text_of_length
+ 
+     if is_email:
+-        out.append(case(op, schema, field, "EP", "valid_email", "sam.rivera@example.com", True))
++        out.append(case(op, schema, field, "XXEPXX", "valid_email", "sam.rivera@example.com", True))
+         out.append(case(op, schema, field, "EP", "missing_at_sign", "sam.rivera.example.com", False))
+         out.append(case(op, schema, field, "EP", "missing_domain", "sam.rivera@", False))
+     else:
+
+### tests.team.datagen.generate.x_string_cases__mutmut_37
+# tests.team.datagen.generate.x_string_cases__mutmut_37: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -5,7 +5,7 @@
+     make = email_of_length if is_email else text_of_length
+ 
+     if is_email:
+-        out.append(case(op, schema, field, "EP", "valid_email", "sam.rivera@example.com", True))
++        out.append(case(op, schema, field, "ep", "valid_email", "sam.rivera@example.com", True))
+         out.append(case(op, schema, field, "EP", "missing_at_sign", "sam.rivera.example.com", False))
+         out.append(case(op, schema, field, "EP", "missing_domain", "sam.rivera@", False))
+     else:
+
+### tests.team.datagen.generate.x_string_cases__mutmut_44
+# tests.team.datagen.generate.x_string_cases__mutmut_44: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -6,7 +6,7 @@
+ 
+     if is_email:
+         out.append(case(op, schema, field, "EP", "valid_email", "sam.rivera@example.com", True))
+-        out.append(case(op, schema, field, "EP", "missing_at_sign", "sam.rivera.example.com", False))
++        out.append(case(None, schema, field, "EP", "missing_at_sign", "sam.rivera.example.com", False))
+         out.append(case(op, schema, field, "EP", "missing_domain", "sam.rivera@", False))
+     else:
+         out.append(case(op, schema, field, "EP", "valid_text", prop.get("example", "Text"), True))
+
+### tests.team.datagen.generate.x_string_cases__mutmut_45
+# tests.team.datagen.generate.x_string_cases__mutmut_45: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -6,7 +6,7 @@
+ 
+     if is_email:
+         out.append(case(op, schema, field, "EP", "valid_email", "sam.rivera@example.com", True))
+-        out.append(case(op, schema, field, "EP", "missing_at_sign", "sam.rivera.example.com", False))
++        out.append(case(op, None, field, "EP", "missing_at_sign", "sam.rivera.example.com", False))
+         out.append(case(op, schema, field, "EP", "missing_domain", "sam.rivera@", False))
+     else:
+         out.append(case(op, schema, field, "EP", "valid_text", prop.get("example", "Text"), True))
+
+### tests.team.datagen.generate.x_string_cases__mutmut_46
+# tests.team.datagen.generate.x_string_cases__mutmut_46: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -6,7 +6,7 @@
+ 
+     if is_email:
+         out.append(case(op, schema, field, "EP", "valid_email", "sam.rivera@example.com", True))
+-        out.append(case(op, schema, field, "EP", "missing_at_sign", "sam.rivera.example.com", False))
++        out.append(case(op, schema, None, "EP", "missing_at_sign", "sam.rivera.example.com", False))
+         out.append(case(op, schema, field, "EP", "missing_domain", "sam.rivera@", False))
+     else:
+         out.append(case(op, schema, field, "EP", "valid_text", prop.get("example", "Text"), True))
+
+### tests.team.datagen.generate.x_string_cases__mutmut_47
+# tests.team.datagen.generate.x_string_cases__mutmut_47: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -6,7 +6,7 @@
+ 
+     if is_email:
+         out.append(case(op, schema, field, "EP", "valid_email", "sam.rivera@example.com", True))
+-        out.append(case(op, schema, field, "EP", "missing_at_sign", "sam.rivera.example.com", False))
++        out.append(case(op, schema, field, None, "missing_at_sign", "sam.rivera.example.com", False))
+         out.append(case(op, schema, field, "EP", "missing_domain", "sam.rivera@", False))
+     else:
+         out.append(case(op, schema, field, "EP", "valid_text", prop.get("example", "Text"), True))
+
+### tests.team.datagen.generate.x_string_cases__mutmut_58
+# tests.team.datagen.generate.x_string_cases__mutmut_58: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -6,7 +6,7 @@
+ 
+     if is_email:
+         out.append(case(op, schema, field, "EP", "valid_email", "sam.rivera@example.com", True))
+-        out.append(case(op, schema, field, "EP", "missing_at_sign", "sam.rivera.example.com", False))
++        out.append(case(op, schema, field, "XXEPXX", "missing_at_sign", "sam.rivera.example.com", False))
+         out.append(case(op, schema, field, "EP", "missing_domain", "sam.rivera@", False))
+     else:
+         out.append(case(op, schema, field, "EP", "valid_text", prop.get("example", "Text"), True))
+
+### tests.team.datagen.generate.x_string_cases__mutmut_59
+# tests.team.datagen.generate.x_string_cases__mutmut_59: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -6,7 +6,7 @@
+ 
+     if is_email:
+         out.append(case(op, schema, field, "EP", "valid_email", "sam.rivera@example.com", True))
+-        out.append(case(op, schema, field, "EP", "missing_at_sign", "sam.rivera.example.com", False))
++        out.append(case(op, schema, field, "ep", "missing_at_sign", "sam.rivera.example.com", False))
+         out.append(case(op, schema, field, "EP", "missing_domain", "sam.rivera@", False))
+     else:
+         out.append(case(op, schema, field, "EP", "valid_text", prop.get("example", "Text"), True))
+
+### tests.team.datagen.generate.x_string_cases__mutmut_66
+# tests.team.datagen.generate.x_string_cases__mutmut_66: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -7,7 +7,7 @@
+     if is_email:
+         out.append(case(op, schema, field, "EP", "valid_email", "sam.rivera@example.com", True))
+         out.append(case(op, schema, field, "EP", "missing_at_sign", "sam.rivera.example.com", False))
+-        out.append(case(op, schema, field, "EP", "missing_domain", "sam.rivera@", False))
++        out.append(case(None, schema, field, "EP", "missing_domain", "sam.rivera@", False))
+     else:
+         out.append(case(op, schema, field, "EP", "valid_text", prop.get("example", "Text"), True))
+     out.append(case(op, schema, field, "EP", "wrong_type", ["not", "a", "string"], False))
+
+### tests.team.datagen.generate.x_string_cases__mutmut_67
+# tests.team.datagen.generate.x_string_cases__mutmut_67: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -7,7 +7,7 @@
+     if is_email:
+         out.append(case(op, schema, field, "EP", "valid_email", "sam.rivera@example.com", True))
+         out.append(case(op, schema, field, "EP", "missing_at_sign", "sam.rivera.example.com", False))
+-        out.append(case(op, schema, field, "EP", "missing_domain", "sam.rivera@", False))
++        out.append(case(op, None, field, "EP", "missing_domain", "sam.rivera@", False))
+     else:
+         out.append(case(op, schema, field, "EP", "valid_text", prop.get("example", "Text"), True))
+     out.append(case(op, schema, field, "EP", "wrong_type", ["not", "a", "string"], False))
+
+### tests.team.datagen.generate.x_string_cases__mutmut_68
+# tests.team.datagen.generate.x_string_cases__mutmut_68: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -7,7 +7,7 @@
+     if is_email:
+         out.append(case(op, schema, field, "EP", "valid_email", "sam.rivera@example.com", True))
+         out.append(case(op, schema, field, "EP", "missing_at_sign", "sam.rivera.example.com", False))
+-        out.append(case(op, schema, field, "EP", "missing_domain", "sam.rivera@", False))
++        out.append(case(op, schema, None, "EP", "missing_domain", "sam.rivera@", False))
+     else:
+         out.append(case(op, schema, field, "EP", "valid_text", prop.get("example", "Text"), True))
+     out.append(case(op, schema, field, "EP", "wrong_type", ["not", "a", "string"], False))
+
+### tests.team.datagen.generate.x_string_cases__mutmut_69
+# tests.team.datagen.generate.x_string_cases__mutmut_69: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -7,7 +7,7 @@
+     if is_email:
+         out.append(case(op, schema, field, "EP", "valid_email", "sam.rivera@example.com", True))
+         out.append(case(op, schema, field, "EP", "missing_at_sign", "sam.rivera.example.com", False))
+-        out.append(case(op, schema, field, "EP", "missing_domain", "sam.rivera@", False))
++        out.append(case(op, schema, field, None, "missing_domain", "sam.rivera@", False))
+     else:
+         out.append(case(op, schema, field, "EP", "valid_text", prop.get("example", "Text"), True))
+     out.append(case(op, schema, field, "EP", "wrong_type", ["not", "a", "string"], False))
+
+### tests.team.datagen.generate.x_string_cases__mutmut_80
+# tests.team.datagen.generate.x_string_cases__mutmut_80: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -7,7 +7,7 @@
+     if is_email:
+         out.append(case(op, schema, field, "EP", "valid_email", "sam.rivera@example.com", True))
+         out.append(case(op, schema, field, "EP", "missing_at_sign", "sam.rivera.example.com", False))
+-        out.append(case(op, schema, field, "EP", "missing_domain", "sam.rivera@", False))
++        out.append(case(op, schema, field, "XXEPXX", "missing_domain", "sam.rivera@", False))
+     else:
+         out.append(case(op, schema, field, "EP", "valid_text", prop.get("example", "Text"), True))
+     out.append(case(op, schema, field, "EP", "wrong_type", ["not", "a", "string"], False))
+
+### tests.team.datagen.generate.x_string_cases__mutmut_81
+# tests.team.datagen.generate.x_string_cases__mutmut_81: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -7,7 +7,7 @@
+     if is_email:
+         out.append(case(op, schema, field, "EP", "valid_email", "sam.rivera@example.com", True))
+         out.append(case(op, schema, field, "EP", "missing_at_sign", "sam.rivera.example.com", False))
+-        out.append(case(op, schema, field, "EP", "missing_domain", "sam.rivera@", False))
++        out.append(case(op, schema, field, "ep", "missing_domain", "sam.rivera@", False))
+     else:
+         out.append(case(op, schema, field, "EP", "valid_text", prop.get("example", "Text"), True))
+     out.append(case(op, schema, field, "EP", "wrong_type", ["not", "a", "string"], False))
+
+### tests.team.datagen.generate.x_string_cases__mutmut_123
+# tests.team.datagen.generate.x_string_cases__mutmut_123: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -10,7 +10,7 @@
+         out.append(case(op, schema, field, "EP", "missing_domain", "sam.rivera@", False))
+     else:
+         out.append(case(op, schema, field, "EP", "valid_text", prop.get("example", "Text"), True))
+-    out.append(case(op, schema, field, "EP", "wrong_type", ["not", "a", "string"], False))
++    out.append(case(op, schema, field, "EP", "wrong_type", ["not", "a", "string"], None))
+ 
+     if lo is not None:
+         for name, n in (("minLength-1", lo - 1), ("minLength", lo), ("minLength+1", lo + 1)):
+
+### tests.team.datagen.generate.x_string_cases__mutmut_169
+# tests.team.datagen.generate.x_string_cases__mutmut_169: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -17,7 +17,7 @@
+             if n < 0:
+                 continue
+             value = make(n) if (not is_email or n >= 13) else ""
+-            out.append(case(op, schema, field, "BVA", name, value, n >= lo))
++            out.append(case(None, schema, field, "BVA", name, value, n >= lo))
+     if hi is not None:
+         for name, n in (("maxLength-1", hi - 1), ("maxLength", hi), ("maxLength+1", hi + 1)):
+             out.append(case(op, schema, field, "BVA", name, make(n), n <= hi))
+
+### tests.team.datagen.generate.x_string_cases__mutmut_170
+# tests.team.datagen.generate.x_string_cases__mutmut_170: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -17,7 +17,7 @@
+             if n < 0:
+                 continue
+             value = make(n) if (not is_email or n >= 13) else ""
+-            out.append(case(op, schema, field, "BVA", name, value, n >= lo))
++            out.append(case(op, None, field, "BVA", name, value, n >= lo))
+     if hi is not None:
+         for name, n in (("maxLength-1", hi - 1), ("maxLength", hi), ("maxLength+1", hi + 1)):
+             out.append(case(op, schema, field, "BVA", name, make(n), n <= hi))
+
+### tests.team.datagen.generate.x_string_cases__mutmut_171
+# tests.team.datagen.generate.x_string_cases__mutmut_171: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -17,7 +17,7 @@
+             if n < 0:
+                 continue
+             value = make(n) if (not is_email or n >= 13) else ""
+-            out.append(case(op, schema, field, "BVA", name, value, n >= lo))
++            out.append(case(op, schema, None, "BVA", name, value, n >= lo))
+     if hi is not None:
+         for name, n in (("maxLength-1", hi - 1), ("maxLength", hi), ("maxLength+1", hi + 1)):
+             out.append(case(op, schema, field, "BVA", name, make(n), n <= hi))
+
+### tests.team.datagen.generate.x_string_cases__mutmut_172
+# tests.team.datagen.generate.x_string_cases__mutmut_172: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -17,7 +17,7 @@
+             if n < 0:
+                 continue
+             value = make(n) if (not is_email or n >= 13) else ""
+-            out.append(case(op, schema, field, "BVA", name, value, n >= lo))
++            out.append(case(op, schema, field, None, name, value, n >= lo))
+     if hi is not None:
+         for name, n in (("maxLength-1", hi - 1), ("maxLength", hi), ("maxLength+1", hi + 1)):
+             out.append(case(op, schema, field, "BVA", name, make(n), n <= hi))
+
+### tests.team.datagen.generate.x_string_cases__mutmut_183
+# tests.team.datagen.generate.x_string_cases__mutmut_183: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -17,7 +17,7 @@
+             if n < 0:
+                 continue
+             value = make(n) if (not is_email or n >= 13) else ""
+-            out.append(case(op, schema, field, "BVA", name, value, n >= lo))
++            out.append(case(op, schema, field, "XXBVAXX", name, value, n >= lo))
+     if hi is not None:
+         for name, n in (("maxLength-1", hi - 1), ("maxLength", hi), ("maxLength+1", hi + 1)):
+             out.append(case(op, schema, field, "BVA", name, make(n), n <= hi))
+
+### tests.team.datagen.generate.x_string_cases__mutmut_184
+# tests.team.datagen.generate.x_string_cases__mutmut_184: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -17,7 +17,7 @@
+             if n < 0:
+                 continue
+             value = make(n) if (not is_email or n >= 13) else ""
+-            out.append(case(op, schema, field, "BVA", name, value, n >= lo))
++            out.append(case(op, schema, field, "bva", name, value, n >= lo))
+     if hi is not None:
+         for name, n in (("maxLength-1", hi - 1), ("maxLength", hi), ("maxLength+1", hi + 1)):
+             out.append(case(op, schema, field, "BVA", name, make(n), n <= hi))
+
+### tests.team.datagen.generate.x_boolean_cases__mutmut_5
+# tests.team.datagen.generate.x_boolean_cases__mutmut_5: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -1,6 +1,6 @@
+ def boolean_cases(op, schema, field, prop):
+     return [
+-        case(op, schema, field, "EP", "true", True, True),
++        case(op, schema, field, "EP", None, True, True),
+         case(op, schema, field, "EP", "false", False, True),
+         case(op, schema, field, "EP", "wrong_type", "maybe", False),
+     ]
+
+### tests.team.datagen.generate.x_boolean_cases__mutmut_17
+# tests.team.datagen.generate.x_boolean_cases__mutmut_17: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -1,6 +1,6 @@
+ def boolean_cases(op, schema, field, prop):
+     return [
+-        case(op, schema, field, "EP", "true", True, True),
++        case(op, schema, field, "EP", "XXtrueXX", True, True),
+         case(op, schema, field, "EP", "false", False, True),
+         case(op, schema, field, "EP", "wrong_type", "maybe", False),
+     ]
+
+### tests.team.datagen.generate.x_boolean_cases__mutmut_18
+# tests.team.datagen.generate.x_boolean_cases__mutmut_18: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -1,6 +1,6 @@
+ def boolean_cases(op, schema, field, prop):
+     return [
+-        case(op, schema, field, "EP", "true", True, True),
++        case(op, schema, field, "EP", "TRUE", True, True),
+         case(op, schema, field, "EP", "false", False, True),
+         case(op, schema, field, "EP", "wrong_type", "maybe", False),
+     ]
+
+### tests.team.datagen.generate.x_boolean_cases__mutmut_25
+# tests.team.datagen.generate.x_boolean_cases__mutmut_25: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -1,6 +1,6 @@
+ def boolean_cases(op, schema, field, prop):
+     return [
+         case(op, schema, field, "EP", "true", True, True),
+-        case(op, schema, field, "EP", "false", False, True),
++        case(op, schema, field, "EP", None, False, True),
+         case(op, schema, field, "EP", "wrong_type", "maybe", False),
+     ]
+
+### tests.team.datagen.generate.x_boolean_cases__mutmut_37
+# tests.team.datagen.generate.x_boolean_cases__mutmut_37: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -1,6 +1,6 @@
+ def boolean_cases(op, schema, field, prop):
+     return [
+         case(op, schema, field, "EP", "true", True, True),
+-        case(op, schema, field, "EP", "false", False, True),
++        case(op, schema, field, "EP", "XXfalseXX", False, True),
+         case(op, schema, field, "EP", "wrong_type", "maybe", False),
+     ]
+
+### tests.team.datagen.generate.x_boolean_cases__mutmut_38
+# tests.team.datagen.generate.x_boolean_cases__mutmut_38: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -1,6 +1,6 @@
+ def boolean_cases(op, schema, field, prop):
+     return [
+         case(op, schema, field, "EP", "true", True, True),
+-        case(op, schema, field, "EP", "false", False, True),
++        case(op, schema, field, "EP", "FALSE", False, True),
+         case(op, schema, field, "EP", "wrong_type", "maybe", False),
+     ]
+
+### tests.team.datagen.generate.x_boolean_cases__mutmut_45
+# tests.team.datagen.generate.x_boolean_cases__mutmut_45: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -2,5 +2,5 @@
+     return [
+         case(op, schema, field, "EP", "true", True, True),
+         case(op, schema, field, "EP", "false", False, True),
+-        case(op, schema, field, "EP", "wrong_type", "maybe", False),
++        case(op, schema, field, "EP", None, "maybe", False),
+     ]
+
+### tests.team.datagen.generate.x_boolean_cases__mutmut_57
+# tests.team.datagen.generate.x_boolean_cases__mutmut_57: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -2,5 +2,5 @@
+     return [
+         case(op, schema, field, "EP", "true", True, True),
+         case(op, schema, field, "EP", "false", False, True),
+-        case(op, schema, field, "EP", "wrong_type", "maybe", False),
++        case(op, schema, field, "EP", "XXwrong_typeXX", "maybe", False),
+     ]
+
+### tests.team.datagen.generate.x_boolean_cases__mutmut_58
+# tests.team.datagen.generate.x_boolean_cases__mutmut_58: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -2,5 +2,5 @@
+     return [
+         case(op, schema, field, "EP", "true", True, True),
+         case(op, schema, field, "EP", "false", False, True),
+-        case(op, schema, field, "EP", "wrong_type", "maybe", False),
++        case(op, schema, field, "EP", "WRONG_TYPE", "maybe", False),
+     ]
+
+### tests.team.datagen.generate.x_resolve__mutmut_5
+# tests.team.datagen.generate.x_resolve__mutmut_5: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -1,5 +1,5 @@
+ def resolve(spec, ref):
+     node = spec
+-    for part in ref.lstrip("#/").split("/"):
++    for part in ref.lstrip("XX#/XX").split("/"):
+         node = node[part]
+     return node
+
+### tests.team.datagen.generate.x_operations__mutmut_7
+# tests.team.datagen.generate.x_operations__mutmut_7: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -1,7 +1,7 @@
+ def operations(spec):
+     for path, item in spec["paths"].items():
+         for method, op in item.items():
+-            if method not in ("post", "put", "patch") or "requestBody" not in op:
++            if method not in ("post", "XXputXX", "patch") or "requestBody" not in op:
+                 continue
+             schema_ref = op["requestBody"]["content"]["application/json"]["schema"]["$ref"]
+             yield op["operationId"], method.upper(), path, schema_ref
+
+### tests.team.datagen.generate.x_operations__mutmut_8
+# tests.team.datagen.generate.x_operations__mutmut_8: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -1,7 +1,7 @@
+ def operations(spec):
+     for path, item in spec["paths"].items():
+         for method, op in item.items():
+-            if method not in ("post", "put", "patch") or "requestBody" not in op:
++            if method not in ("post", "PUT", "patch") or "requestBody" not in op:
+                 continue
+             schema_ref = op["requestBody"]["content"]["application/json"]["schema"]["$ref"]
+             yield op["operationId"], method.upper(), path, schema_ref
+
+### tests.team.datagen.generate.x_operations__mutmut_9
+# tests.team.datagen.generate.x_operations__mutmut_9: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -1,7 +1,7 @@
+ def operations(spec):
+     for path, item in spec["paths"].items():
+         for method, op in item.items():
+-            if method not in ("post", "put", "patch") or "requestBody" not in op:
++            if method not in ("post", "put", "XXpatchXX") or "requestBody" not in op:
+                 continue
+             schema_ref = op["requestBody"]["content"]["application/json"]["schema"]["$ref"]
+             yield op["operationId"], method.upper(), path, schema_ref
+
+### tests.team.datagen.generate.x_operations__mutmut_10
+# tests.team.datagen.generate.x_operations__mutmut_10: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -1,7 +1,7 @@
+ def operations(spec):
+     for path, item in spec["paths"].items():
+         for method, op in item.items():
+-            if method not in ("post", "put", "patch") or "requestBody" not in op:
++            if method not in ("post", "put", "PATCH") or "requestBody" not in op:
+                 continue
+             schema_ref = op["requestBody"]["content"]["application/json"]["schema"]["$ref"]
+             yield op["operationId"], method.upper(), path, schema_ref
+
+### tests.team.datagen.generate.x_generate__mutmut_7
+# tests.team.datagen.generate.x_generate__mutmut_7: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -1,7 +1,7 @@
+ def generate(spec):
+     cases = []
+     for op_id, _method, _path, ref in operations(spec):
+-        name = ref.rsplit("/", 1)[-1]
++        name = ref.rsplit("/", )[-1]
+         schema = resolve(spec, ref)
+         required = set(schema.get("required", []))
+         for field, prop in schema["properties"].items():
+
+### tests.team.datagen.generate.x_generate__mutmut_10
+# tests.team.datagen.generate.x_generate__mutmut_10: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -1,7 +1,7 @@
+ def generate(spec):
+     cases = []
+     for op_id, _method, _path, ref in operations(spec):
+-        name = ref.rsplit("/", 1)[-1]
++        name = ref.rsplit("/", 2)[-1]
+         schema = resolve(spec, ref)
+         required = set(schema.get("required", []))
+         for field, prop in schema["properties"].items():
+
+### tests.team.datagen.generate.x_generate__mutmut_11
+# tests.team.datagen.generate.x_generate__mutmut_11: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -1,7 +1,7 @@
+ def generate(spec):
+     cases = []
+     for op_id, _method, _path, ref in operations(spec):
+-        name = ref.rsplit("/", 1)[-1]
++        name = ref.rsplit("/", 1)[+1]
+         schema = resolve(spec, ref)
+         required = set(schema.get("required", []))
+         for field, prop in schema["properties"].items():
+
+### tests.team.datagen.generate.x_generate__mutmut_21
+# tests.team.datagen.generate.x_generate__mutmut_21: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -3,7 +3,7 @@
+     for op_id, _method, _path, ref in operations(spec):
+         name = ref.rsplit("/", 1)[-1]
+         schema = resolve(spec, ref)
+-        required = set(schema.get("required", []))
++        required = set(schema.get("required", None))
+         for field, prop in schema["properties"].items():
+             gen = GENERATORS[prop["type"]]
+             cases.extend(gen(op_id, name, field, prop))
+
+### tests.team.datagen.generate.x_generate__mutmut_23
+# tests.team.datagen.generate.x_generate__mutmut_23: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -3,7 +3,7 @@
+     for op_id, _method, _path, ref in operations(spec):
+         name = ref.rsplit("/", 1)[-1]
+         schema = resolve(spec, ref)
+-        required = set(schema.get("required", []))
++        required = set(schema.get("required", ))
+         for field, prop in schema["properties"].items():
+             gen = GENERATORS[prop["type"]]
+             cases.extend(gen(op_id, name, field, prop))
+
+### tests.team.datagen.generate.x_generate__mutmut_69
+# tests.team.datagen.generate.x_generate__mutmut_69: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -9,7 +9,7 @@
+             cases.extend(gen(op_id, name, field, prop))
+             if field in required:
+                 cases.append(case(op_id, name, field, "EP", "missing_required", None, False, omit=True))
+-                cases.append(case(op_id, name, field, "EP", "null", None, False))
++                cases.append(case(op_id, name, field, "EP", "null", None, None))
+             else:
+                 cases.append(case(op_id, name, field, "EP", "omitted_optional", None, True, omit=True))
+     ids = [c["id"] for c in cases]
+
+### tests.team.datagen.generate.x_main__mutmut_2
+# tests.team.datagen.generate.x_main__mutmut_2: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -1,5 +1,5 @@
+ def main(argv=None):
+-    p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
++    p = argparse.ArgumentParser(description=None)
+     p.add_argument("--spec", type=Path, default=DEFAULT_SPEC)
+     p.add_argument("--out", type=Path, default=DEFAULT_OUT)
+     p.add_argument("--diff", nargs=2, type=Path, metavar=("OLD", "NEW"))
+
+### tests.team.datagen.generate.x_main__mutmut_3
+# tests.team.datagen.generate.x_main__mutmut_3: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -1,5 +1,5 @@
+ def main(argv=None):
+-    p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
++    p = argparse.ArgumentParser(description=__doc__.splitlines()[1])
+     p.add_argument("--spec", type=Path, default=DEFAULT_SPEC)
+     p.add_argument("--out", type=Path, default=DEFAULT_OUT)
+     p.add_argument("--diff", nargs=2, type=Path, metavar=("OLD", "NEW"))
+
+### tests.team.datagen.generate.x_main__mutmut_6
+# tests.team.datagen.generate.x_main__mutmut_6: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -1,6 +1,6 @@
+ def main(argv=None):
+     p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+-    p.add_argument("--spec", type=Path, default=DEFAULT_SPEC)
++    p.add_argument("--spec", type=Path, default=None)
+     p.add_argument("--out", type=Path, default=DEFAULT_OUT)
+     p.add_argument("--diff", nargs=2, type=Path, metavar=("OLD", "NEW"))
+     args = p.parse_args(argv)
+
+### tests.team.datagen.generate.x_main__mutmut_9
+# tests.team.datagen.generate.x_main__mutmut_9: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -1,6 +1,6 @@
+ def main(argv=None):
+     p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+-    p.add_argument("--spec", type=Path, default=DEFAULT_SPEC)
++    p.add_argument("--spec", type=Path, )
+     p.add_argument("--out", type=Path, default=DEFAULT_OUT)
+     p.add_argument("--diff", nargs=2, type=Path, metavar=("OLD", "NEW"))
+     args = p.parse_args(argv)
+
+### tests.team.datagen.generate.x_main__mutmut_14
+# tests.team.datagen.generate.x_main__mutmut_14: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -1,7 +1,7 @@
+ def main(argv=None):
+     p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+     p.add_argument("--spec", type=Path, default=DEFAULT_SPEC)
+-    p.add_argument("--out", type=Path, default=DEFAULT_OUT)
++    p.add_argument("--out", type=Path, default=None)
+     p.add_argument("--diff", nargs=2, type=Path, metavar=("OLD", "NEW"))
+     args = p.parse_args(argv)
+ 
+
+### tests.team.datagen.generate.x_main__mutmut_17
+# tests.team.datagen.generate.x_main__mutmut_17: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -1,7 +1,7 @@
+ def main(argv=None):
+     p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+     p.add_argument("--spec", type=Path, default=DEFAULT_SPEC)
+-    p.add_argument("--out", type=Path, default=DEFAULT_OUT)
++    p.add_argument("--out", type=Path, )
+     p.add_argument("--diff", nargs=2, type=Path, metavar=("OLD", "NEW"))
+     args = p.parse_args(argv)
+ 
+
+### tests.team.datagen.generate.x_main__mutmut_23
+# tests.team.datagen.generate.x_main__mutmut_23: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -2,7 +2,7 @@
+     p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+     p.add_argument("--spec", type=Path, default=DEFAULT_SPEC)
+     p.add_argument("--out", type=Path, default=DEFAULT_OUT)
+-    p.add_argument("--diff", nargs=2, type=Path, metavar=("OLD", "NEW"))
++    p.add_argument("--diff", nargs=2, type=Path, metavar=None)
+     args = p.parse_args(argv)
+ 
+     if args.diff:
+
+### tests.team.datagen.generate.x_main__mutmut_27
+# tests.team.datagen.generate.x_main__mutmut_27: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -2,7 +2,7 @@
+     p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+     p.add_argument("--spec", type=Path, default=DEFAULT_SPEC)
+     p.add_argument("--out", type=Path, default=DEFAULT_OUT)
+-    p.add_argument("--diff", nargs=2, type=Path, metavar=("OLD", "NEW"))
++    p.add_argument("--diff", nargs=2, type=Path, )
+     args = p.parse_args(argv)
+ 
+     if args.diff:
+
+### tests.team.datagen.generate.x_main__mutmut_31
+# tests.team.datagen.generate.x_main__mutmut_31: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -2,7 +2,7 @@
+     p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+     p.add_argument("--spec", type=Path, default=DEFAULT_SPEC)
+     p.add_argument("--out", type=Path, default=DEFAULT_OUT)
+-    p.add_argument("--diff", nargs=2, type=Path, metavar=("OLD", "NEW"))
++    p.add_argument("--diff", nargs=2, type=Path, metavar=("XXOLDXX", "NEW"))
+     args = p.parse_args(argv)
+ 
+     if args.diff:
+
+### tests.team.datagen.generate.x_main__mutmut_32
+# tests.team.datagen.generate.x_main__mutmut_32: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -2,7 +2,7 @@
+     p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+     p.add_argument("--spec", type=Path, default=DEFAULT_SPEC)
+     p.add_argument("--out", type=Path, default=DEFAULT_OUT)
+-    p.add_argument("--diff", nargs=2, type=Path, metavar=("OLD", "NEW"))
++    p.add_argument("--diff", nargs=2, type=Path, metavar=("old", "NEW"))
+     args = p.parse_args(argv)
+ 
+     if args.diff:
+
+### tests.team.datagen.generate.x_main__mutmut_33
+# tests.team.datagen.generate.x_main__mutmut_33: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -2,7 +2,7 @@
+     p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+     p.add_argument("--spec", type=Path, default=DEFAULT_SPEC)
+     p.add_argument("--out", type=Path, default=DEFAULT_OUT)
+-    p.add_argument("--diff", nargs=2, type=Path, metavar=("OLD", "NEW"))
++    p.add_argument("--diff", nargs=2, type=Path, metavar=("OLD", "XXNEWXX"))
+     args = p.parse_args(argv)
+ 
+     if args.diff:
+
+### tests.team.datagen.generate.x_main__mutmut_34
+# tests.team.datagen.generate.x_main__mutmut_34: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -2,7 +2,7 @@
+     p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+     p.add_argument("--spec", type=Path, default=DEFAULT_SPEC)
+     p.add_argument("--out", type=Path, default=DEFAULT_OUT)
+-    p.add_argument("--diff", nargs=2, type=Path, metavar=("OLD", "NEW"))
++    p.add_argument("--diff", nargs=2, type=Path, metavar=("OLD", "new"))
+     args = p.parse_args(argv)
+ 
+     if args.diff:
+
+### tests.team.datagen.generate.x_main__mutmut_50
+# tests.team.datagen.generate.x_main__mutmut_50: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -8,7 +8,7 @@
+     if args.diff:
+         old, new = (json.loads(f.read_text())["cases"] for f in args.diff)
+         lines = diff(old, new)
+-        print("\n".join(lines) if lines else "no differences")
++        print("XX\nXX".join(lines) if lines else "no differences")
+         return 0
+ 
+     spec = yaml.safe_load(args.spec.read_text())
+
+### tests.team.datagen.generate.x_main__mutmut_58
+# tests.team.datagen.generate.x_main__mutmut_58: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -13,7 +13,7 @@
+ 
+     spec = yaml.safe_load(args.spec.read_text())
+     cases = generate(spec)
+-    args.out.parent.mkdir(parents=True, exist_ok=True)
++    args.out.parent.mkdir(parents=None, exist_ok=True)
+     args.out.write_text(
+         json.dumps({"spec": args.spec.name, "count": len(cases), "cases": cases}, indent=2)
+     )
+
+### tests.team.datagen.generate.x_main__mutmut_59
+# tests.team.datagen.generate.x_main__mutmut_59: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -13,7 +13,7 @@
+ 
+     spec = yaml.safe_load(args.spec.read_text())
+     cases = generate(spec)
+-    args.out.parent.mkdir(parents=True, exist_ok=True)
++    args.out.parent.mkdir(parents=True, exist_ok=None)
+     args.out.write_text(
+         json.dumps({"spec": args.spec.name, "count": len(cases), "cases": cases}, indent=2)
+     )
+
+### tests.team.datagen.generate.x_main__mutmut_60
+# tests.team.datagen.generate.x_main__mutmut_60: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -13,7 +13,7 @@
+ 
+     spec = yaml.safe_load(args.spec.read_text())
+     cases = generate(spec)
+-    args.out.parent.mkdir(parents=True, exist_ok=True)
++    args.out.parent.mkdir(exist_ok=True)
+     args.out.write_text(
+         json.dumps({"spec": args.spec.name, "count": len(cases), "cases": cases}, indent=2)
+     )
+
+### tests.team.datagen.generate.x_main__mutmut_61
+# tests.team.datagen.generate.x_main__mutmut_61: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -13,7 +13,7 @@
+ 
+     spec = yaml.safe_load(args.spec.read_text())
+     cases = generate(spec)
+-    args.out.parent.mkdir(parents=True, exist_ok=True)
++    args.out.parent.mkdir(parents=True, )
+     args.out.write_text(
+         json.dumps({"spec": args.spec.name, "count": len(cases), "cases": cases}, indent=2)
+     )
+
+### tests.team.datagen.generate.x_main__mutmut_62
+# tests.team.datagen.generate.x_main__mutmut_62: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -13,7 +13,7 @@
+ 
+     spec = yaml.safe_load(args.spec.read_text())
+     cases = generate(spec)
+-    args.out.parent.mkdir(parents=True, exist_ok=True)
++    args.out.parent.mkdir(parents=False, exist_ok=True)
+     args.out.write_text(
+         json.dumps({"spec": args.spec.name, "count": len(cases), "cases": cases}, indent=2)
+     )
+
+### tests.team.datagen.generate.x_main__mutmut_63
+# tests.team.datagen.generate.x_main__mutmut_63: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -13,7 +13,7 @@
+ 
+     spec = yaml.safe_load(args.spec.read_text())
+     cases = generate(spec)
+-    args.out.parent.mkdir(parents=True, exist_ok=True)
++    args.out.parent.mkdir(parents=True, exist_ok=False)
+     args.out.write_text(
+         json.dumps({"spec": args.spec.name, "count": len(cases), "cases": cases}, indent=2)
+     )
+
+### tests.team.datagen.generate.x_main__mutmut_66
+# tests.team.datagen.generate.x_main__mutmut_66: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -15,7 +15,7 @@
+     cases = generate(spec)
+     args.out.parent.mkdir(parents=True, exist_ok=True)
+     args.out.write_text(
+-        json.dumps({"spec": args.spec.name, "count": len(cases), "cases": cases}, indent=2)
++        json.dumps({"spec": args.spec.name, "count": len(cases), "cases": cases}, indent=None)
+     )
+     print(f"{len(cases)} cases written to {args.out}")
+     print(f"{'operation':<16}{'field':<18}{'EP':>4}{'BVA':>5}{'valid':>7}{'invalid':>9}")
+
+### tests.team.datagen.generate.x_main__mutmut_68
+# tests.team.datagen.generate.x_main__mutmut_68: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -15,7 +15,7 @@
+     cases = generate(spec)
+     args.out.parent.mkdir(parents=True, exist_ok=True)
+     args.out.write_text(
+-        json.dumps({"spec": args.spec.name, "count": len(cases), "cases": cases}, indent=2)
++        json.dumps({"spec": args.spec.name, "count": len(cases), "cases": cases}, )
+     )
+     print(f"{len(cases)} cases written to {args.out}")
+     print(f"{'operation':<16}{'field':<18}{'EP':>4}{'BVA':>5}{'valid':>7}{'invalid':>9}")
+
+### tests.team.datagen.generate.x_main__mutmut_75
+# tests.team.datagen.generate.x_main__mutmut_75: survived
+--- src/tests/team/datagen/generate.py
++++ src/tests/team/datagen/generate.py
+@@ -15,7 +15,7 @@
+     cases = generate(spec)
+     args.out.parent.mkdir(parents=True, exist_ok=True)
+     args.out.write_text(
+-        json.dumps({"spec": args.spec.name, "count": len(cases), "cases": cases}, indent=2)
++        json.dumps({"spec": args.spec.name, "count": len(cases), "cases": cases}, indent=3)
+     )
+     print(f"{len(cases)} cases written to {args.out}")
+     print(f"{'operation':<16}{'field':<18}{'EP':>4}{'BVA':>5}{'valid':>7}{'invalid':>9}")
+
