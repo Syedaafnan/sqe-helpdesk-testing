@@ -1,0 +1,11 @@
+# Team coverage settings. relative_files makes coverage.xml use paths such as
+# src/helpdesk/ticket_rules.py, so SonarQube can match them on any machine
+# (local scan copy or CI runner).
+[run]
+relative_files = True
+branch = True
+omit =
+    */migrations/*
+    src/helpdesk/tests/*
+    tests/team/*/test_*.py
+    tests/team/*/conftest.py
