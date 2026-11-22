@@ -3,11 +3,30 @@ from django.core.exceptions import ValidationError as DjangoValidationError
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
+from . import ticket_rules
 from .forms import TicketForm
 from .lib import format_time_spent
 from .models import CustomField, FollowUp, FollowUpAttachment, Ticket
 from .update_ticket import update_ticket
 from .user import HelpdeskUser
+
+
+def enforce_status_rules(ticket, new_status, field_name):
+    """Apply BR-2/BR-3 to an API status change (fix for DEF-01 / DEF-02).
+
+    Before this, the staff API wrote any status, ignoring the status flow and
+    open dependencies that the submitter page enforces.
+    """
+    try:
+        ticket_rules.check_status_change(
+            current=ticket.status,
+            new=new_status,
+            has_open_dependencies=not ticket.can_be_resolved,
+            flow=Ticket.STATUS_CHOICES_FLOW,
+            all_statuses=[code for code, _label in Ticket.STATUS_CHOICES],
+        )
+    except ticket_rules.RuleViolation as violation:
+        raise ValidationError({field_name: [violation.message]}) from violation
 
 
 class DatatablesTicketSerializer(serializers.ModelSerializer):
@@ -125,6 +144,13 @@ class FollowUpSerializer(serializers.ModelSerializer):
             "email_recipients",
         )
         read_only_fields = ("email_recipients",)
+
+    def validate(self, attrs):
+        attrs = super().validate(attrs)
+        new_status = attrs.get("new_status")
+        if new_status is not None and attrs.get("ticket") is not None:
+            enforce_status_rules(attrs["ticket"], new_status, "new_status")
+        return attrs
 
     def create(self, validated_data):
         if validated_data["user"]:
@@ -303,6 +329,18 @@ class TicketSerializer(BaseTicketSerializer):
             return ticket
 
         raise ValidationError(ticket_form.errors)
+
+    def validate_priority(self, value):
+        try:
+            return ticket_rules.validate_priority(value)
+        except ticket_rules.RuleViolation as violation:
+            raise ValidationError(violation.message) from violation
+
+    def validate(self, attrs):
+        attrs = super().validate(attrs)
+        if self.instance is not None and "status" in attrs:
+            enforce_status_rules(self.instance, attrs["status"], "status")
+        return attrs
 
     def update(self, instance, validated_data):
         instance = super().update(instance, validated_data)
