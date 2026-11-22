@@ -1,0 +1,10 @@
+............x.....                                                       [100%]
+=============================== warnings summary ===============================
+../../../../../../../home/afnan/venvs/helpdesk/lib/python3.12/site-packages/pytest_django/plugin.py:394
+  /home/afnan/venvs/helpdesk/lib/python3.12/site-packages/pytest_django/plugin.py:394: RemovedInDjango2028Warning: The EMAIL_BACKEND setting is deprecated. Migrate to MAILERS before Django 2028.
+    dj_settings.DATABASES  # noqa: B018
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+XFAIL tests/team/e2e/test_security_access.py::test_ac09_customer_does_not_see_system_settings[chromium] - DEF-09: /system_settings/ only requires login, not staff
+17 passed, 1 xfailed, 1 warning in 34.59s

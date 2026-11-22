@@ -1,0 +1,27 @@
+[
+  {
+    "rule": "label",
+    "impact": "critical",
+    "nodes": 2,
+    "targets": [
+      [
+        "input[type=\"text\"]"
+      ],
+      [
+        "input[type=\"email\"]"
+      ]
+    ],
+    "help": "Form elements must have labels"
+  },
+  {
+    "rule": "list",
+    "impact": "serious",
+    "nodes": 1,
+    "targets": [
+      [
+        ".navbar-nav"
+      ]
+    ],
+    "help": "<ul> and <ol> must only directly contain <li>, <script> or <template> elements"
+  }
+]

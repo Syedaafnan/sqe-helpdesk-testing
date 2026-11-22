@@ -1,0 +1,74 @@
+[
+  {
+    "rule": "button-name",
+    "impact": "critical",
+    "nodes": 1,
+    "targets": [
+      [
+        "#sidebarToggle"
+      ]
+    ],
+    "help": "Buttons must have discernible text"
+  },
+  {
+    "rule": "color-contrast",
+    "impact": "serious",
+    "nodes": 1,
+    "targets": [
+      [
+        "#respond-tab"
+      ]
+    ],
+    "help": "Elements must meet minimum color contrast ratio thresholds"
+  },
+  {
+    "rule": "label",
+    "impact": "critical",
+    "nodes": 1,
+    "targets": [
+      [
+        "input[value=\"watcher@example.com\"]"
+      ]
+    ],
+    "help": "Form elements must have labels"
+  },
+  {
+    "rule": "link-name",
+    "impact": "serious",
+    "nodes": 1,
+    "targets": [
+      [
+        "a[data-bs-title=\"2\u00a0weeks, 3\u00a0days ago\"]"
+      ]
+    ],
+    "help": "Links must have discernible text"
+  },
+  {
+    "rule": "list",
+    "impact": "serious",
+    "nodes": 3,
+    "targets": [
+      [
+        ".col:nth-child(9) > .list-unstyled"
+      ],
+      [
+        ".col:nth-child(10) > .list-unstyled"
+      ],
+      [
+        ".col:nth-child(11) > .list-group.list-group-flush"
+      ]
+    ],
+    "help": "<ul> and <ol> must only directly contain <li>, <script> or <template> elements"
+  },
+  {
+    "rule": "select-name",
+    "impact": "critical",
+    "nodes": 1,
+    "targets": [
+      [
+        ".input-group-sm.input-group > .form-select[name=\"owner\"]"
+      ]
+    ],
+    "help": "Select element must have an accessible name"
+  }
+]

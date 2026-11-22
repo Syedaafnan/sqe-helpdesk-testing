@@ -1,0 +1,7 @@
+{
+  "seconds": 1.52,
+  "actions": 8,
+  "error_message": "Please enter a part following '@'. 'sam.rivera@' is incomplete.",
+  "errors_before_success": 1,
+  "success": true
+}
