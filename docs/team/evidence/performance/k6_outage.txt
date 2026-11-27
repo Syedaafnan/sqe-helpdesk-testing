@@ -1,0 +1,15 @@
+run outage: 1 virtual user(s), 90s
+iterations 29  (0.30/s)
+requests 110  failed 29.09 %  checks 67.01 %
+all requests                       avg    607 ms  p95   2183 ms  max   2275 ms
+reads                              avg    857 ms  p95   2212 ms  max   2275 ms
+writes                             avg    356 ms  p95   1165 ms  max   1343 ms
+  GET submit form                  avg     25 ms  p95     61 ms  max    143 ms
+  POST submit form                 avg    110 ms  p95    277 ms  max    309 ms
+  GET open tickets                 avg   1389 ms  p95   1685 ms  max   1988 ms
+  POST follow-up resolve           avg   1154 ms  p95   1257 ms  max   1343 ms
+  GET ticket read-back             avg   2181 ms  p95   2275 ms  max   2275 ms
+http_req_failed: rate<0.01 FAIL
+http_req_duration{kind:write}: p(95)<1500 PASS
+checks: rate==1.0 FAIL
+http_req_duration{kind:read}: p(95)<500 FAIL

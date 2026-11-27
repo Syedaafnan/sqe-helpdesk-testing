@@ -1,0 +1,4 @@
+k6_start 1795284565.072
+server_killed 1795284595.111
+server_restarted 1795284610.142
+server_ready 1795284612.247

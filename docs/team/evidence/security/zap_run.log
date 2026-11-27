@@ -1,0 +1,32 @@
+Found Java version 21.0.13.1
+Available memory: 7759 MB
+Using JVM args: -Xmx1939m
+No check for updates for over 3 month - add-ons may well be out of date
+Job passiveScan-config set maxAlertsPerRule = 10
+Job passiveScan-config set scanOnlyInScope = true
+Job spider set context = helpdesk
+Job spider set maxDuration = 3
+Job spider set maxDepth = 5
+Job passiveScan-wait set maxDuration = 10
+Job report set template = traditional-html
+Job report set reportDir = /mnt/c/Users/shazi/Desktop/sqe final project/django-helpdesk/docs/team/evidence/security
+Job report set reportFile = zap_passive_report.html
+Job report set reportTitle = django-helpdesk passive scan
+Job report set template = traditional-json
+Job report set reportDir = /mnt/c/Users/shazi/Desktop/sqe final project/django-helpdesk/docs/team/evidence/security
+Job report set reportFile = zap_passive_report.json
+Job passiveScan-config started
+Job passiveScan-config finished, time taken: 00:00:00
+Job spider started
+Job spider requesting URL http://localhost:8080
+Job spider found 133 URLs
+Job spider finished, time taken: 00:00:06
+Job passiveScan-wait started
+Job passiveScan-wait finished, time taken: 00:00:00
+Job report started
+Job report generated report /mnt/c/Users/shazi/Desktop/sqe final project/django-helpdesk/docs/team/evidence/security/zap_passive_report.html
+Job report finished, time taken: 00:00:00
+Job report started
+Job report generated report /mnt/c/Users/shazi/Desktop/sqe final project/django-helpdesk/docs/team/evidence/security/zap_passive_report.json
+Job report finished, time taken: 00:00:00
+Automation plan succeeded!

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Availability failure-and-recovery test (docs/team/PERFORMANCE.md, REC-6).
+# Availability failure-and-recovery test (final report, Performance, REC-6).
 # One k6 virtual user runs the W1+W2 iteration for 90 s. At t=30 s the
 # application server is stopped (simulated crash), at t=45 s it is started
 # again. The k6 per-request log is analysed for: first failure, last failure,

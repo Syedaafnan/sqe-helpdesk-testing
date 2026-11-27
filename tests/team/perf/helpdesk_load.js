@@ -1,4 +1,4 @@
-// k6 load test for the two workflows (docs/team/PERFORMANCE.md).
+// k6 load test for the two workflows (final report, Performance).
 //
 // One iteration = one customer and one agent working one ticket end to end:
 //   W1  GET the public submit form, POST it (CSRF token + cookie)  -> ticket Open

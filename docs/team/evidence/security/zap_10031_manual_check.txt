@@ -1,0 +1,4 @@
+Manual check of ZAP 10031 (return_to), 2026-11-21
+Request: GET /change_language/?return_to=/login/%22onmouseover=%22alert(1)
+Response line 58: <input name="next" type="hidden" value="/login/&quot;onmouseover=&quot;alert(1)" />
+Result: the quote is HTML-escaped, the attribute cannot be broken out of; no XSS.
