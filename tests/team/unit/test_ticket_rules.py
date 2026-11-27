@@ -1,7 +1,7 @@
 """White-box unit tests for src/helpdesk/ticket_rules.py (BR-1..BR-4).
 
 Target: 100% statement and branch coverage, plus MCC and MC/DC for BR-2.
-Test IDs (UT-xx) are referenced from docs/team/TRACEABILITY.md.
+Test IDs (UT-xx) are referenced from final report, Traceability.
 """
 
 import pytest
@@ -147,9 +147,9 @@ MCC = [
 
 
 @pytest.mark.parametrize(
-    "case_id, deps, current, new, a, b, c, expected", MCC, ids=[m[0] for m in MCC]
+    "deps, current, new, a, b, c, expected", [m[1:] for m in MCC], ids=[m[0] for m in MCC]
 )
-def test_ut17_br2_mcc(case_id, deps, current, new, a, b, c, expected):
+def test_ut17_br2_mcc(deps, current, new, a, b, c, expected):
     # the inputs really produce the intended condition values
     assert (not deps) is a
     assert (new == current) is b
@@ -237,7 +237,7 @@ def test_ut25_br4_staff_api_access_mcc(auth, active, staff, expected):
 
 
 # ---------------------------------------------- added after mutation analysis
-# UT26-UT28 kill the killable survivors listed in docs/team/MUTATION.md.
+# UT26-UT28 kill the killable survivors listed in final report, Mutation Testing.
 def test_ut26_exact_messages_title_and_dependencies():
     """Kills mutmut validate_title_5/10/11/12 and check_status_change_18:
     the message text is what the submitter reads, so it is pinned exactly."""

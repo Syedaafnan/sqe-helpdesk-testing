@@ -1,2 +1,0 @@
-rules: {'killed': 121, 'survived': 3}
-rules: mutation score = 121/124 = 97.6% (gate: >= 90%)
