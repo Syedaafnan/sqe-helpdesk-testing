@@ -1,0 +1,102 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.2.0, pluggy-1.7.0
+django: version: 6.1.3, settings: demodesk.config.settings (from ini)
+rootdir: /mnt/c/Users/shazi/Desktop/sqe final project/django-helpdesk
+configfile: pytest.ini
+testpaths: tests/team
+plugins: Faker-40.63.0, playwright-0.9.0, django-4.14.0, platformdirs-4.14.8, base-url-2.1.0, cov-7.1.0
+collected 372 items / 48 deselected / 324 selected
+
+tests/team/api/test_access_br4.py ............                           [  3%]
+tests/team/api/test_crossflow_and_repeats.py ...xx..                     [  5%]
+tests/team/api/test_decision_br2.py .........                            [  8%]
+tests/team/api/test_generated_inputs.py ..................x..xx......... [ 18%]
+..........x.........................................................     [ 39%]
+tests/team/api/test_kanban_def06.py .xxx                                 [ 40%]
+tests/team/api/test_recovery.py .xx..                                    [ 42%]
+tests/team/api/test_staff_form_rules.py ....                             [ 43%]
+tests/team/api/test_state_transitions.py ............................... [ 53%]
+.............                                                            [ 57%]
+tests/team/datagen/test_generate.py .................................... [ 68%]
+............                                                             [ 71%]
+tests/team/unit/test_ticket_rules.py ................................... [ 82%]
+........................................................                 [100%]
+
+=============================== warnings summary ===============================
+../../../../../../../home/afnan/venvs/helpdesk/lib/python3.12/site-packages/pytest_django/plugin.py:394
+  /home/afnan/venvs/helpdesk/lib/python3.12/site-packages/pytest_django/plugin.py:394: RemovedInDjango2028Warning: The EMAIL_BACKEND setting is deprecated. Migrate to MAILERS before Django 2028.
+    dj_settings.DATABASES  # noqa: B018
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================================ tests coverage ================================
+_______________ coverage: platform linux, python 3.12.3-final-0 ________________
+
+Name                                                               Stmts   Miss Branch BrPart  Cover
+----------------------------------------------------------------------------------------------------
+src/helpdesk/__init__.py                                               0      0      0      0   100%
+src/helpdesk/admin.py                                                 89     15     14      3    75%
+src/helpdesk/apps.py                                                   7      0      0      0   100%
+src/helpdesk/copy_followup.py                                         23     18      4      0    19%
+src/helpdesk/decorators.py                                            55     23     24      6    48%
+src/helpdesk/email.py                                                537    537    182      0     0%
+src/helpdesk/exceptions.py                                             2      2      0      0     0%
+src/helpdesk/forms.py                                                358    155    112     22    49%
+src/helpdesk/lib.py                                                  128     78     48      3    34%
+src/helpdesk/management/__init__.py                                    0      0      0      0   100%
+src/helpdesk/management/commands/__init__.py                           0      0      0      0   100%
+src/helpdesk/management/commands/create_escalation_exclusions.py      37     37     18      0     0%
+src/helpdesk/management/commands/create_queue_permissions.py          28     28      6      0     0%
+src/helpdesk/management/commands/create_usersettings.py               10     10      2      0     0%
+src/helpdesk/management/commands/escalate_tickets.py                  43     43     16      0     0%
+src/helpdesk/management/commands/get_email.py                         13     13      2      0     0%
+src/helpdesk/models.py                                               789    244    170     29    61%
+src/helpdesk/query.py                                                132    100     44      0    18%
+src/helpdesk/sanitize.py                                              20      7      0      0    65%
+src/helpdesk/serializers.py                                          174     38     24      4    75%
+src/helpdesk/settings.py                                             135     14     14      7    86%
+src/helpdesk/signals.py                                                3      0      0      0   100%
+src/helpdesk/tasks.py                                                  5      4      0      0    20%
+src/helpdesk/templated_email.py                                       58     23     20      5    51%
+src/helpdesk/templatetags/__init__.py                                  0      0      0      0   100%
+src/helpdesk/templatetags/bootstrap5_form.py                          38     22     14      0    31%
+src/helpdesk/templatetags/followup_permissions.py                     13      2      4      2    76%
+src/helpdesk/templatetags/helpdesk_staff.py                           11      2      0      0    82%
+src/helpdesk/templatetags/helpdesk_util.py                            22     12      0      0    45%
+src/helpdesk/templatetags/in_list.py                                   5      1      0      0    80%
+src/helpdesk/templatetags/load_helpdesk_settings.py                    6      0      0      0   100%
+src/helpdesk/templatetags/saved_queries.py                            17      5      2      1    68%
+src/helpdesk/templatetags/ticket_to_link.py                           24     10      8      2    56%
+src/helpdesk/templatetags/user_admin_url.py                           11      6      0      0    45%
+src/helpdesk/ticket_rules.py                                          48      0     20      0   100%
+src/helpdesk/update_ticket.py                                        202     70    102     20    61%
+src/helpdesk/urls.py                                                  52      7     20      7    72%
+src/helpdesk/user.py                                                  69     33     34      7    42%
+src/helpdesk/validators.py                                            10      7      4      0    21%
+src/helpdesk/views/__init__.py                                         0      0      0      0   100%
+src/helpdesk/views/abstract_views.py                                  27      4      6      2    82%
+src/helpdesk/views/api.py                                            100      8     20      2    92%
+src/helpdesk/views/auth.py                                            23      7      2      0    64%
+src/helpdesk/views/feeds.py                                           96     45     22      0    45%
+src/helpdesk/views/kb.py                                              61     44     16      0    22%
+src/helpdesk/views/permissions.py                                      5      0      0      0   100%
+src/helpdesk/views/public.py                                         217    133     54      0    32%
+src/helpdesk/views/staff.py                                         1107    836    316     18    20%
+src/helpdesk/webhooks.py                                              40     19      8      2    48%
+tests/team/datagen/__init__.py                                         0      0      0      0   100%
+tests/team/datagen/generate.py                                       156      1     68      1    99%
+----------------------------------------------------------------------------------------------------
+TOTAL                                                               5006   2663   1420    143    41%
+Coverage XML written to file coverage.xml
+=========================== short test summary info ============================
+XFAIL tests/team/api/test_crossflow_and_repeats.py::test_repeated_identical_followup_is_not_duplicated - DEF-07: identical follow-up POST creates a duplicate record
+XFAIL tests/team/api/test_crossflow_and_repeats.py::test_page_size_is_capped - DEF-08: page_size has no upper bound
+XFAIL tests/team/api/test_generated_inputs.py::test_create_ticket_inputs[createTicket.description.BVA.minLength-1] - DEF-04: error reported on 'body', not 'description'
+XFAIL tests/team/api/test_generated_inputs.py::test_create_ticket_inputs[createTicket.description.EP.missing_required] - DEF-03: missing description -> HTTP 500 (KeyError)
+XFAIL tests/team/api/test_generated_inputs.py::test_create_ticket_inputs[createTicket.description.EP.null] - DEF-04: error reported on 'body', not 'description'
+XFAIL tests/team/api/test_generated_inputs.py::test_create_ticket_inputs[createTicket.priority.EP.omitted_optional] - DEF-05: priority has model default 3 but API requires it
+XFAIL tests/team/api/test_kanban_def06.py::test_kanban_rejects_closed_to_resolved - DEF-06: kanban ignores the status flow
+XFAIL tests/team/api/test_kanban_def06.py::test_kanban_rejects_resolve_with_open_dependency - DEF-06: kanban ignores open dependencies
+XFAIL tests/team/api/test_kanban_def06.py::test_kanban_move_is_recorded_in_history - DEF-06: kanban status change leaves no history record (FR-10)
+XFAIL tests/team/api/test_recovery.py::test_rec02_failed_update_leaves_ticket_status_unchanged - DEF-13: status is saved before the follow-up, outside a transaction
+XFAIL tests/team/api/test_recovery.py::test_rec03_retry_after_recovery_records_exactly_one_status_change - DEF-13: the retry finds the status already changed and records no status change
+==== 313 passed, 48 deselected, 11 xfailed, 1 warning in 219.14s (0:03:39) =====
