@@ -3,6 +3,7 @@
 import pytest
 
 from helpdesk.models import Ticket
+from tests.team.seed import content as cafe
 
 pytestmark = [pytest.mark.api, pytest.mark.django_db]
 
@@ -49,8 +50,8 @@ def test_non_staff_cannot_change_status(submitter_client, make_ticket):
 
 
 def test_user_tickets_only_own(submitter_client, make_ticket):
-    mine = make_ticket(email="sam.rivera@example.com", title="Mine")
-    make_ticket(email="someone.else@example.com", title="Theirs")
+    mine = make_ticket(email=cafe.CUSTOMER_EMAIL, title="My latte order")
+    make_ticket(email=cafe.SECOND_CUSTOMER_EMAIL, title="Naheed's app issue")
     r = submitter_client.get("/api/user_tickets/")
     assert r.status_code == 200
     assert [t["id"] for t in r.data["results"]] == [mine.id]

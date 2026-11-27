@@ -136,7 +136,7 @@ def string_cases(op, schema, field, prop):
     return out
 
 
-def boolean_cases(op, schema, field, prop):
+def boolean_cases(op, schema, field, _prop):
     return [
         case(op, schema, field, "EP", "true", True, True),
         case(op, schema, field, "EP", "false", False, True),

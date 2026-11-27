@@ -196,7 +196,7 @@ def test_gen19_generate_required_and_optional():
 
 
 def test_gen20_generate_rejects_duplicate_ids(monkeypatch):
-    monkeypatch.setitem(g.GENERATORS, "boolean", lambda op, s, f, p: [g.case(op, s, f, "EP", "x", 1, True)] * 2)
+    monkeypatch.setitem(g.GENERATORS, "boolean", lambda op, s, f, _p: [g.case(op, s, f, "EP", "x", 1, True)] * 2)
     with pytest.raises(ValueError, match="duplicate case ids"):
         g.generate(SPEC)
 
@@ -257,7 +257,7 @@ def test_gen26_default_paths():
 
 
 # ---------------------------------------------- added after mutation analysis
-# GEN27-GEN33 kill the killable survivors listed in docs/team/MUTATION.md.
+# GEN27-GEN33 kill the killable survivors listed in final report, Mutation Testing.
 INT_RANGE = {"type": "integer", "minimum": 1, "maximum": 5}
 GENERATOR_INPUTS = [
     (g.integer_cases, {"type": "integer", "minimum": 1, "x-reference": "Queue"}),

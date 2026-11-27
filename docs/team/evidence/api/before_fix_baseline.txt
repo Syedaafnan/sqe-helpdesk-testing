@@ -1,0 +1,504 @@
+.......F....F..xF......................FFFFFFFFFF..........FFFFFFFFFFF.. [100%]
+=================================== FAILURES ===================================
+__________________________ test_inactive_staff_denied __________________________
+
+staff_user = <User: agent>
+staff_client = <rest_framework.test.APIClient object at 0x768dad4c3c80>
+
+    def test_inactive_staff_denied(staff_user, staff_client):
+        staff_user.is_active = False
+        staff_user.save()
+>       assert staff_client.get("/api/tickets/").status_code == 403
+E       assert 200 == 403
+E        +  where 200 = <Response status_code=200, "application/json">.status_code
+E        +    where <Response status_code=200, "application/json"> = get('/api/tickets/')
+E        +      where get = <rest_framework.test.APIClient object at 0x768dad4c3c80>.get
+
+tests/team/api/test_access_br4.py:38: AssertionError
+______________ test_w1_creates_ticket_that_w2_resolves_and_closes ______________
+
+staff_client = <rest_framework.test.APIClient object at 0x768dad4c3aa0>
+queue = <Queue: IT Support>
+
+    def test_w1_creates_ticket_that_w2_resolves_and_closes(staff_client, queue):
+        # W1: submit
+        r = staff_client.post(
+            "/api/tickets/",
+            {"queue": queue.id, "title": "VPN drops", "description": "Every 10 min", "priority": 2},
+            format="json",
+        )
+        assert r.status_code == 201
+        tid = r.data["id"]
+        assert staff_client.get(f"/api/tickets/{tid}/").data["status"] == 1
+    
+        # W2: resolve, then close, reading the shared record after each step
+        for new in (3, 4):
+            f = staff_client.post("/api/followups/", {"ticket": tid, "comment": "step", "new_status": new}, format="json")
+            assert f.status_code == 201
+            assert staff_client.get(f"/api/tickets/{tid}/").data["status"] == new
+    
+        # rejection after success: Closed -> Resolved is not allowed, state stays Closed
+        bad = staff_client.post("/api/followups/", {"ticket": tid, "comment": "x", "new_status": 3}, format="json")
+>       assert bad.status_code == 400
+E       assert 201 == 400
+E        +  where 201 = <Response status_code=201, "application/json">.status_code
+
+tests/team/api/test_crossflow_and_repeats.py:30: AssertionError
+___________________________ test_page_size_is_capped ___________________________
+[XPASS(strict)] DEF-08: page_size has no upper bound
+_________ test_followup_disallowed_transition_rejected[Open->Reopened] _________
+
+pair = (1, 2)
+staff_client = <rest_framework.test.APIClient object at 0x768dad62ab10>
+make_ticket = <function make_ticket.<locals>._make at 0x768dada2dc60>
+
+    @pytest.mark.parametrize("pair", DISALLOWED, ids=tid)
+    def test_followup_disallowed_transition_rejected(pair, staff_client, make_ticket):
+        current, new = pair
+        ticket = make_ticket(status=current)
+        before = followup_count(ticket)
+    
+        r = staff_client.post(
+            "/api/followups/", {"ticket": ticket.id, "comment": "Try", "new_status": new}, format="json"
+        )
+    
+>       assert r.status_code == 400, r.content
+E       AssertionError: b'{"id":1,"ticket":1,"user":1,"title":"Printer jam and Reopened","comment":"Try","public":false,"new_status":2,"time_spent":null,"followupattachment_set":[],"date":"2026-11-21T06:31:55.141383Z","message_id":null,"email_recipients":[]}'
+E       assert 201 == 400
+E        +  where 201 = <Response status_code=201, "application/json">.status_code
+
+tests/team/api/test_state_transitions.py:59: AssertionError
+_________ test_followup_disallowed_transition_rejected[Reopened->Open] _________
+
+pair = (2, 1)
+staff_client = <rest_framework.test.APIClient object at 0x768dad7663c0>
+make_ticket = <function make_ticket.<locals>._make at 0x768dada2efc0>
+
+    @pytest.mark.parametrize("pair", DISALLOWED, ids=tid)
+    def test_followup_disallowed_transition_rejected(pair, staff_client, make_ticket):
+        current, new = pair
+        ticket = make_ticket(status=current)
+        before = followup_count(ticket)
+    
+        r = staff_client.post(
+            "/api/followups/", {"ticket": ticket.id, "comment": "Try", "new_status": new}, format="json"
+        )
+    
+>       assert r.status_code == 400, r.content
+E       AssertionError: b'{"id":1,"ticket":1,"user":1,"title":"Printer jam and Open","comment":"Try","public":false,"new_status":1,"time_spent":null,"followupattachment_set":[],"date":"2026-11-21T06:31:56.954876Z","message_id":null,"email_recipients":[]}'
+E       assert 201 == 400
+E        +  where 201 = <Response status_code=201, "application/json">.status_code
+
+tests/team/api/test_state_transitions.py:59: AssertionError
+_________ test_followup_disallowed_transition_rejected[Resolved->Open] _________
+
+pair = (3, 1)
+staff_client = <rest_framework.test.APIClient object at 0x768dad54ffe0>
+make_ticket = <function make_ticket.<locals>._make at 0x768dad9d5bc0>
+
+    @pytest.mark.parametrize("pair", DISALLOWED, ids=tid)
+    def test_followup_disallowed_transition_rejected(pair, staff_client, make_ticket):
+        current, new = pair
+        ticket = make_ticket(status=current)
+        before = followup_count(ticket)
+    
+        r = staff_client.post(
+            "/api/followups/", {"ticket": ticket.id, "comment": "Try", "new_status": new}, format="json"
+        )
+    
+>       assert r.status_code == 400, r.content
+E       AssertionError: b'{"id":1,"ticket":1,"user":1,"title":"Printer jam and Open","comment":"Try","public":false,"new_status":1,"time_spent":null,"followupattachment_set":[],"date":"2026-11-21T06:31:58.204672Z","message_id":null,"email_recipients":[]}'
+E       assert 201 == 400
+E        +  where 201 = <Response status_code=201, "application/json">.status_code
+
+tests/team/api/test_state_transitions.py:59: AssertionError
+______ test_followup_disallowed_transition_rejected[Resolved->Duplicate] _______
+
+pair = (3, 5)
+staff_client = <rest_framework.test.APIClient object at 0x768dad54f350>
+make_ticket = <function make_ticket.<locals>._make at 0x768dad949760>
+
+    @pytest.mark.parametrize("pair", DISALLOWED, ids=tid)
+    def test_followup_disallowed_transition_rejected(pair, staff_client, make_ticket):
+        current, new = pair
+        ticket = make_ticket(status=current)
+        before = followup_count(ticket)
+    
+        r = staff_client.post(
+            "/api/followups/", {"ticket": ticket.id, "comment": "Try", "new_status": new}, format="json"
+        )
+    
+>       assert r.status_code == 400, r.content
+E       AssertionError: b'{"id":1,"ticket":1,"user":1,"title":"Printer jam and Duplicate","comment":"Try","public":false,"new_status":5,"time_spent":null,"followupattachment_set":[],"date":"2026-11-21T06:31:59.557409Z","message_id":null,"email_recipients":[]}'
+E       assert 201 == 400
+E        +  where 201 = <Response status_code=201, "application/json">.status_code
+
+tests/team/api/test_state_transitions.py:59: AssertionError
+__________ test_followup_disallowed_transition_rejected[Closed->Open] __________
+
+pair = (4, 1)
+staff_client = <rest_framework.test.APIClient object at 0x768dad54f020>
+make_ticket = <function make_ticket.<locals>._make at 0x768dad9d54e0>
+
+    @pytest.mark.parametrize("pair", DISALLOWED, ids=tid)
+    def test_followup_disallowed_transition_rejected(pair, staff_client, make_ticket):
+        current, new = pair
+        ticket = make_ticket(status=current)
+        before = followup_count(ticket)
+    
+        r = staff_client.post(
+            "/api/followups/", {"ticket": ticket.id, "comment": "Try", "new_status": new}, format="json"
+        )
+    
+>       assert r.status_code == 400, r.content
+E       AssertionError: b'{"id":1,"ticket":1,"user":1,"title":"Printer jam and Open","comment":"Try","public":false,"new_status":1,"time_spent":null,"followupattachment_set":[],"date":"2026-11-21T06:32:00.821412Z","message_id":null,"email_recipients":[]}'
+E       assert 201 == 400
+E        +  where 201 = <Response status_code=201, "application/json">.status_code
+
+tests/team/api/test_state_transitions.py:59: AssertionError
+________ test_followup_disallowed_transition_rejected[Closed->Resolved] ________
+
+pair = (4, 3)
+staff_client = <rest_framework.test.APIClient object at 0x768dad7651c0>
+make_ticket = <function make_ticket.<locals>._make at 0x768dada2c4a0>
+
+    @pytest.mark.parametrize("pair", DISALLOWED, ids=tid)
+    def test_followup_disallowed_transition_rejected(pair, staff_client, make_ticket):
+        current, new = pair
+        ticket = make_ticket(status=current)
+        before = followup_count(ticket)
+    
+        r = staff_client.post(
+            "/api/followups/", {"ticket": ticket.id, "comment": "Try", "new_status": new}, format="json"
+        )
+    
+>       assert r.status_code == 400, r.content
+E       AssertionError: b'{"id":1,"ticket":1,"user":1,"title":"Printer jam and Resolved","comment":"Try","public":false,"new_status":3,"time_spent":null,"followupattachment_set":[],"date":"2026-11-21T06:32:02.292633Z","message_id":null,"email_recipients":[]}'
+E       assert 201 == 400
+E        +  where 201 = <Response status_code=201, "application/json">.status_code
+
+tests/team/api/test_state_transitions.py:59: AssertionError
+_______ test_followup_disallowed_transition_rejected[Closed->Duplicate] ________
+
+pair = (4, 5)
+staff_client = <rest_framework.test.APIClient object at 0x768dad764680>
+make_ticket = <function make_ticket.<locals>._make at 0x768dada2d4e0>
+
+    @pytest.mark.parametrize("pair", DISALLOWED, ids=tid)
+    def test_followup_disallowed_transition_rejected(pair, staff_client, make_ticket):
+        current, new = pair
+        ticket = make_ticket(status=current)
+        before = followup_count(ticket)
+    
+        r = staff_client.post(
+            "/api/followups/", {"ticket": ticket.id, "comment": "Try", "new_status": new}, format="json"
+        )
+    
+>       assert r.status_code == 400, r.content
+E       AssertionError: b'{"id":1,"ticket":1,"user":1,"title":"Printer jam and Duplicate","comment":"Try","public":false,"new_status":5,"time_spent":null,"followupattachment_set":[],"date":"2026-11-21T06:32:03.430140Z","message_id":null,"email_recipients":[]}'
+E       assert 201 == 400
+E        +  where 201 = <Response status_code=201, "application/json">.status_code
+
+tests/team/api/test_state_transitions.py:59: AssertionError
+________ test_followup_disallowed_transition_rejected[Duplicate->Open] _________
+
+pair = (5, 1)
+staff_client = <rest_framework.test.APIClient object at 0x768dad62aa80>
+make_ticket = <function make_ticket.<locals>._make at 0x768dada2f560>
+
+    @pytest.mark.parametrize("pair", DISALLOWED, ids=tid)
+    def test_followup_disallowed_transition_rejected(pair, staff_client, make_ticket):
+        current, new = pair
+        ticket = make_ticket(status=current)
+        before = followup_count(ticket)
+    
+        r = staff_client.post(
+            "/api/followups/", {"ticket": ticket.id, "comment": "Try", "new_status": new}, format="json"
+        )
+    
+>       assert r.status_code == 400, r.content
+E       AssertionError: b'{"id":1,"ticket":1,"user":1,"title":"Printer jam and Open","comment":"Try","public":false,"new_status":1,"time_spent":null,"followupattachment_set":[],"date":"2026-11-21T06:32:04.780373Z","message_id":null,"email_recipients":[]}'
+E       assert 201 == 400
+E        +  where 201 = <Response status_code=201, "application/json">.status_code
+
+tests/team/api/test_state_transitions.py:59: AssertionError
+______ test_followup_disallowed_transition_rejected[Duplicate->Resolved] _______
+
+pair = (5, 3)
+staff_client = <rest_framework.test.APIClient object at 0x768dad5729f0>
+make_ticket = <function make_ticket.<locals>._make at 0x768dada2d3a0>
+
+    @pytest.mark.parametrize("pair", DISALLOWED, ids=tid)
+    def test_followup_disallowed_transition_rejected(pair, staff_client, make_ticket):
+        current, new = pair
+        ticket = make_ticket(status=current)
+        before = followup_count(ticket)
+    
+        r = staff_client.post(
+            "/api/followups/", {"ticket": ticket.id, "comment": "Try", "new_status": new}, format="json"
+        )
+    
+>       assert r.status_code == 400, r.content
+E       AssertionError: b'{"id":1,"ticket":1,"user":1,"title":"Printer jam and Resolved","comment":"Try","public":false,"new_status":3,"time_spent":null,"followupattachment_set":[],"date":"2026-11-21T06:32:05.877679Z","message_id":null,"email_recipients":[]}'
+E       assert 201 == 400
+E        +  where 201 = <Response status_code=201, "application/json">.status_code
+
+tests/team/api/test_state_transitions.py:59: AssertionError
+_______ test_followup_disallowed_transition_rejected[Duplicate->Closed] ________
+
+pair = (5, 4)
+staff_client = <rest_framework.test.APIClient object at 0x768dadbfe6f0>
+make_ticket = <function make_ticket.<locals>._make at 0x768dad55a5c0>
+
+    @pytest.mark.parametrize("pair", DISALLOWED, ids=tid)
+    def test_followup_disallowed_transition_rejected(pair, staff_client, make_ticket):
+        current, new = pair
+        ticket = make_ticket(status=current)
+        before = followup_count(ticket)
+    
+        r = staff_client.post(
+            "/api/followups/", {"ticket": ticket.id, "comment": "Try", "new_status": new}, format="json"
+        )
+    
+>       assert r.status_code == 400, r.content
+E       AssertionError: b'{"id":1,"ticket":1,"user":1,"title":"Printer jam and Closed","comment":"Try","public":false,"new_status":4,"time_spent":null,"followupattachment_set":[],"date":"2026-11-21T06:32:07.488487Z","message_id":null,"email_recipients":[]}'
+E       assert 201 == 400
+E        +  where 201 = <Response status_code=201, "application/json">.status_code
+
+tests/team/api/test_state_transitions.py:59: AssertionError
+__________ test_patch_disallowed_transition_rejected[Open->Reopened] ___________
+
+pair = (1, 2)
+staff_client = <rest_framework.test.APIClient object at 0x768dad521460>
+make_ticket = <function make_ticket.<locals>._make at 0x768dad837920>
+
+    @pytest.mark.parametrize("pair", DISALLOWED, ids=tid)
+    def test_patch_disallowed_transition_rejected(pair, staff_client, make_ticket):
+        current, new = pair
+        ticket = make_ticket(status=current)
+    
+        r = staff_client.patch(f"/api/tickets/{ticket.id}/", {"status": new}, format="json")
+    
+>       assert r.status_code == 400, r.content
+E       AssertionError: b'{"id":1,"queue":1,"title":"Printer jam","description":null,"resolution":null,"submitter_email":"sam.rivera@example.com","assigned_to":null,"status":2,"on_hold":false,"priority":3,"due_date":null,"merged_to":null,"followup_set":[]}'
+E       assert 200 == 400
+E        +  where 200 = <Response status_code=200, "application/json">.status_code
+
+tests/team/api/test_state_transitions.py:86: AssertionError
+__________ test_patch_disallowed_transition_rejected[Reopened->Open] ___________
+
+pair = (2, 1)
+staff_client = <rest_framework.test.APIClient object at 0x768dad5231d0>
+make_ticket = <function make_ticket.<locals>._make at 0x768dadb72980>
+
+    @pytest.mark.parametrize("pair", DISALLOWED, ids=tid)
+    def test_patch_disallowed_transition_rejected(pair, staff_client, make_ticket):
+        current, new = pair
+        ticket = make_ticket(status=current)
+    
+        r = staff_client.patch(f"/api/tickets/{ticket.id}/", {"status": new}, format="json")
+    
+>       assert r.status_code == 400, r.content
+E       AssertionError: b'{"id":1,"queue":1,"title":"Printer jam","description":null,"resolution":null,"submitter_email":"sam.rivera@example.com","assigned_to":null,"status":1,"on_hold":false,"priority":3,"due_date":null,"merged_to":null,"followup_set":[]}'
+E       assert 200 == 400
+E        +  where 200 = <Response status_code=200, "application/json">.status_code
+
+tests/team/api/test_state_transitions.py:86: AssertionError
+__________ test_patch_disallowed_transition_rejected[Resolved->Open] ___________
+
+pair = (3, 1)
+staff_client = <rest_framework.test.APIClient object at 0x768dad59b920>
+make_ticket = <function make_ticket.<locals>._make at 0x768dadb71580>
+
+    @pytest.mark.parametrize("pair", DISALLOWED, ids=tid)
+    def test_patch_disallowed_transition_rejected(pair, staff_client, make_ticket):
+        current, new = pair
+        ticket = make_ticket(status=current)
+    
+        r = staff_client.patch(f"/api/tickets/{ticket.id}/", {"status": new}, format="json")
+    
+>       assert r.status_code == 400, r.content
+E       AssertionError: b'{"id":1,"queue":1,"title":"Printer jam","description":null,"resolution":null,"submitter_email":"sam.rivera@example.com","assigned_to":null,"status":1,"on_hold":false,"priority":3,"due_date":null,"merged_to":null,"followup_set":[]}'
+E       assert 200 == 400
+E        +  where 200 = <Response status_code=200, "application/json">.status_code
+
+tests/team/api/test_state_transitions.py:86: AssertionError
+________ test_patch_disallowed_transition_rejected[Resolved->Duplicate] ________
+
+pair = (3, 5)
+staff_client = <rest_framework.test.APIClient object at 0x768dad59a060>
+make_ticket = <function make_ticket.<locals>._make at 0x768dad9496c0>
+
+    @pytest.mark.parametrize("pair", DISALLOWED, ids=tid)
+    def test_patch_disallowed_transition_rejected(pair, staff_client, make_ticket):
+        current, new = pair
+        ticket = make_ticket(status=current)
+    
+        r = staff_client.patch(f"/api/tickets/{ticket.id}/", {"status": new}, format="json")
+    
+>       assert r.status_code == 400, r.content
+E       AssertionError: b'{"id":1,"queue":1,"title":"Printer jam","description":null,"resolution":null,"submitter_email":"sam.rivera@example.com","assigned_to":null,"status":5,"on_hold":false,"priority":3,"due_date":null,"merged_to":null,"followup_set":[]}'
+E       assert 200 == 400
+E        +  where 200 = <Response status_code=200, "application/json">.status_code
+
+tests/team/api/test_state_transitions.py:86: AssertionError
+___________ test_patch_disallowed_transition_rejected[Closed->Open] ____________
+
+pair = (4, 1)
+staff_client = <rest_framework.test.APIClient object at 0x768dad54f500>
+make_ticket = <function make_ticket.<locals>._make at 0x768dada2fb00>
+
+    @pytest.mark.parametrize("pair", DISALLOWED, ids=tid)
+    def test_patch_disallowed_transition_rejected(pair, staff_client, make_ticket):
+        current, new = pair
+        ticket = make_ticket(status=current)
+    
+        r = staff_client.patch(f"/api/tickets/{ticket.id}/", {"status": new}, format="json")
+    
+>       assert r.status_code == 400, r.content
+E       AssertionError: b'{"id":1,"queue":1,"title":"Printer jam","description":null,"resolution":null,"submitter_email":"sam.rivera@example.com","assigned_to":null,"status":1,"on_hold":false,"priority":3,"due_date":null,"merged_to":null,"followup_set":[]}'
+E       assert 200 == 400
+E        +  where 200 = <Response status_code=200, "application/json">.status_code
+
+tests/team/api/test_state_transitions.py:86: AssertionError
+_________ test_patch_disallowed_transition_rejected[Closed->Resolved] __________
+
+pair = (4, 3)
+staff_client = <rest_framework.test.APIClient object at 0x768dad766450>
+make_ticket = <function make_ticket.<locals>._make at 0x768dada2f240>
+
+    @pytest.mark.parametrize("pair", DISALLOWED, ids=tid)
+    def test_patch_disallowed_transition_rejected(pair, staff_client, make_ticket):
+        current, new = pair
+        ticket = make_ticket(status=current)
+    
+        r = staff_client.patch(f"/api/tickets/{ticket.id}/", {"status": new}, format="json")
+    
+>       assert r.status_code == 400, r.content
+E       AssertionError: b'{"id":1,"queue":1,"title":"Printer jam","description":null,"resolution":null,"submitter_email":"sam.rivera@example.com","assigned_to":null,"status":3,"on_hold":false,"priority":3,"due_date":null,"merged_to":null,"followup_set":[]}'
+E       assert 200 == 400
+E        +  where 200 = <Response status_code=200, "application/json">.status_code
+
+tests/team/api/test_state_transitions.py:86: AssertionError
+_________ test_patch_disallowed_transition_rejected[Closed->Duplicate] _________
+
+pair = (4, 5)
+staff_client = <rest_framework.test.APIClient object at 0x768dad629100>
+make_ticket = <function make_ticket.<locals>._make at 0x768dada2c2c0>
+
+    @pytest.mark.parametrize("pair", DISALLOWED, ids=tid)
+    def test_patch_disallowed_transition_rejected(pair, staff_client, make_ticket):
+        current, new = pair
+        ticket = make_ticket(status=current)
+    
+        r = staff_client.patch(f"/api/tickets/{ticket.id}/", {"status": new}, format="json")
+    
+>       assert r.status_code == 400, r.content
+E       AssertionError: b'{"id":1,"queue":1,"title":"Printer jam","description":null,"resolution":null,"submitter_email":"sam.rivera@example.com","assigned_to":null,"status":5,"on_hold":false,"priority":3,"due_date":null,"merged_to":null,"followup_set":[]}'
+E       assert 200 == 400
+E        +  where 200 = <Response status_code=200, "application/json">.status_code
+
+tests/team/api/test_state_transitions.py:86: AssertionError
+__________ test_patch_disallowed_transition_rejected[Duplicate->Open] __________
+
+pair = (5, 1)
+staff_client = <rest_framework.test.APIClient object at 0x768dadb84080>
+make_ticket = <function make_ticket.<locals>._make at 0x768dadb739c0>
+
+    @pytest.mark.parametrize("pair", DISALLOWED, ids=tid)
+    def test_patch_disallowed_transition_rejected(pair, staff_client, make_ticket):
+        current, new = pair
+        ticket = make_ticket(status=current)
+    
+        r = staff_client.patch(f"/api/tickets/{ticket.id}/", {"status": new}, format="json")
+    
+>       assert r.status_code == 400, r.content
+E       AssertionError: b'{"id":1,"queue":1,"title":"Printer jam","description":null,"resolution":null,"submitter_email":"sam.rivera@example.com","assigned_to":null,"status":1,"on_hold":false,"priority":3,"due_date":null,"merged_to":null,"followup_set":[]}'
+E       assert 200 == 400
+E        +  where 200 = <Response status_code=200, "application/json">.status_code
+
+tests/team/api/test_state_transitions.py:86: AssertionError
+________ test_patch_disallowed_transition_rejected[Duplicate->Resolved] ________
+
+pair = (5, 3)
+staff_client = <rest_framework.test.APIClient object at 0x768dad766a20>
+make_ticket = <function make_ticket.<locals>._make at 0x768dadb727a0>
+
+    @pytest.mark.parametrize("pair", DISALLOWED, ids=tid)
+    def test_patch_disallowed_transition_rejected(pair, staff_client, make_ticket):
+        current, new = pair
+        ticket = make_ticket(status=current)
+    
+        r = staff_client.patch(f"/api/tickets/{ticket.id}/", {"status": new}, format="json")
+    
+>       assert r.status_code == 400, r.content
+E       AssertionError: b'{"id":1,"queue":1,"title":"Printer jam","description":null,"resolution":null,"submitter_email":"sam.rivera@example.com","assigned_to":null,"status":3,"on_hold":false,"priority":3,"due_date":null,"merged_to":null,"followup_set":[]}'
+E       assert 200 == 400
+E        +  where 200 = <Response status_code=200, "application/json">.status_code
+
+tests/team/api/test_state_transitions.py:86: AssertionError
+_________ test_patch_disallowed_transition_rejected[Duplicate->Closed] _________
+
+pair = (5, 4)
+staff_client = <rest_framework.test.APIClient object at 0x768dad59b380>
+make_ticket = <function make_ticket.<locals>._make at 0x768dad7f0860>
+
+    @pytest.mark.parametrize("pair", DISALLOWED, ids=tid)
+    def test_patch_disallowed_transition_rejected(pair, staff_client, make_ticket):
+        current, new = pair
+        ticket = make_ticket(status=current)
+    
+        r = staff_client.patch(f"/api/tickets/{ticket.id}/", {"status": new}, format="json")
+    
+>       assert r.status_code == 400, r.content
+E       AssertionError: b'{"id":1,"queue":1,"title":"Printer jam","description":null,"resolution":null,"submitter_email":"sam.rivera@example.com","assigned_to":null,"status":4,"on_hold":false,"priority":3,"due_date":null,"merged_to":null,"followup_set":[]}'
+E       assert 200 == 400
+E        +  where 200 = <Response status_code=200, "application/json">.status_code
+
+tests/team/api/test_state_transitions.py:86: AssertionError
+______________ test_followup_cannot_resolve_with_open_dependency _______________
+
+staff_client = <rest_framework.test.APIClient object at 0x768dad59a630>
+make_ticket = <function make_ticket.<locals>._make at 0x768dada2d940>
+add_open_dependency = <function add_open_dependency.<locals>._add at 0x768dada2c220>
+
+    def test_followup_cannot_resolve_with_open_dependency(staff_client, make_ticket, add_open_dependency):
+        ticket = make_ticket(status=1)
+        add_open_dependency(ticket)
+    
+        r = staff_client.post(
+            "/api/followups/", {"ticket": ticket.id, "comment": "Done", "new_status": 3}, format="json"
+        )
+    
+>       assert r.status_code == 400
+E       assert 201 == 400
+E        +  where 201 = <Response status_code=201, "application/json">.status_code
+
+tests/team/api/test_state_transitions.py:100: AssertionError
+=========================== short test summary info ============================
+XFAIL tests/team/api/test_crossflow_and_repeats.py::test_repeated_identical_followup_is_not_duplicated - DEF-07: identical follow-up POST creates a duplicate record
+FAILED tests/team/api/test_access_br4.py::test_inactive_staff_denied - assert...
+FAILED tests/team/api/test_crossflow_and_repeats.py::test_w1_creates_ticket_that_w2_resolves_and_closes
+FAILED tests/team/api/test_crossflow_and_repeats.py::test_page_size_is_capped
+FAILED tests/team/api/test_state_transitions.py::test_followup_disallowed_transition_rejected[Open->Reopened]
+FAILED tests/team/api/test_state_transitions.py::test_followup_disallowed_transition_rejected[Reopened->Open]
+FAILED tests/team/api/test_state_transitions.py::test_followup_disallowed_transition_rejected[Resolved->Open]
+FAILED tests/team/api/test_state_transitions.py::test_followup_disallowed_transition_rejected[Resolved->Duplicate]
+FAILED tests/team/api/test_state_transitions.py::test_followup_disallowed_transition_rejected[Closed->Open]
+FAILED tests/team/api/test_state_transitions.py::test_followup_disallowed_transition_rejected[Closed->Resolved]
+FAILED tests/team/api/test_state_transitions.py::test_followup_disallowed_transition_rejected[Closed->Duplicate]
+FAILED tests/team/api/test_state_transitions.py::test_followup_disallowed_transition_rejected[Duplicate->Open]
+FAILED tests/team/api/test_state_transitions.py::test_followup_disallowed_transition_rejected[Duplicate->Resolved]
+FAILED tests/team/api/test_state_transitions.py::test_followup_disallowed_transition_rejected[Duplicate->Closed]
+FAILED tests/team/api/test_state_transitions.py::test_patch_disallowed_transition_rejected[Open->Reopened]
+FAILED tests/team/api/test_state_transitions.py::test_patch_disallowed_transition_rejected[Reopened->Open]
+FAILED tests/team/api/test_state_transitions.py::test_patch_disallowed_transition_rejected[Resolved->Open]
+FAILED tests/team/api/test_state_transitions.py::test_patch_disallowed_transition_rejected[Resolved->Duplicate]
+FAILED tests/team/api/test_state_transitions.py::test_patch_disallowed_transition_rejected[Closed->Open]
+FAILED tests/team/api/test_state_transitions.py::test_patch_disallowed_transition_rejected[Closed->Resolved]
+FAILED tests/team/api/test_state_transitions.py::test_patch_disallowed_transition_rejected[Closed->Duplicate]
+FAILED tests/team/api/test_state_transitions.py::test_patch_disallowed_transition_rejected[Duplicate->Open]
+FAILED tests/team/api/test_state_transitions.py::test_patch_disallowed_transition_rejected[Duplicate->Resolved]
+FAILED tests/team/api/test_state_transitions.py::test_patch_disallowed_transition_rejected[Duplicate->Closed]
+FAILED tests/team/api/test_state_transitions.py::test_followup_cannot_resolve_with_open_dependency
+24 failed, 47 passed, 100 deselected, 1 xfailed in 84.68s (0:01:24)

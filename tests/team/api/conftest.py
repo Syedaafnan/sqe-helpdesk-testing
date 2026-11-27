@@ -14,6 +14,7 @@ from django.contrib.auth import get_user_model
 from rest_framework.test import APIClient
 
 from helpdesk.models import FollowUp, Queue, Ticket, TicketDependency
+from tests.team.seed import content as cafe
 
 GENERATED = Path(__file__).resolve().parents[1] / "datagen" / "generated"
 # TEAM_CASES=cases_v2.json runs the same tests on the regenerated (changed-spec) cases.
@@ -44,21 +45,21 @@ def start_state_for(target):
 @pytest.fixture
 def queue(db):
     return Queue.objects.create(
-        title="IT Support", slug="IT", allow_public_submission=True
+        title=cafe.MAIN_QUEUE, slug=cafe.MAIN_QUEUE_SLUG, allow_public_submission=True
     )
 
 
 @pytest.fixture
 def staff_user(db):
     return get_user_model().objects.create_user(
-        username="agent", email="agent@example.com", password="Pa33w0rd!", is_staff=True
+        username=cafe.W2_STAFF, email=f"{cafe.W2_STAFF}@{cafe.DOMAIN}", password="Pa33w0rd!", is_staff=True
     )
 
 
 @pytest.fixture
 def submitter_user(db):
     return get_user_model().objects.create_user(
-        username="sam", email="sam.rivera@example.com", password="Pa33w0rd!"
+        username=cafe.CUSTOMER[0], email=cafe.CUSTOMER_EMAIL, password="Pa33w0rd!"
     )
 
 
@@ -83,7 +84,7 @@ def anon_client():
 
 @pytest.fixture
 def make_ticket(queue):
-    def _make(status=OPEN, email="sam.rivera@example.com", title="Printer jam", **kw):
+    def _make(status=OPEN, email=cafe.CUSTOMER_EMAIL, title="Wi-Fi drops during a match", **kw):
         return Ticket.objects.create(
             queue=queue, title=title, status=status, submitter_email=email, **kw
         )

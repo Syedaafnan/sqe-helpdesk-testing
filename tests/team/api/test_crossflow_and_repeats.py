@@ -4,6 +4,7 @@ endpoint weaknesses found while testing the API."""
 import pytest
 
 from helpdesk.models import FollowUp, Ticket, TicketChange
+from tests.team.seed import content as cafe
 
 pytestmark = [pytest.mark.api, pytest.mark.django_db]
 
@@ -12,7 +13,7 @@ def test_w1_creates_ticket_that_w2_resolves_and_closes(staff_client, queue):
     # W1: submit
     r = staff_client.post(
         "/api/tickets/",
-        {"queue": queue.id, "title": "VPN drops", "description": "Every 10 min", "priority": 2},
+        {"queue": queue.id, "title": "Lounge Wi-Fi drops", "description": "Every 10 min during matches", "priority": 2},
         format="json",
     )
     assert r.status_code == 201
@@ -67,7 +68,7 @@ def test_repeated_identical_followup_is_not_duplicated(staff_client, make_ticket
 @pytest.mark.xfail(strict=True, reason="DEF-08: page_size has no upper bound")
 def test_page_size_is_capped(staff_client, queue):
     Ticket.objects.bulk_create(
-        [Ticket(queue=queue, title=f"T{i}", submitter_email="a@example.com") for i in range(120)]
+        [Ticket(queue=queue, title=f"T{i}", submitter_email=cafe.SECOND_CUSTOMER_EMAIL) for i in range(120)]
     )
     r = staff_client.get("/api/tickets/?page_size=100000")
     assert r.status_code == 200

@@ -15,6 +15,7 @@ import pytest
 from django.test import Client
 
 from helpdesk.models import FollowUp
+from tests.team.seed import content as cafe
 
 pytestmark = [pytest.mark.api, pytest.mark.django_db]
 
@@ -39,9 +40,11 @@ DECISION_TABLE = [
 
 
 @pytest.mark.parametrize(
-    "rule, start, new, open_dep, http, final", DECISION_TABLE, ids=[d[0] for d in DECISION_TABLE]
+    "start, new, open_dep, http, final",
+    [d[1:] for d in DECISION_TABLE],
+    ids=[d[0] for d in DECISION_TABLE],
 )
-def test_br2_decision_table(rule, start, new, open_dep, http, final, make_ticket, add_open_dependency):
+def test_br2_decision_table(start, new, open_dep, http, final, make_ticket, add_open_dependency):
     ticket = make_ticket(status=start)
     if open_dep:
         add_open_dependency(ticket)
@@ -60,7 +63,7 @@ def test_br2_decision_table(rule, start, new, open_dep, http, final, make_ticket
 def test_wrong_credentials_denied(field, make_ticket):
     """FR-09: a submitter can only update their own ticket."""
     ticket = make_ticket(status=1)
-    kwargs = {"email": "intruder@example.com"} if field == "email" else {"key": "wrongkey"}
+    kwargs = {"email": f"intruder@{cafe.DOMAIN}"} if field == "email" else {"key": "wrongkey"}
 
     response = post_as_submitter(ticket, 3, **kwargs)
 

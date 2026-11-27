@@ -1,4 +1,4 @@
-"""Controlled failure and recovery on the W2 write path (docs/team/PERFORMANCE.md).
+"""Controlled failure and recovery on the W2 write path (final report, Performance).
 
 Fault injected: the database rejects the follow-up INSERT once (as with a
 locked SQLite file or a dropped connection) while a ticket is being resolved

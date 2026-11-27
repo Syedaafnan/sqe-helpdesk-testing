@@ -8,12 +8,13 @@ Invalid -> 400 and the shared record is unchanged.
 import pytest
 
 from helpdesk.models import Ticket
+from tests.team.seed import content as cafe
 
 from .conftest import followup_count, load_cases, start_state_for
 
 pytestmark = [pytest.mark.api, pytest.mark.django_db]
 
-# Open defects found by these generated cases (see docs/team/DEFECTS.md).
+# Open defects found by these generated cases (see final report, Defect Log).
 # strict=True: if a defect is fixed the test XPASSes and fails, so the marker
 # must be removed - the known-defect list cannot silently go stale.
 KNOWN_DEFECTS = {
@@ -46,9 +47,9 @@ def apply_case(payload, case, ref):
 def test_create_ticket_inputs(case, staff_client, queue):
     payload = {
         "queue": queue.id,
-        "title": "Printer on floor 2 is jammed",
+        "title": "Ordering app stuck on the loading screen",
         "description": "Paper is stuck in tray 2.",
-        "submitter_email": "sam.rivera@example.com",
+        "submitter_email": cafe.CUSTOMER_EMAIL,
         "priority": 3,
     }
     apply_case(payload, case, queue.id)
