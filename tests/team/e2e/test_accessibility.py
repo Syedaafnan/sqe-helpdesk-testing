@@ -17,15 +17,20 @@ from pathlib import Path
 
 import pytest
 
-from .conftest import EVIDENCE, login
+from tests.team.seed import content as cafe
+
+from .conftest import EVIDENCE, login, submit_public, unique
 
 AXE = (Path(__file__).parent / "vendor" / "axe.min.js").read_text(encoding="utf-8")
 PHASE = os.environ.get("A11Y_PHASE", "current")
 TAGS = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]
 
-# Rules axe reported on these screens at baseline (docs/team/ACCESSIBILITY.md).
+# Rules axe reported on these screens at baseline (final report, Usability and Accessibility).
 # `list` comes from the shared navbar in base.html and is out of the fix scope.
-BASELINE_RULES = {"color-contrast", "list", "label", "button-name", "link-name", "select-name"}
+BASELINE_RULES = {"color-contrast", "list", "label", "button-name", "link-name", "select-name",
+                  # first survey of the UC-4 customer ticket page (2026-11-27): a link in the
+                  # page text is told apart from the text by colour only (upstream template)
+                  "link-in-text-block"}
 
 
 def axe(page):
@@ -62,8 +67,9 @@ SCREENS = [
     ("public_submit", None, "/tickets/submit/"),
     ("view_lookup", None, "/view/"),
     ("login", None, "/login/"),
-    ("staff_submit", "alice", "/tickets/submit/"),
-    ("staff_ticket", "alice", "/tickets/1/"),
+    ("staff_submit", cafe.W1_STAFF, "/tickets/submit/"),
+    ("staff_ticket", cafe.W2_STAFF, "/tickets/1/"),
+    ("customer_ticket", None, None),  # UC-4 key screen: reached through the ticket link
 ]
 
 
@@ -71,7 +77,10 @@ SCREENS = [
 def test_ax2_survey_no_new_violation_types(page, name, user, path):
     if user:
         login(page, user)
-    page.goto(path)
+    if path:
+        page.goto(path)
+    else:
+        submit_public(page, unique("Ordering app is slow at lunch"))  # lands on the customer ticket page
     found = save(f"survey_{name}", axe(page))
     new = {v["rule"] for v in found} - BASELINE_RULES
     assert not new, f"new accessibility rule violations on {name}: {sorted(new)}"

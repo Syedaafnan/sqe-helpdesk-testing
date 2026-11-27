@@ -1,9 +1,13 @@
 """Shared Playwright fixtures and page helpers for the end-to-end tests.
 
-The tests drive the running demo site (see docs/team/BASELINE.md):
+The tests drive the running demo site (see final report, Appendix A):
 
     python manage.py demo_data --reset
+    python tests/team/seed/seed_butter_bean.py
     python manage.py runserver 0.0.0.0:8080
+
+The tests use the team scenario from tests/team/seed/content.py: the support
+desk of Butter & Bean, a gaming cafe in Islamabad (synthetic people and data).
     pytest tests/team/e2e -m e2e
 
 E2E_BASE_URL overrides the address. If the site is not reachable the tests are
@@ -15,6 +19,7 @@ A screenshot of the final page of every test is written to
 docs/team/evidence/e2e/<test name>.png.
 """
 
+import contextlib
 import os
 import re
 import urllib.request
@@ -23,11 +28,13 @@ from pathlib import Path
 
 import pytest
 
+from tests.team.seed import content as cafe
+
 os.environ.setdefault("DJANGO_ALLOW_ASYNC_UNSAFE", "true")
 
 BASE_URL = os.environ.get("E2E_BASE_URL", "http://localhost:8080").rstrip("/")
-PASSWORD = "Pa33w0rd"
-CUSTOMER_EMAIL = "sam.rivera@example.com"
+PASSWORD = cafe.PASSWORD
+CUSTOMER_EMAIL = cafe.CUSTOMER_EMAIL
 EVIDENCE = Path(__file__).resolve().parents[3] / "docs" / "team" / "evidence" / "e2e"
 
 
@@ -39,7 +46,7 @@ def _site_up():
         return False
 
 
-def pytest_collection_modifyitems(config, items):
+def pytest_collection_modifyitems(items):
     e2e = [i for i in items if "tests/team/e2e/" in str(i.fspath).replace("\\", "/")]
     for item in e2e:
         item.add_marker(pytest.mark.e2e)
@@ -64,10 +71,8 @@ def page(browser, request):
     yield pg
     EVIDENCE.mkdir(parents=True, exist_ok=True)
     name = re.sub(r"[^\w.-]+", "_", request.node.name)[:120]
-    try:
+    with contextlib.suppress(Exception):  # evidence only, never fail a test on it
         pg.screenshot(path=str(EVIDENCE / f"{name}.png"), full_page=True)
-    except Exception:  # noqa: BLE001 - evidence only, never fail a test on it
-        pass
     context.close()
 
 
@@ -100,7 +105,7 @@ def login(page, username):
     page.wait_for_load_state()
 
 
-def submit_public(page, title, email=CUSTOMER_EMAIL, queue="IT Support", priority=None, body="Created by E2E"):
+def submit_public(page, title, email=CUSTOMER_EMAIL, queue=cafe.MAIN_QUEUE, priority=None, body="Created by E2E"):
     """W1 through the public form. Returns (view_url, ticket_id)."""
     page.goto("/tickets/submit/")
     page.select_option("#id_queue", label=queue)
@@ -115,7 +120,7 @@ def submit_public(page, title, email=CUSTOMER_EMAIL, queue="IT Support", priorit
     return page.url, int(label.group(2))
 
 
-def submit_staff(page, title, email=CUSTOMER_EMAIL, queue="IT Support", owner=None, priority=None):
+def submit_staff(page, title, email=CUSTOMER_EMAIL, queue=cafe.MAIN_QUEUE, owner=None, priority=None):
     """W1 through the staff form (already logged in). Returns ticket id."""
     page.goto("/tickets/submit/")
     page.select_option("#id_queue", label=queue)

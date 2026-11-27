@@ -154,6 +154,7 @@ jobs:
           python manage.py migrate --noinput
           python manage.py loaddata emailtemplate.json demo.json
           python manage.py demo_data
+          python tests/team/seed/seed_butter_bean.py
           nohup python manage.py runserver 0.0.0.0:8080 --noreload > runserver.log 2>&1 &
           for i in $(seq 1 30); do curl -sf localhost:8080/ > /dev/null && exit 0; sleep 2; done
           cat runserver.log; exit 1
