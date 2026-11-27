@@ -1,0 +1,2 @@
+generator: {'survived': 15, 'killed': 997}
+generator: mutation score = 997/1012 = 98.5% (gate: >= 80%)

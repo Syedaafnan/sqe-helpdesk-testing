@@ -1,0 +1,671 @@
+{
+	"@programName": "ZAP",
+	"@version": "2.17.0",
+	"@generated": "Sat, 21 Nov 2026 18:15:17",
+	"created": "2026-11-21T13:15:17.977007265Z",
+	"insights":[
+		{
+			"level": "Low",
+			"reason": "Warning",
+			"site": "",
+			"key": "insight.log.error",
+			"description": "ZAP errors logged - see the zap.log file for details",
+			"statistic": "2"
+		},
+		{
+			"level": "Low",
+			"reason": "Warning",
+			"site": "",
+			"key": "insight.log.warn",
+			"description": "ZAP warnings logged - see the zap.log file for details",
+			"statistic": "2"
+		},
+		{
+			"level": "Info",
+			"reason": "Informational",
+			"site": "http://localhost:8080",
+			"key": "insight.code.2xx",
+			"description": "Percentage of responses with status code 2xx",
+			"statistic": "76"
+		},
+		{
+			"level": "Info",
+			"reason": "Informational",
+			"site": "http://localhost:8080",
+			"key": "insight.code.3xx",
+			"description": "Percentage of responses with status code 3xx",
+			"statistic": "1"
+		},
+		{
+			"level": "Info",
+			"reason": "Informational",
+			"site": "http://localhost:8080",
+			"key": "insight.code.4xx",
+			"description": "Percentage of responses with status code 4xx",
+			"statistic": "22"
+		},
+		{
+			"level": "Info",
+			"reason": "Informational",
+			"site": "http://localhost:8080",
+			"key": "insight.endpoint.ctype.text/html",
+			"description": "Percentage of endpoints with content type text/html",
+			"statistic": "100"
+		},
+		{
+			"level": "Info",
+			"reason": "Informational",
+			"site": "http://localhost:8080",
+			"key": "insight.endpoint.method.GET",
+			"description": "Percentage of endpoints with method GET",
+			"statistic": "86"
+		},
+		{
+			"level": "Info",
+			"reason": "Informational",
+			"site": "http://localhost:8080",
+			"key": "insight.endpoint.method.POST",
+			"description": "Percentage of endpoints with method POST",
+			"statistic": "13"
+		},
+		{
+			"level": "Info",
+			"reason": "Informational",
+			"site": "http://localhost:8080",
+			"key": "insight.endpoint.total",
+			"description": "Count of total endpoints",
+			"statistic": "45"
+		},
+		{
+			"level": "Info",
+			"reason": "Informational",
+			"site": "http://localhost:8080",
+			"key": "insight.response.slow",
+			"description": "Percentage of slow responses",
+			"statistic": "93"
+		}
+	],
+	"site":[ 
+		{
+			"@name": "http://localhost:8080",
+			"@host": "localhost",
+			"@port": "8080",
+			"@ssl": "false",
+			"alerts": [ 
+				{
+					"pluginid": "10038",
+					"alertRef": "10038-1",
+					"alert": "Content Security Policy (CSP) Header Not Set",
+					"name": "Content Security Policy (CSP) Header Not Set",
+					"riskcode": "2",
+					"confidence": "3",
+					"riskdesc": "Medium (High)",
+					"desc": "<p>Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks, including Cross Site Scripting (XSS) and data injection attacks. These attacks are used for everything from data theft to site defacement or distribution of malware. CSP provides a set of standard HTTP headers that allow website owners to declare approved sources of content that browsers should be allowed to load on that page \u2014 covered types are JavaScript, CSS, HTML frames, fonts, images and embeddable objects such as Java applets, ActiveX, audio and video files.</p>",
+					"instances":[ 
+						{
+							"id": "0",
+							"uri": "http://localhost:8080",
+							"nodeName": "http:\/\/localhost:8080",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"id": "6",
+							"uri": "http://localhost:8080/followup_delete/",
+							"nodeName": "http:\/\/localhost:8080\/followup_delete\/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"id": "5",
+							"uri": "http://localhost:8080/followup_edit/",
+							"nodeName": "http:\/\/localhost:8080\/followup_edit\/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"id": "4",
+							"uri": "http://localhost:8080/robots.txt",
+							"nodeName": "http:\/\/localhost:8080\/robots.txt",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"id": "3",
+							"uri": "http://localhost:8080/sitemap.xml",
+							"nodeName": "http:\/\/localhost:8080\/sitemap.xml",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						}
+					],
+					"count": "5",
+					"systemic": true,
+					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is configured to set the Content-Security-Policy header.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP</p><p>https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html</p><p>https://www.w3.org/TR/CSP/</p><p>https://w3c.github.io/webappsec-csp/</p><p>https://web.dev/articles/csp</p><p>https://caniuse.com/#feat=contentsecuritypolicy</p><p>https://content-security-policy.com/</p>",
+					"cweid": "693",
+					"wascid": "15",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10010",
+					"alertRef": "10010",
+					"alert": "Cookie No HttpOnly Flag",
+					"name": "Cookie No HttpOnly Flag",
+					"riskcode": "1",
+					"confidence": "2",
+					"riskdesc": "Low (Medium)",
+					"desc": "<p>A cookie has been set without the HttpOnly flag, which means that the cookie can be accessed by JavaScript. If a malicious script can be run on this page then the cookie will be accessible and can be transmitted to another site. If this is a session cookie then session hijacking may be possible.</p>",
+					"instances":[ 
+						{
+							"id": "1",
+							"uri": "http://localhost:8080",
+							"nodeName": "http:\/\/localhost:8080",
+							"method": "GET",
+							"param": "csrftoken",
+							"attack": "",
+							"evidence": "Set-Cookie: csrftoken",
+							"otherinfo": ""
+						},
+						{
+							"id": "29",
+							"uri": "http://localhost:8080/change_language/?return_to=/login/%3Fnext%3D/",
+							"nodeName": "http:\/\/localhost:8080\/change_language\/ (return_to)",
+							"method": "GET",
+							"param": "csrftoken",
+							"attack": "",
+							"evidence": "Set-Cookie: csrftoken",
+							"otherinfo": ""
+						},
+						{
+							"id": "9",
+							"uri": "http://localhost:8080/login/?next=/",
+							"nodeName": "http:\/\/localhost:8080\/login\/ (next)",
+							"method": "GET",
+							"param": "csrftoken",
+							"attack": "",
+							"evidence": "Set-Cookie: csrftoken",
+							"otherinfo": ""
+						},
+						{
+							"id": "27",
+							"uri": "http://localhost:8080/password-reset/",
+							"nodeName": "http:\/\/localhost:8080\/password-reset\/",
+							"method": "GET",
+							"param": "csrftoken",
+							"attack": "",
+							"evidence": "Set-Cookie: csrftoken",
+							"otherinfo": ""
+						},
+						{
+							"id": "14",
+							"uri": "http://localhost:8080/view/",
+							"nodeName": "http:\/\/localhost:8080\/view\/",
+							"method": "GET",
+							"param": "csrftoken",
+							"attack": "",
+							"evidence": "Set-Cookie: csrftoken",
+							"otherinfo": ""
+						}
+					],
+					"count": "5",
+					"systemic": true,
+					"solution": "<p>Ensure that the HttpOnly flag is set for all cookies.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://owasp.org/www-community/HttpOnly</p>",
+					"cweid": "1004",
+					"wascid": "13",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10036",
+					"alertRef": "10036-2",
+					"alert": "Server Leaks Version Information via \"Server\" HTTP Response Header Field",
+					"name": "Server Leaks Version Information via \"Server\" HTTP Response Header Field",
+					"riskcode": "1",
+					"confidence": "3",
+					"riskdesc": "Low (High)",
+					"desc": "<p>The web/application server is leaking version information via the \"Server\" HTTP response header. Access to such information may facilitate attackers identifying other vulnerabilities your web/application server is subject to.</p>",
+					"instances":[ 
+						{
+							"id": "2",
+							"uri": "http://localhost:8080",
+							"nodeName": "http:\/\/localhost:8080",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "WSGIServer/0.2 CPython/3.12.3",
+							"otherinfo": ""
+						},
+						{
+							"id": "17",
+							"uri": "http://localhost:8080/followup_edit/",
+							"nodeName": "http:\/\/localhost:8080\/followup_edit\/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "WSGIServer/0.2 CPython/3.12.3",
+							"otherinfo": ""
+						},
+						{
+							"id": "15",
+							"uri": "http://localhost:8080/login/?next=/",
+							"nodeName": "http:\/\/localhost:8080\/login\/ (next)",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "WSGIServer/0.2 CPython/3.12.3",
+							"otherinfo": ""
+						},
+						{
+							"id": "11",
+							"uri": "http://localhost:8080/robots.txt",
+							"nodeName": "http:\/\/localhost:8080\/robots.txt",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "WSGIServer/0.2 CPython/3.12.3",
+							"otherinfo": ""
+						},
+						{
+							"id": "12",
+							"uri": "http://localhost:8080/sitemap.xml",
+							"nodeName": "http:\/\/localhost:8080\/sitemap.xml",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "WSGIServer/0.2 CPython/3.12.3",
+							"otherinfo": ""
+						}
+					],
+					"count": "5",
+					"systemic": true,
+					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is configured to suppress the \"Server\" header or provide generic details.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://httpd.apache.org/docs/current/mod/core.html#servertokens</p><p>https://learn.microsoft.com/en-us/previous-versions/msp-n-p/ff648552(v=pandp.10)</p><p>https://www.troyhunt.com/shhh-dont-let-your-response-headers/</p>",
+					"cweid": "497",
+					"wascid": "13",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10111",
+					"alertRef": "10111",
+					"alert": "Authentication Request Identified",
+					"name": "Authentication Request Identified",
+					"riskcode": "0",
+					"confidence": "3",
+					"riskdesc": "Informational (High)",
+					"desc": "<p>The given request has been identified as an authentication request. The 'Other Info' field contains a set of key=value lines which identify any relevant fields. If the request is in a context which has an Authentication Method set to \"Auto-Detect\" then this rule will change the authentication to match the request identified.</p>",
+					"instances":[ 
+						{
+							"id": "77",
+							"uri": "http://localhost:8080/login/?next=/",
+							"nodeName": "http:\/\/localhost:8080\/login\/ (next)(csrfmiddlewaretoken,next,password,username)",
+							"method": "POST",
+							"param": "username",
+							"attack": "",
+							"evidence": "password",
+							"otherinfo": "userParam=username\nuserValue=ZAP\npasswordParam=password\nreferer=http://localhost:8080/login/?next=/\ncsrfToken=csrfmiddlewaretoken"
+						}
+					],
+					"count": "1",
+					"systemic": false,
+					"solution": "<p>This is an informational alert rather than a vulnerability and so there is nothing to fix.</p>",
+					"otherinfo": "<p>userParam=username</p><p>userValue=ZAP</p><p>passwordParam=password</p><p>referer=http://localhost:8080/login/?next=/</p><p>csrfToken=csrfmiddlewaretoken</p>",
+					"reference": "<p>https://www.zaproxy.org/docs/desktop/addons/authentication-helper/auth-req-id/</p>",
+					"cweid": "-1",
+					"wascid": "-1",
+					"sourceid": "179"
+				},
+				{
+					"pluginid": "10024",
+					"alertRef": "10024",
+					"alert": "Information Disclosure - Sensitive Information in URL",
+					"name": "Information Disclosure - Sensitive Information in URL",
+					"riskcode": "0",
+					"confidence": "2",
+					"riskdesc": "Informational (Medium)",
+					"desc": "<p>The request appeared to contain sensitive information leaked in the URL. This can violate PCI and most organizational compliance policies. You can configure the list of strings for this check to add or remove values specific to your environment.</p>",
+					"instances":[ 
+						{
+							"id": "45",
+							"uri": "http://localhost:8080/view/?email=zaproxy%40example.com&ticket=ZAP",
+							"nodeName": "http:\/\/localhost:8080\/view\/ (email,ticket)",
+							"method": "GET",
+							"param": "email",
+							"attack": "",
+							"evidence": "zaproxy@example.com",
+							"otherinfo": "The URL contains email address(es)."
+						},
+						{
+							"id": "47",
+							"uri": "http://localhost:8080/view/?email=zaproxy%40example.com&ticket=ZAP",
+							"nodeName": "http:\/\/localhost:8080\/view\/ (email,ticket)",
+							"method": "GET",
+							"param": "ticket",
+							"attack": "",
+							"evidence": "ticket",
+							"otherinfo": "The URL contains potentially sensitive information. The following string was found via the pattern: ticket\nticket"
+						}
+					],
+					"count": "2",
+					"systemic": true,
+					"solution": "<p>Do not pass sensitive information in URIs.</p>",
+					"otherinfo": "<p>The URL contains email address(es).</p>",
+					"reference": "",
+					"cweid": "598",
+					"wascid": "13",
+					"sourceid": "93"
+				},
+				{
+					"pluginid": "10109",
+					"alertRef": "10109",
+					"alert": "Modern Web Application",
+					"name": "Modern Web Application",
+					"riskcode": "0",
+					"confidence": "2",
+					"riskdesc": "Informational (Medium)",
+					"desc": "<p>The application appears to be a modern web application. If you need to explore it automatically then the Ajax Spider may well be more effective than the standard one.</p>",
+					"instances":[ 
+						{
+							"id": "30",
+							"uri": "http://localhost:8080/change_language/?return_to=/login/%3Fnext%3D/",
+							"nodeName": "http:\/\/localhost:8080\/change_language\/ (return_to)",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<script src=\"/static/helpdesk/js/color-modes.js\"></script>",
+							"otherinfo": "No links have been found while there are scripts, which is an indication that this is a modern web application."
+						}
+					],
+					"count": "1",
+					"systemic": true,
+					"solution": "<p>This is an informational alert and so no changes are required.</p>",
+					"otherinfo": "<p>No links have been found while there are scripts, which is an indication that this is a modern web application.</p>",
+					"reference": "",
+					"cweid": "-1",
+					"wascid": "-1",
+					"sourceid": "62"
+				},
+				{
+					"pluginid": "10112",
+					"alertRef": "10112",
+					"alert": "Session Management Response Identified",
+					"name": "Session Management Response Identified",
+					"riskcode": "0",
+					"confidence": "2",
+					"riskdesc": "Informational (Medium)",
+					"desc": "<p>The given response has been identified as containing a session management token. The 'Other Info' field contains a set of header tokens that can be used in the Header Based Session Management Method. If the request is in a context which has a Session Management Method set to \"Auto-Detect\" then this rule will change the session management to use the tokens identified.</p>",
+					"instances":[ 
+						{
+							"id": "19",
+							"uri": "http://localhost:8080",
+							"nodeName": "http:\/\/localhost:8080",
+							"method": "GET",
+							"param": "csrftoken",
+							"attack": "",
+							"evidence": "csrftoken",
+							"otherinfo": "cookie:csrftoken"
+						},
+						{
+							"id": "53",
+							"uri": "http://localhost:8080/",
+							"nodeName": "http:\/\/localhost:8080\/",
+							"method": "GET",
+							"param": "csrftoken",
+							"attack": "",
+							"evidence": "csrftoken",
+							"otherinfo": "cookie:csrftoken"
+						},
+						{
+							"id": "38",
+							"uri": "http://localhost:8080/change_language/?return_to=/login/%3Fnext%3D/",
+							"nodeName": "http:\/\/localhost:8080\/change_language\/ (return_to)",
+							"method": "GET",
+							"param": "csrftoken",
+							"attack": "",
+							"evidence": "csrftoken",
+							"otherinfo": "cookie:csrftoken"
+						},
+						{
+							"id": "40",
+							"uri": "http://localhost:8080/kb/",
+							"nodeName": "http:\/\/localhost:8080\/kb\/",
+							"method": "GET",
+							"param": "csrftoken",
+							"attack": "",
+							"evidence": "csrftoken",
+							"otherinfo": "cookie:csrftoken"
+						},
+						{
+							"id": "50",
+							"uri": "http://localhost:8080/kb/billing/",
+							"nodeName": "http:\/\/localhost:8080\/kb\/billing\/",
+							"method": "GET",
+							"param": "csrftoken",
+							"attack": "",
+							"evidence": "csrftoken",
+							"otherinfo": "cookie:csrftoken"
+						},
+						{
+							"id": "48",
+							"uri": "http://localhost:8080/kb/getting-started/",
+							"nodeName": "http:\/\/localhost:8080\/kb\/getting-started\/",
+							"method": "GET",
+							"param": "csrftoken",
+							"attack": "",
+							"evidence": "csrftoken",
+							"otherinfo": "cookie:csrftoken"
+						},
+						{
+							"id": "41",
+							"uri": "http://localhost:8080/kb/kbcat1/",
+							"nodeName": "http:\/\/localhost:8080\/kb\/kbcat1\/",
+							"method": "GET",
+							"param": "csrftoken",
+							"attack": "",
+							"evidence": "csrftoken",
+							"otherinfo": "cookie:csrftoken"
+						},
+						{
+							"id": "18",
+							"uri": "http://localhost:8080/login/?next=/",
+							"nodeName": "http:\/\/localhost:8080\/login\/ (next)",
+							"method": "GET",
+							"param": "csrftoken",
+							"attack": "",
+							"evidence": "csrftoken",
+							"otherinfo": "cookie:csrftoken"
+						},
+						{
+							"id": "34",
+							"uri": "http://localhost:8080/password-reset/",
+							"nodeName": "http:\/\/localhost:8080\/password-reset\/",
+							"method": "GET",
+							"param": "csrftoken",
+							"attack": "",
+							"evidence": "csrftoken",
+							"otherinfo": "cookie:csrftoken"
+						},
+						{
+							"id": "52",
+							"uri": "http://localhost:8080/tickets/submit/",
+							"nodeName": "http:\/\/localhost:8080\/tickets\/submit\/",
+							"method": "GET",
+							"param": "csrftoken",
+							"attack": "",
+							"evidence": "csrftoken",
+							"otherinfo": "cookie:csrftoken"
+						},
+						{
+							"id": "26",
+							"uri": "http://localhost:8080/view/",
+							"nodeName": "http:\/\/localhost:8080\/view\/",
+							"method": "GET",
+							"param": "csrftoken",
+							"attack": "",
+							"evidence": "csrftoken",
+							"otherinfo": "cookie:csrftoken"
+						},
+						{
+							"id": "51",
+							"uri": "http://localhost:8080/view/?email=zaproxy%40example.com&ticket=ZAP",
+							"nodeName": "http:\/\/localhost:8080\/view\/ (email,ticket)",
+							"method": "GET",
+							"param": "csrftoken",
+							"attack": "",
+							"evidence": "csrftoken",
+							"otherinfo": "cookie:csrftoken"
+						}
+					],
+					"count": "12",
+					"systemic": false,
+					"solution": "<p>This is an informational alert rather than a vulnerability and so there is nothing to fix.</p>",
+					"otherinfo": "<p>cookie:csrftoken</p>",
+					"reference": "<p>https://www.zaproxy.org/docs/desktop/addons/authentication-helper/session-mgmt-id/</p>",
+					"cweid": "-1",
+					"wascid": "-1",
+					"sourceid": "8"
+				},
+				{
+					"pluginid": "10031",
+					"alertRef": "10031",
+					"alert": "User Controllable HTML Element Attribute (Potential XSS)",
+					"name": "User Controllable HTML Element Attribute (Potential XSS)",
+					"riskcode": "0",
+					"confidence": "1",
+					"riskdesc": "Informational (Low)",
+					"desc": "<p>This check looks at user-supplied input in query string parameters and POST data to identify where certain HTML attribute values might be controlled. This provides hot-spot detection for XSS (cross-site scripting) that will require further review by a security analyst to determine exploitability.</p>",
+					"instances":[ 
+						{
+							"id": "33",
+							"uri": "http://localhost:8080/change_language/?return_to=/login/%3Fnext%3D/",
+							"nodeName": "http:\/\/localhost:8080\/change_language\/ (return_to)",
+							"method": "GET",
+							"param": "return_to",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\n\nhttp://localhost:8080/change_language/?return_to=/login/%3Fnext%3D/\n\nappears to include user input in:\na(n) [input] tag [value] attribute\n\nThe user input found was:\nreturn_to=/login/?next=/\n\nThe user-controlled value was:\n/login/?next=/"
+						},
+						{
+							"id": "56",
+							"uri": "http://localhost:8080/tickets/submit/?_readonly_fields_=queue&kbitem=4&queue=2",
+							"nodeName": "http:\/\/localhost:8080\/tickets\/submit\/ (_readonly_fields_,kbitem,queue)",
+							"method": "GET",
+							"param": "_readonly_fields_",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\n\nhttp://localhost:8080/tickets/submit/?_readonly_fields_=queue&kbitem=4&queue=2\n\nappears to include user input in:\na(n) [select] tag [name] attribute\n\nThe user input found was:\n_readonly_fields_=queue\n\nThe user-controlled value was:\nqueue"
+						},
+						{
+							"id": "62",
+							"uri": "http://localhost:8080/tickets/submit/?_readonly_fields_=queue&kbitem=10&queue=3",
+							"nodeName": "http:\/\/localhost:8080\/tickets\/submit\/ (_readonly_fields_,kbitem,queue)",
+							"method": "GET",
+							"param": "kbitem",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\n\nhttp://localhost:8080/tickets/submit/?_readonly_fields_=queue&kbitem=10&queue=3\n\nappears to include user input in:\na(n) [textarea] tag [rows] attribute\n\nThe user input found was:\nkbitem=10\n\nThe user-controlled value was:\n10"
+						},
+						{
+							"id": "54",
+							"uri": "http://localhost:8080/tickets/submit/?_readonly_fields_=queue&queue=2",
+							"nodeName": "http:\/\/localhost:8080\/tickets\/submit\/ (_readonly_fields_,queue)",
+							"method": "GET",
+							"param": "_readonly_fields_",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\n\nhttp://localhost:8080/tickets/submit/?_readonly_fields_=queue&queue=2\n\nappears to include user input in:\na(n) [select] tag [name] attribute\n\nThe user input found was:\n_readonly_fields_=queue\n\nThe user-controlled value was:\nqueue"
+						},
+						{
+							"id": "60",
+							"uri": "http://localhost:8080/tickets/submit/?kbitem=1",
+							"nodeName": "http:\/\/localhost:8080\/tickets\/submit\/ (kbitem)",
+							"method": "GET",
+							"param": "kbitem",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\n\nhttp://localhost:8080/tickets/submit/?kbitem=1\n\nappears to include user input in:\na(n) [meta] tag [content] attribute\n\nThe user input found was:\nkbitem=1\n\nThe user-controlled value was:\nwidth=device-width, initial-scale=1, shrink-to-fit=no"
+						},
+						{
+							"id": "64",
+							"uri": "http://localhost:8080/tickets/submit/",
+							"nodeName": "http:\/\/localhost:8080\/tickets\/submit\/ ()(attachment,body,csrfmiddlewaretoken,custom_customer_reference,custom_product_version,due_date,priority,queue,submitter_email,title)",
+							"method": "POST",
+							"param": "custom_customer_reference",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\n\nhttp://localhost:8080/tickets/submit/\n\nappears to include user input in:\na(n) [input] tag [value] attribute\n\nThe user input found was:\ncustom_customer_reference=ZAP\n\nThe user-controlled value was:\nzap"
+						},
+						{
+							"id": "76",
+							"uri": "http://localhost:8080/tickets/submit/",
+							"nodeName": "http:\/\/localhost:8080\/tickets\/submit\/ ()(attachment,body,csrfmiddlewaretoken,custom_customer_reference,custom_product_version,due_date,priority,queue,submitter_email,title)",
+							"method": "POST",
+							"param": "custom_product_version",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\n\nhttp://localhost:8080/tickets/submit/\n\nappears to include user input in:\na(n) [option] tag [value] attribute\n\nThe user input found was:\ncustom_product_version=4.2\n\nThe user-controlled value was:\n4.2"
+						},
+						{
+							"id": "67",
+							"uri": "http://localhost:8080/tickets/submit/",
+							"nodeName": "http:\/\/localhost:8080\/tickets\/submit\/ ()(attachment,body,csrfmiddlewaretoken,custom_customer_reference,custom_product_version,due_date,priority,queue,submitter_email,title)",
+							"method": "POST",
+							"param": "due_date",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\n\nhttp://localhost:8080/tickets/submit/\n\nappears to include user input in:\na(n) [input] tag [value] attribute\n\nThe user input found was:\ndue_date=ZAP\n\nThe user-controlled value was:\nzap"
+						},
+						{
+							"id": "72",
+							"uri": "http://localhost:8080/tickets/submit/",
+							"nodeName": "http:\/\/localhost:8080\/tickets\/submit\/ ()(attachment,body,csrfmiddlewaretoken,custom_customer_reference,custom_product_version,due_date,priority,queue,submitter_email,title)",
+							"method": "POST",
+							"param": "submitter_email",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\n\nhttp://localhost:8080/tickets/submit/\n\nappears to include user input in:\na(n) [input] tag [value] attribute\n\nThe user input found was:\nsubmitter_email=foo-bar@example.com\n\nThe user-controlled value was:\nfoo-bar@example.com"
+						},
+						{
+							"id": "68",
+							"uri": "http://localhost:8080/tickets/submit/",
+							"nodeName": "http:\/\/localhost:8080\/tickets\/submit\/ ()(attachment,body,csrfmiddlewaretoken,custom_customer_reference,custom_product_version,due_date,priority,queue,submitter_email,title)",
+							"method": "POST",
+							"param": "title",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\n\nhttp://localhost:8080/tickets/submit/\n\nappears to include user input in:\na(n) [input] tag [value] attribute\n\nThe user input found was:\ntitle=ZAP\n\nThe user-controlled value was:\nzap"
+						}
+					],
+					"count": "10",
+					"systemic": false,
+					"solution": "<p>Validate all input and sanitize output it before writing to any HTML attributes.</p>",
+					"otherinfo": "<p>User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:</p><p></p><p>http://localhost:8080/change_language/?return_to=/login/%3Fnext%3D/</p><p></p><p>appears to include user input in:</p><p>a(n) [input] tag [value] attribute</p><p></p><p>The user input found was:</p><p>return_to=/login/?next=/</p><p></p><p>The user-controlled value was:</p><p>/login/?next=/</p>",
+					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html</p>",
+					"cweid": "20",
+					"wascid": "20",
+					"sourceid": "62"
+				}
+			]
+		}
+	],
+	"sequences":[
+	]
+
+}

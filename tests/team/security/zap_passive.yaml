@@ -1,0 +1,43 @@
+# OWASP ZAP passive scan of the demo site (no active attacks).
+# Run:  zap.sh -cmd -autorun tests/team/security/zap_passive.yaml
+# The spider crawls the public pages and the passive scanner inspects every
+# response (headers, cookies, forms, information leaks). Reports are written
+# to docs/team/evidence/security/.
+env:
+  contexts:
+    - name: helpdesk
+      urls:
+        - http://localhost:8080
+      includePaths:
+        - "http://localhost:8080.*"
+      excludePaths:
+        - ".*/logout/.*"
+        - ".*/i18n/setlang/.*"
+        - ".*/static/.*"
+  parameters:
+    failOnError: true
+    progressToStdout: true
+jobs:
+  - type: passiveScan-config
+    parameters:
+      maxAlertsPerRule: 10
+      scanOnlyInScope: true
+  - type: spider
+    parameters:
+      context: helpdesk
+      maxDuration: 3
+      maxDepth: 5
+  - type: passiveScan-wait
+    parameters:
+      maxDuration: 10
+  - type: report
+    parameters:
+      template: traditional-html
+      reportDir: ../../../docs/team/evidence/security
+      reportFile: zap_passive_report.html
+      reportTitle: django-helpdesk passive scan
+  - type: report
+    parameters:
+      template: traditional-json
+      reportDir: ../../../docs/team/evidence/security
+      reportFile: zap_passive_report.json

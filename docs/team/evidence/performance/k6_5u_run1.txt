@@ -1,0 +1,15 @@
+run 5u_run1: 5 virtual user(s), 75s
+iterations 26  (0.31/s)
+requests 156  failed 0.00 %  checks 100.00 %
+all requests                       avg   2395 ms  p95   6715 ms  max  10928 ms
+reads                              avg   3432 ms  p95   8259 ms  max  10928 ms
+writes                             avg   1357 ms  p95   3576 ms  max   5564 ms
+  GET submit form                  avg    108 ms  p95    219 ms  max    275 ms
+  POST submit form                 avg    483 ms  p95   1383 ms  max   2299 ms
+  GET open tickets                 avg   3831 ms  p95   6418 ms  max   6876 ms
+  POST follow-up resolve           avg   3106 ms  p95   4869 ms  max   5564 ms
+  GET ticket read-back             avg   6357 ms  p95  10399 ms  max  10928 ms
+http_req_duration{kind:read}: p(95)<500 FAIL
+checks: rate==1.0 PASS
+http_req_failed: rate<0.01 PASS
+http_req_duration{kind:write}: p(95)<1500 FAIL

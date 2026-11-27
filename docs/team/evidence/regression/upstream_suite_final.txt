@@ -1,0 +1,98 @@
+Creating test database for alias 'default'...
+.....................................['Unsupported file extension: .html']
+.........ss...................../home/afnan/venvs/helpdesk/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1712: RuntimeWarning: DateTimeField Ticket.created received a naive datetime (2026-10-22 00:00:00) while time zone support is active.
+  warnings.warn(
+/home/afnan/venvs/helpdesk/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1712: RuntimeWarning: DateTimeField Ticket.created received a naive datetime (2026-09-22 00:00:00) while time zone support is active.
+  warnings.warn(
+..........................................................................................template "updated_submitter" does not exist, no mail sent
+................Queue processing failed: test2
+Traceback (most recent call last):
+  File "/mnt/c/Users/shazi/Desktop/sqe final project/django-helpdesk/src/helpdesk/email.py", line 124, in process_email
+    process_queue(q, logger=logger)
+  File "/home/afnan/venvs/helpdesk/lib/python3.12/site-packages/mock/mock.py", line 1190, in __call__
+    return _mock_self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afnan/venvs/helpdesk/lib/python3.12/site-packages/mock/mock.py", line 1194, in _mock_call
+    return _mock_self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afnan/venvs/helpdesk/lib/python3.12/site-packages/mock/mock.py", line 1255, in _execute_mock_call
+    raise result
+Exception: Error Q2;
+Queue processing failed: test4
+Traceback (most recent call last):
+  File "/mnt/c/Users/shazi/Desktop/sqe final project/django-helpdesk/src/helpdesk/email.py", line 124, in process_email
+    process_queue(q, logger=logger)
+  File "/home/afnan/venvs/helpdesk/lib/python3.12/site-packages/mock/mock.py", line 1190, in __call__
+    return _mock_self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afnan/venvs/helpdesk/lib/python3.12/site-packages/mock/mock.py", line 1194, in _mock_call
+    return _mock_self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afnan/venvs/helpdesk/lib/python3.12/site-packages/mock/mock.py", line 1255, in _execute_mock_call
+    raise result
+Exception: Error Q4;
+.............................................................................There are no public queues defined - public ticket creation is impossible
+.........................................................................................................................................................................................................................................................................................................127.0.0.1 - - [21/Nov/2026 18:18:42] "POST /new-ticket HTTP/1.1" 200 -
+127.0.0.1 - - [21/Nov/2026 18:18:42] "POST /new-ticket-1 HTTP/1.1" 200 -
+127.0.0.1 - - [21/Nov/2026 18:18:42] "GET /get-past-requests HTTP/1.1" 200 -
+127.0.0.1 - - [21/Nov/2026 18:18:42] "POST /followup HTTP/1.1" 200 -
+127.0.0.1 - - [21/Nov/2026 18:18:42] "POST /followup-1 HTTP/1.1" 200 -
+127.0.0.1 - - [21/Nov/2026 18:18:42] "GET /get-past-requests HTTP/1.1" 200 -
+.127.0.0.1 - - [21/Nov/2026 18:18:43] "POST /new-ticket HTTP/1.1" 200 -
+127.0.0.1 - - [21/Nov/2026 18:18:43] "GET /get-past-requests HTTP/1.1" 200 -
+127.0.0.1 - - [21/Nov/2026 18:18:43] "POST /followup HTTP/1.1" 200 -
+127.0.0.1 - - [21/Nov/2026 18:18:43] "GET /get-past-requests HTTP/1.1" 200 -
+.127.0.0.1 - - [21/Nov/2026 18:18:43] "POST /new-ticket HTTP/1.1" 200 -
+127.0.0.1 - - [21/Nov/2026 18:18:43] "GET /get-past-requests HTTP/1.1" 200 -
+...................
+----------------------------------------------------------------------
+Ran 570 tests in 26.988s
+
+OK (skipped=2)
+Destroying test database for alias 'default'...
+Running tests using Django version 6.1.3...
+Found 570 test(s).
+System check identified no issues (0 silenced).
+Preparing Queue Support [support]
+  .. generated `permission_name=helpdesk.queue_access_support`
+  .. checking permission codename `queue_access_support`
+Processing: <QuerySet [<Queue: Escalation Support>]>
+  - Esclating [escalation-support-1] from 3>2
+Extracting email into queues...
+Processing queue: test1 Email address: None...
+Queue successfully processed: test1
+Processing queue: test2 Email address: None...
+Queue processing failed: test2
+------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/shazi/Desktop/sqe final project/django-helpdesk/src/helpdesk/email.py", line 124, in process_email
+    process_queue(q, logger=logger)
+  File "/home/afnan/venvs/helpdesk/lib/python3.12/site-packages/mock/mock.py", line 1190, in __call__
+    return _mock_self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afnan/venvs/helpdesk/lib/python3.12/site-packages/mock/mock.py", line 1194, in _mock_call
+    return _mock_self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afnan/venvs/helpdesk/lib/python3.12/site-packages/mock/mock.py", line 1255, in _execute_mock_call
+    raise result
+Exception: Error Q2;
+Processing queue: test3 Email address: None...
+Queue successfully processed: test3
+Processing queue: test4 Email address: None...
+Queue processing failed: test4
+------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/shazi/Desktop/sqe final project/django-helpdesk/src/helpdesk/email.py", line 124, in process_email
+    process_queue(q, logger=logger)
+  File "/home/afnan/venvs/helpdesk/lib/python3.12/site-packages/mock/mock.py", line 1190, in __call__
+    return _mock_self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afnan/venvs/helpdesk/lib/python3.12/site-packages/mock/mock.py", line 1194, in _mock_call
+    return _mock_self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afnan/venvs/helpdesk/lib/python3.12/site-packages/mock/mock.py", line 1255, in _execute_mock_call
+    raise result
+Exception: Error Q4;
+Processing queue: test5 Email address: None...
+Queue successfully processed: test5
+Email extraction into queues completed.

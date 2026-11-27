@@ -1,0 +1,8 @@
+~ changed  createTicket.priority.BVA.max: value 5 -> 4, valid True -> True
+~ changed  createTicket.priority.BVA.max+1: value 6 -> 5, valid False -> False
+~ changed  createTicket.priority.BVA.max-1: value 4 -> 3, valid True -> True
+~ changed  createTicket.priority.EP.above_range: value 15 -> 14, valid False -> False
+~ changed  createTicket.priority.EP.valid_in_range: value 3 -> 2, valid True -> True
+~ changed  createTicket.title.BVA.maxLength: value <string len 200> -> <string len 150>, valid True -> True
+~ changed  createTicket.title.BVA.maxLength+1: value <string len 201> -> <string len 151>, valid False -> False
+~ changed  createTicket.title.BVA.maxLength-1: value <string len 199> -> <string len 149>, valid True -> True

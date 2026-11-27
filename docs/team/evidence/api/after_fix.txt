@@ -1,0 +1,12 @@
+...............xx.............................x..xx...................x. [ 27%]
+........................................................................ [ 55%]
+........................................................................ [ 83%]
+............................................                             [100%]
+=========================== short test summary info ============================
+XFAIL tests/team/api/test_crossflow_and_repeats.py::test_repeated_identical_followup_is_not_duplicated - DEF-07: identical follow-up POST creates a duplicate record
+XFAIL tests/team/api/test_crossflow_and_repeats.py::test_page_size_is_capped - DEF-08: page_size has no upper bound
+XFAIL tests/team/api/test_generated_inputs.py::test_create_ticket_inputs[createTicket.description.BVA.minLength-1] - DEF-04: error reported on 'body', not 'description'
+XFAIL tests/team/api/test_generated_inputs.py::test_create_ticket_inputs[createTicket.description.EP.missing_required] - DEF-03: missing description -> HTTP 500 (KeyError)
+XFAIL tests/team/api/test_generated_inputs.py::test_create_ticket_inputs[createTicket.description.EP.null] - DEF-04: error reported on 'body', not 'description'
+XFAIL tests/team/api/test_generated_inputs.py::test_create_ticket_inputs[createTicket.priority.EP.omitted_optional] - DEF-05: priority has model default 3 but API requires it
+254 passed, 6 xfailed in 219.57s (0:03:39)

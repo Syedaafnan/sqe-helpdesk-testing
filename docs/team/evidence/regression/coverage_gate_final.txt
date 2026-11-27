@@ -1,0 +1,15 @@
+# ticket_rules.py (from the final team-suite run)
+Name                           Stmts   Miss Branch BrPart  Cover   Missing
+--------------------------------------------------------------------------
+src/helpdesk/ticket_rules.py      48      0     20      0   100%
+--------------------------------------------------------------------------
+TOTAL                             48      0     20      0   100%
+gate exit=0
+
+# generate.py (after adding GEN-34, datagen tests re-run)
+Name                             Stmts   Miss Branch BrPart  Cover   Missing
+----------------------------------------------------------------------------
+tests/team/datagen/generate.py     156      0     68      0   100%
+----------------------------------------------------------------------------
+TOTAL                              156      0     68      0   100%
+gate exit=0

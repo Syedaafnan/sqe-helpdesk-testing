@@ -1,0 +1,80 @@
+...............xx.............................x..xx...................x. [ 23%]
+........................................................................ [ 46%]
+........................................................................ [ 69%]
+........................................................................ [ 92%]
+.......................                                                  [100%]
+=============================== warnings summary ===============================
+../../../../../../../home/afnan/venvs/helpdesk/lib/python3.12/site-packages/pytest_cov/engine.py:248
+  /home/afnan/venvs/helpdesk/lib/python3.12/site-packages/pytest_cov/engine.py:248: CentralCovContextWarning: Detected dynamic_context=test_function in coverage configuration. This is unnecessary as this plugin provides the more complete --cov-context option.
+    warnings.warn(CentralCovContextWarning(message), stacklevel=1)
+
+../../../../../../../home/afnan/venvs/helpdesk/lib/python3.12/site-packages/pytest_django/plugin.py:394
+  /home/afnan/venvs/helpdesk/lib/python3.12/site-packages/pytest_django/plugin.py:394: RemovedInDjango2028Warning: The EMAIL_BACKEND setting is deprecated. Migrate to MAILERS before Django 2028.
+    dj_settings.DATABASES  # noqa: B018
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================================ tests coverage ================================
+_______________ coverage: platform linux, python 3.12.3-final-0 ________________
+
+Name                                                               Stmts   Miss Branch BrPart  Cover   Missing
+--------------------------------------------------------------------------------------------------------------
+src/helpdesk/__init__.py                                               0      0      0      0   100%
+src/helpdesk/admin.py                                                 89     15     14      3    75%   24->28, 34-39, 42-43, 62-68, 71, 105, 108->125, 118->125
+src/helpdesk/apps.py                                                   7      0      0      0   100%
+src/helpdesk/copy_followup.py                                         23     18      4      0    19%   13-50
+src/helpdesk/decorators.py                                            55     23     24      6    48%   23-26, 35, 38, 58, 63, 65, 77-90, 101-105
+src/helpdesk/email.py                                                537    537    182      0     0%   9-1188
+src/helpdesk/exceptions.py                                             2      2      0      0     0%   1-7
+src/helpdesk/forms.py                                                358    176    112     14    42%   54->57, 68-115, 138-204, 207-223, 235-245, 250-264, 269-280, 308-309, 314-320, 372->386, 392, 408, 411-417, 427, 459->461, 466, 483, 535->543, 540->543, 559-563, 569, 580, 610-641, 646-660, 666-687, 716-717, 726-727, 743, 761-764, 780-783, 806-812, 815-827, 842-843
+src/helpdesk/lib.py                                                  128     81     48      2    31%   68, 105-151, 155-191, 198-202, 207-214, 220-284, 291, 306-307
+src/helpdesk/management/__init__.py                                    0      0      0      0   100%
+src/helpdesk/management/commands/__init__.py                           0      0      0      0   100%
+src/helpdesk/management/commands/create_escalation_exclusions.py      37     37     18      0     0%   11-96
+src/helpdesk/management/commands/create_queue_permissions.py          28     28      6      0     0%   15-74
+src/helpdesk/management/commands/create_usersettings.py               10     10      2      0     0%   10-32
+src/helpdesk/management/commands/escalate_tickets.py                  43     43     16      0     0%   10-114
+src/helpdesk/management/commands/get_email.py                         11     11      0      0     0%   14-44
+src/helpdesk/models.py                                               789    286    170     18    55%   53-54, 64-92, 408, 412, 421-424, 428, 441, 444-447, 452->462, 454, 456, 458, 460, 462->473, 476-485, 648, 657-658, 662, 709->exit, 716, 718-719, 727-752, 759-764, 788-789, 795, 800, 810, 821-832, 877, 894, 898, 912-938, 942, 948-952, 957-964, 969, 972, 1070, 1077, 1082, 1103-1109, 1118-1122, 1126, 1131-1213, 1223, 1260-1270, 1279, 1314, 1317-1329, 1332, 1335, 1341, 1360-1367, 1378-1385, 1432, 1466, 1530, 1567, 1570, 1624, 1627-1628, 1631-1633, 1636, 1642-1645, 1648-1649, 1652, 1657, 1662, 1702-1705, 1828, 1903, 1906-1908, 1914-1918, 1932-1935, 1993-1996, 2001-2004, 2009, 2012-2013, 2110-2113, 2135, 2142-2147, 2150-2185, 2204, 2208, 2243, 2247-2253, 2267, 2284, 2287-2288, 2293, 2296, 2322
+src/helpdesk/query.py                                                132    100     44      0    18%   20, 27-31, 35-58, 105-107, 116-117, 126, 154-157, 160-161, 178-229, 234, 247-286, 294-320, 325
+src/helpdesk/sanitize.py                                              20     12      0      0    40%   43-45, 49, 62, 72-77, 98-103
+src/helpdesk/serializers.py                                          174     38     24      4    75%   75, 78, 81, 84, 87, 90-98, 101, 104, 107, 110, 113, 159, 191-201, 214-219, 236, 319, 321, 336-337
+src/helpdesk/settings.py                                             135     14     14      7    86%   27-28, 38-41, 331, 384, 450-456, 464, 521, 567, 578
+src/helpdesk/signals.py                                                3      0      0      0   100%
+src/helpdesk/tasks.py                                                  5      4      0      0    20%   3-8
+src/helpdesk/templated_email.py                                       58     23     20      5    51%   74-81, 101-113, 115->118, 126->131, 128-129, 142-146, 151-157
+src/helpdesk/templatetags/__init__.py                                  0      0      0      0   100%
+src/helpdesk/templatetags/bootstrap5_form.py                          38     22     14      0    31%   41-49, 60-74, 79, 85, 92-93
+src/helpdesk/templatetags/followup_permissions.py                     13      6      4      0    41%   25-29, 35
+src/helpdesk/templatetags/helpdesk_staff.py                           11      4      0      0    64%   19-22
+src/helpdesk/templatetags/helpdesk_util.py                            22     12      0      0    45%   18, 27-46
+src/helpdesk/templatetags/in_list.py                                   5      1      0      0    80%   22
+src/helpdesk/templatetags/load_helpdesk_settings.py                    6      1      0      0    83%   14
+src/helpdesk/templatetags/saved_queries.py                            17     11      2      0    32%   19-33
+src/helpdesk/templatetags/ticket_to_link.py                           24     16      8      0    25%   22-49
+src/helpdesk/templatetags/user_admin_url.py                           11      6      0      0    45%   17-23
+src/helpdesk/ticket_rules.py                                          48      0     20      0   100%
+src/helpdesk/update_ticket.py                                        202     92    102     20    50%   30, 38-43, 48-70, 87, 94-127, 133-147, 170, 173-176, 197, 226, 249, 280->282, 282->284, 286->289, 305, 325-338, 360, 367-372, 375-380, 383-388, 392, 395-413
+src/helpdesk/urls.py                                                  52      7     20      7    72%   36->43, 53-60, 68->214, 191->200, 200->214, 243->253, 253->267, 292->295
+src/helpdesk/user.py                                                  69     37     34      6    37%   6->10, 11, 32-34, 39-44, 47-52, 60, 76-84, 98, 100, 103-106, 117-120, 128-129, 137-139
+src/helpdesk/validators.py                                            10      7      4      0    21%   15-31
+src/helpdesk/views/__init__.py                                         0      0      0      0   100%
+src/helpdesk/views/abstract_views.py                                  27     23      6      0    12%   6-30, 33-43
+src/helpdesk/views/api.py                                            100      8     20      2    92%   44, 48, 166, 188, 193, 198-200
+src/helpdesk/views/auth.py                                            23      7      2      0    64%   57-66
+src/helpdesk/views/feeds.py                                           96     45     22      0    45%   34-43, 50-56, 61-69, 74-81, 90-93, 96, 99-102, 114, 117, 120, 123-126, 140, 146, 154-157, 160, 165, 170, 176, 179, 182-185
+src/helpdesk/views/kb.py                                              61     44     16      0    22%   35-40, 48-79, 87, 97-129
+src/helpdesk/views/permissions.py                                      5      1      0      0    80%   8
+src/helpdesk/views/public.py                                         217    133     54      0    32%   46-49, 54-64, 67-85, 88-108, 111-119, 122-141, 150, 153-154, 162, 169-173, 180-184, 191-198, 203-216, 274-333, 336-343, 353-360, 375-419, 426-430, 436-437
+src/helpdesk/views/staff.py                                         1101    924    316      1    13%   109->113, 127-131, 135-136, 140, 176-180, 191-318, 341-342, 347-361, 367-470, 487-493, 498-499, 504, 513-610, 639-662, 676-684, 704-726, 735-751, 755-758, 764-772, 776-841, 847-850, 855-977, 996-1017, 1027-1115, 1126-1158, 1176-1205, 1214-1381, 1389-1410, 1421-1423, 1429-1430, 1435-1443, 1457-1458, 1461-1463, 1466-1469, 1472-1476, 1486-1487, 1491-1514, 1517-1521, 1528-1529, 1534-1543, 1552-1580, 1586-1613, 1619, 1624, 1632-1669, 1675-1686, 1690-1731, 1739-1892, 1897-1900, 1911-1925, 1932-1938, 1950, 1957-1958, 1965-1974, 1981-1988, 1993-1997, 2009-2032, 2046-2056, 2061-2073, 2085-2093, 2100-2112, 2124-2133, 2153-2185, 2190-2199, 2210-2225, 2230-2298, 2302-2309, 2313, 2317, 2321, 2326-2335, 2348-2352, 2363-2428, 2443-2462
+src/helpdesk/webhooks.py                                              40     19      8      2    48%   19-36, 50-62
+--------------------------------------------------------------------------------------------------------------
+TOTAL                                                               4842   2884   1350     97    35%
+Coverage XML written to file coverage.xml
+=========================== short test summary info ============================
+XFAIL tests/team/api/test_crossflow_and_repeats.py::test_repeated_identical_followup_is_not_duplicated - DEF-07: identical follow-up POST creates a duplicate record
+XFAIL tests/team/api/test_crossflow_and_repeats.py::test_page_size_is_capped - DEF-08: page_size has no upper bound
+XFAIL tests/team/api/test_generated_inputs.py::test_create_ticket_inputs[createTicket.description.BVA.minLength-1] - DEF-04: error reported on 'body', not 'description'
+XFAIL tests/team/api/test_generated_inputs.py::test_create_ticket_inputs[createTicket.description.EP.missing_required] - DEF-03: missing description -> HTTP 500 (KeyError)
+XFAIL tests/team/api/test_generated_inputs.py::test_create_ticket_inputs[createTicket.description.EP.null] - DEF-04: error reported on 'body', not 'description'
+XFAIL tests/team/api/test_generated_inputs.py::test_create_ticket_inputs[createTicket.priority.EP.omitted_optional] - DEF-05: priority has model default 3 but API requires it
+305 passed, 6 xfailed, 2 warnings in 267.08s (0:04:27)

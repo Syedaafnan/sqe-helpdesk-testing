@@ -1,0 +1,175 @@
+# SE3002 quality gate. Every job must pass before a pull request can merge
+# (make the four job names "required status checks" for main in
+# Settings > Branches > Branch protection rules).
+#
+# No job or step is allowed to fail softly: there is no continue-on-error and
+# no "|| true". A failing gate fails the check and blocks the merge.
+name: quality-gate
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-gate-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHON_VERSION: "3.12"
+  DJANGO_SETTINGS_MODULE: demodesk.config.settings
+
+jobs:
+  tests:
+    name: unit-api-tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+          pip install -r tests/team/requirements.txt numpy mock faker pbr pysocks
+      - name: Team unit, API, integration and recovery tests (with coverage)
+        run: >
+          pytest -m "not e2e" -p no:cacheprovider
+          --cov=src/helpdesk --cov=tests/team/datagen --cov-branch
+          --cov-report=xml:coverage.xml --cov-report=term
+          --junitxml=test-results.xml
+      - name: Coverage gate - business-rule module and generator at 100 % statement and branch
+        run: |
+          coverage report --include="src/helpdesk/ticket_rules.py" --fail-under=100 --show-missing
+          coverage report --include="tests/team/datagen/generate.py" --fail-under=100 --show-missing
+      - name: Generated test data is up to date with the OpenAPI spec
+        run: |
+          python tests/team/datagen/generate.py --out /tmp/cases.json
+          diff <(python -c "import json;print(json.dumps(json.load(open('/tmp/cases.json'))['cases'],sort_keys=True,indent=1))") \
+               <(python -c "import json;print(json.dumps(json.load(open('tests/team/datagen/generated/cases.json'))['cases'],sort_keys=True,indent=1))")
+      - name: Upstream regression suite
+        run: python quicktest.py
+      - name: Dependency audit (runtime + test dependencies)
+        # fails on any known vulnerability; the helpdesk itself is installed in editable mode
+        # and is skipped (it is the system under test, not a dependency)
+        run: pip-audit --skip-editable
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coverage
+          path: |
+            coverage.xml
+            test-results.xml
+
+  mutation:
+    name: mutation-tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Install (helpdesk deliberately NOT installed, see run_mutmut.sh)
+        run: pip install "pytest>=9.0.3" "mutmut==3.8.1" PyYAML
+      - name: mutmut gate (score >= 90 % on both targets)
+        run: MUTMUT_WORKDIR="$RUNNER_TEMP/mutwork" bash tests/team/mutation/run_mutmut.sh 90
+      - name: Custom operators gate (BSO + GDO, every mutant killed)
+        run: python tests/team/mutation/custom_operators.py --min-score 100
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mutation
+          path: docs/team/evidence/mutation/
+
+  sonar:
+    name: sonarqube-gate
+    needs: tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    services:
+      sonarqube:
+        image: sonarqube:26.10.0.133078-community
+        env:
+          SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: "true"
+        ports:
+          - 9000:9000
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/download-artifact@v4
+        with:
+          name: coverage
+      - name: Wait for SonarQube
+        run: |
+          for i in $(seq 1 60); do
+            if curl -s localhost:9000/api/system/status | grep -q '"status":"UP"'; then exit 0; fi
+            sleep 5
+          done
+          echo "SonarQube did not start"; exit 1
+      - name: Create analysis token
+        run: |
+          curl -sf -u admin:admin -X POST localhost:9000/api/users/change_password \
+            --data-urlencode login=admin --data-urlencode previousPassword=admin \
+            --data-urlencode "password=${{ github.run_id }}Ci#Pass"
+          TOKEN=$(curl -sf -u "admin:${{ github.run_id }}Ci#Pass" -X POST localhost:9000/api/user_tokens/generate \
+            -d name=ci -d type=GLOBAL_ANALYSIS_TOKEN | python -c 'import sys,json;print(json.load(sys.stdin)["token"])')
+          echo "::add-mask::$TOKEN"
+          echo "SONAR_TOKEN=$TOKEN" >> "$GITHUB_ENV"
+      - name: Scan and wait for the quality gate (fails the job if the gate fails)
+        run: |
+          curl -sfL -o scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-7.2.0.5079.zip
+          unzip -q scanner.zip
+          sonar-scanner-7.2.0.5079/bin/sonar-scanner -Dsonar.host.url=http://localhost:9000 -Dsonar.token="$SONAR_TOKEN"
+
+  e2e:
+    name: e2e-playwright
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install
+        run: |
+          pip install -e .
+          pip install -r tests/team/requirements.txt
+          python -m playwright install --with-deps chromium
+          npm install --no-package-lock --no-audit --no-fund
+          make static-vendor
+      - name: Seed demo data and start the site
+        run: |
+          python manage.py migrate --noinput
+          python manage.py loaddata emailtemplate.json demo.json
+          python manage.py demo_data
+          python tests/team/seed/seed_butter_bean.py
+          nohup python manage.py runserver 0.0.0.0:8080 --noreload > runserver.log 2>&1 &
+          for i in $(seq 1 30); do curl -sf localhost:8080/ > /dev/null && exit 0; sleep 2; done
+          cat runserver.log; exit 1
+      - name: Use cases, usability, accessibility and access-control tests
+        env:
+          E2E_REQUIRED: "1"
+        run: pytest tests/team/e2e -m e2e -p no:cacheprovider
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: e2e-evidence
+          path: |
+            docs/team/evidence/e2e/
+            docs/team/evidence/accessibility/
+            docs/team/evidence/usability/
+            runserver.log

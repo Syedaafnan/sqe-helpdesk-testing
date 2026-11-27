@@ -1,0 +1,34 @@
+Lighthouse accessibility,best-practices,seo on each use case's key screen (http://localhost:8080, mobile emulation)
+
+uc1_public_submit  /tickets/submit/  as anonymous: accessibility 100, best-practices 96, seo 100
+uc2_staff_submit  /tickets/submit/  as afnan: accessibility 91, best-practices 96, seo 100
+uc3_staff_ticket  /tickets/164/  as arooj: accessibility 78, best-practices 96, seo 91
+uc4_customer_ticket  /view/  as anonymous: accessibility 96, best-practices 96, seo 100
+
+Distinct issues (an issue found by both tools counted once): 10
+
+- aria-valid-attr-value [accessibility; Lighthouse]: `[aria-*]` attributes do not have valid values
+    uc3_staff_ticket: div.card-header > ul#ticketTab > li.nav-item > button#followup-tab
+- button-name [accessibility; Lighthouse + axe-core]: Buttons do not have an accessible name
+    uc2_staff_submit: nav.navbar > div.container-fluid > div.d-flex > button#sidebarToggle
+    uc3_staff_ticket: nav.navbar > div.container-fluid > div.d-flex > button#sidebarToggle
+- color-contrast [accessibility; Lighthouse + axe-core]: Background and foreground colors do not have a sufficient contrast ratio.
+    uc3_staff_ticket: div.card-header > ul#ticketTab > li.nav-item > button#respond-tab
+- crawlable-anchors [seo; Lighthouse]: Links are not crawlable
+    uc3_staff_ticket: div.row > div.col > div.input-group > a.link-dark
+- errors-in-console [best-practices; Lighthouse]: Browser errors were logged to the console
+    uc1_public_submit: (page level)
+    uc2_staff_submit: (page level)
+    uc3_staff_ticket: (page level)
+    uc4_customer_ticket: (page level)
+- label [accessibility; axe-core]: Form elements must have labels
+    uc3_staff_ticket: input[value="watcher@example.com"]
+- link-in-text-block [accessibility; Lighthouse + axe-core]: Links rely on color to be distinguishable.
+    uc4_customer_ticket: form > div.mb-3 > div.form-text > a
+- link-name [accessibility; Lighthouse + axe-core]: Links do not have a discernible name
+    uc2_staff_submit: div.d-flex > ul.navbar-nav > li.dropdown > a#userDropdown
+    uc3_staff_ticket: div.d-flex > ul.navbar-nav > li.dropdown > a#userDropdown
+- list [accessibility; Lighthouse + axe-core]: Lists do not contain only `<li>` elements and script supporting elements (`<script>` and `<template>`).
+    uc3_staff_ticket: div.card-body > div.row > div.col > ul.list-unstyled, div.card-body > div.row > div.col > ul.list-unstyled, div.card-body > div.row > div.col > ul.list-group
+- select-name [accessibility; Lighthouse + axe-core]: Select elements do not have associated label elements.
+    uc3_staff_ticket: form > div.d-flex > div.input-group > select.form-select

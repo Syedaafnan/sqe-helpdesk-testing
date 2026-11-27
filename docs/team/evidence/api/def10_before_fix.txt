@@ -1,0 +1,44 @@
+.FF.                                                                     [100%]
+=================================== FAILURES ===================================
+_____________ test_staff_form_rejects_resolve_with_open_dependency _____________
+
+web = <django.test.client.Client object at 0x7a9583ccaf60>
+make_ticket = <function make_ticket.<locals>._make at 0x7a9583be1760>
+add_open_dependency = <function add_open_dependency.<locals>._add at 0x7a9583be1620>
+
+    def test_staff_form_rejects_resolve_with_open_dependency(web, make_ticket, add_open_dependency):
+        ticket = make_ticket(status=Ticket.OPEN_STATUS)
+        add_open_dependency(ticket)
+        r = post_update(web, ticket, Ticket.RESOLVED_STATUS, "forced")
+        ticket.refresh_from_db()
+>       assert ticket.status == Ticket.OPEN_STATUS
+E       assert 3 == 1
+E        +  where 3 = <Ticket: 1 Printer jam>.status
+E        +  and   1 = Ticket.OPEN_STATUS
+
+tests/team/api/test_staff_form_rules.py:52: AssertionError
+__________________ test_staff_form_rejects_closed_to_resolved __________________
+
+web = <django.test.client.Client object at 0x7a9583bce720>
+make_ticket = <function make_ticket.<locals>._make at 0x7a9583a59940>
+
+    def test_staff_form_rejects_closed_to_resolved(web, make_ticket):
+        ticket = make_ticket(status=Ticket.CLOSED_STATUS)
+        r = post_update(web, ticket, Ticket.RESOLVED_STATUS, "forced")
+        ticket.refresh_from_db()
+>       assert ticket.status == Ticket.CLOSED_STATUS
+E       assert 3 == 4
+E        +  where 3 = <Ticket: 1 Printer jam>.status
+E        +  and   4 = Ticket.CLOSED_STATUS
+
+tests/team/api/test_staff_form_rules.py:61: AssertionError
+=============================== warnings summary ===============================
+../../../../../../../home/afnan/venvs/helpdesk/lib/python3.12/site-packages/pytest_django/plugin.py:394
+  /home/afnan/venvs/helpdesk/lib/python3.12/site-packages/pytest_django/plugin.py:394: RemovedInDjango2028Warning: The EMAIL_BACKEND setting is deprecated. Migrate to MAILERS before Django 2028.
+    dj_settings.DATABASES  # noqa: B018
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/team/api/test_staff_form_rules.py::test_staff_form_rejects_resolve_with_open_dependency
+FAILED tests/team/api/test_staff_form_rules.py::test_staff_form_rejects_closed_to_resolved
+2 failed, 2 passed, 1 warning in 11.32s

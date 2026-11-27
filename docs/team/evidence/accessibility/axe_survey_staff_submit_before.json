@@ -1,0 +1,13 @@
+[
+  {
+    "rule": "button-name",
+    "impact": "critical",
+    "nodes": 1,
+    "targets": [
+      [
+        "#sidebarToggle"
+      ]
+    ],
+    "help": "Buttons must have discernible text"
+  }
+]

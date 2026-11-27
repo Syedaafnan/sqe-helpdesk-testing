@@ -1,0 +1,2 @@
+rules: {'killed': 116, 'survived': 8}
+rules: mutation score = 116/124 = 93.5% (gate: >= 0%)

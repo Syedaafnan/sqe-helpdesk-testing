@@ -1,0 +1,24 @@
+[
+  {
+    "rule": "color-contrast",
+    "impact": "serious",
+    "nodes": 1,
+    "targets": [
+      [
+        "a[href$=\"kb/\"]"
+      ]
+    ],
+    "help": "Elements must meet minimum color contrast ratio thresholds"
+  },
+  {
+    "rule": "list",
+    "impact": "serious",
+    "nodes": 1,
+    "targets": [
+      [
+        ".navbar-nav"
+      ]
+    ],
+    "help": "<ul> and <ol> must only directly contain <li>, <script> or <template> elements"
+  }
+]

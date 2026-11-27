@@ -1,0 +1,13 @@
+[
+  {
+    "rule": "link-in-text-block",
+    "impact": "serious",
+    "nodes": 1,
+    "targets": [
+      [
+        "a[href$=\"context/\"]"
+      ]
+    ],
+    "help": "Links must be distinguishable without relying on color"
+  }
+]

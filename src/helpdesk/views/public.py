@@ -32,6 +32,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
 from helpdesk import settings as helpdesk_settings
+from helpdesk import ticket_rules
 from helpdesk.decorators import is_helpdesk_staff, protect_view
 from helpdesk.lib import text_is_spam
 from helpdesk.models import Queue, Ticket, TicketChange, UserSettings
@@ -238,18 +239,19 @@ class ViewTicket(TemplateView):
         comment = request.POST.get("comment", "")
         status = request.POST.get("new_status")
 
-        allowed_statuses = {choice[0] for choice in ticket.get_allowed_status_flow}
-        allowed_statuses.add(ticket.status)
-
         try:
             new_status = int(status) if status else ticket.status
         except (TypeError, ValueError):
             raise PermissionDenied()
 
-        if not ticket.can_be_resolved and new_status != ticket.status:
-            raise PermissionDenied()
-
-        if new_status not in allowed_statuses:
+        # BR-2: (no open dependencies OR status unchanged) AND allowed by the flow
+        if not ticket_rules.submitter_may_change_status(
+            current=ticket.status,
+            new=new_status,
+            has_open_dependencies=not ticket.can_be_resolved,
+            flow=Ticket.STATUS_CHOICES_FLOW,
+            all_statuses=[code for code, _label in Ticket.STATUS_CHOICES],
+        ):
             raise PermissionDenied()
 
         files = (

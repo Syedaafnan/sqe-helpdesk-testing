@@ -1,0 +1,95 @@
+.............F....x..xx..................Fx............................. [ 72%]
+............................                                             [100%]
+=================================== FAILURES ===================================
+________ test_create_ticket_inputs[createTicket.title.BVA.maxLength+1] _________
+
+case = {'id': 'createTicket.title.BVA.maxLength+1', 'operation': 'createTicket', 'schema': 'TicketCreate', 'field': 'title', ...}
+staff_client = <rest_framework.test.APIClient object at 0x75bbd0894350>
+queue = <Queue: IT Support>
+
+    @pytest.mark.parametrize("case", mark_known(load_cases("createTicket")), ids=lambda c: c["id"])
+    def test_create_ticket_inputs(case, staff_client, queue):
+        payload = {
+            "queue": queue.id,
+            "title": "Printer on floor 2 is jammed",
+            "description": "Paper is stuck in tray 2.",
+            "submitter_email": "sam.rivera@example.com",
+            "priority": 3,
+        }
+        apply_case(payload, case, queue.id)
+        before = Ticket.objects.count()
+    
+        response = staff_client.post("/api/tickets/", payload, format="json")
+    
+        if case["valid"]:
+            assert response.status_code == 201, response.content
+            # read back the shared record through the API
+            read = staff_client.get(f"/api/tickets/{response.data['id']}/")
+            assert read.status_code == 200
+            assert read.data["status"] == Ticket.OPEN_STATUS  # FR-02
+            if not case["omit"] and case["field"] != "queue":
+                expected = case["value"]
+                if case["field"] == "title":
+                    expected = expected.strip()
+                assert read.data[case["field"]] == expected
+            assert Ticket.objects.count() == before + 1
+        else:
+>           assert response.status_code == 400, response.content
+E           AssertionError: b'{"id":1,"queue":1,"title":"Generated ticket text for boundary value analysis Generated ticket text for boundary valu...chment_set":[],"date":"2026-11-21T11:29:58.593205Z","message_id":null,"email_recipients":["sam.rivera@example.com"]}]}'
+E           assert 201 == 400
+E            +  where 201 = <Response status_code=201, "application/json">.status_code
+
+tests/team/api/test_generated_inputs.py:72: AssertionError
+__________ test_create_ticket_inputs[createTicket.priority.BVA.max+1] __________
+
+case = {'id': 'createTicket.priority.BVA.max+1', 'operation': 'createTicket', 'schema': 'TicketCreate', 'field': 'priority', ...}
+staff_client = <rest_framework.test.APIClient object at 0x75bbd092fbf0>
+queue = <Queue: IT Support>
+
+    @pytest.mark.parametrize("case", mark_known(load_cases("createTicket")), ids=lambda c: c["id"])
+    def test_create_ticket_inputs(case, staff_client, queue):
+        payload = {
+            "queue": queue.id,
+            "title": "Printer on floor 2 is jammed",
+            "description": "Paper is stuck in tray 2.",
+            "submitter_email": "sam.rivera@example.com",
+            "priority": 3,
+        }
+        apply_case(payload, case, queue.id)
+        before = Ticket.objects.count()
+    
+        response = staff_client.post("/api/tickets/", payload, format="json")
+    
+        if case["valid"]:
+            assert response.status_code == 201, response.content
+            # read back the shared record through the API
+            read = staff_client.get(f"/api/tickets/{response.data['id']}/")
+            assert read.status_code == 200
+            assert read.data["status"] == Ticket.OPEN_STATUS  # FR-02
+            if not case["omit"] and case["field"] != "queue":
+                expected = case["value"]
+                if case["field"] == "title":
+                    expected = expected.strip()
+                assert read.data[case["field"]] == expected
+            assert Ticket.objects.count() == before + 1
+        else:
+>           assert response.status_code == 400, response.content
+E           AssertionError: b'{"id":1,"queue":1,"title":"Printer on floor 2 is jammed","description":"Paper is stuck in tray 2.","resolution":null...chment_set":[],"date":"2026-11-21T11:31:02.068226Z","message_id":null,"email_recipients":["sam.rivera@example.com"]}]}'
+E           assert 201 == 400
+E            +  where 201 = <Response status_code=201, "application/json">.status_code
+
+tests/team/api/test_generated_inputs.py:72: AssertionError
+=============================== warnings summary ===============================
+../../../../../../../home/afnan/venvs/helpdesk/lib/python3.12/site-packages/pytest_django/plugin.py:394
+  /home/afnan/venvs/helpdesk/lib/python3.12/site-packages/pytest_django/plugin.py:394: RemovedInDjango2028Warning: The EMAIL_BACKEND setting is deprecated. Migrate to MAILERS before Django 2028.
+    dj_settings.DATABASES  # noqa: B018
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+XFAIL tests/team/api/test_generated_inputs.py::test_create_ticket_inputs[createTicket.description.BVA.minLength-1] - DEF-04: error reported on 'body', not 'description'
+XFAIL tests/team/api/test_generated_inputs.py::test_create_ticket_inputs[createTicket.description.EP.missing_required] - DEF-03: missing description -> HTTP 500 (KeyError)
+XFAIL tests/team/api/test_generated_inputs.py::test_create_ticket_inputs[createTicket.description.EP.null] - DEF-04: error reported on 'body', not 'description'
+XFAIL tests/team/api/test_generated_inputs.py::test_create_ticket_inputs[createTicket.priority.EP.omitted_optional] - DEF-05: priority has model default 3 but API requires it
+FAILED tests/team/api/test_generated_inputs.py::test_create_ticket_inputs[createTicket.title.BVA.maxLength+1]
+FAILED tests/team/api/test_generated_inputs.py::test_create_ticket_inputs[createTicket.priority.BVA.max+1]
+2 failed, 94 passed, 4 xfailed, 1 warning in 282.25s (0:04:42)

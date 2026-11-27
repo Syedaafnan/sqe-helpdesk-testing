@@ -1,0 +1,112 @@
+### helpdesk.ticket_rules.x_validate_title__mutmut_5
+# helpdesk.ticket_rules.x_validate_title__mutmut_5: survived
+--- src/helpdesk/ticket_rules.py
++++ src/helpdesk/ticket_rules.py
+@@ -1,7 +1,7 @@
+ def validate_title(title):
+     """Return the stripped title if it is non-empty and at most 200 characters."""
+     if not isinstance(title, str) or not title.strip():
+-        raise RuleViolation("title_required", "Enter a summary of the problem.")
++        raise RuleViolation("title_required", None)
+     if len(title) > TITLE_MAX_LENGTH:
+         raise RuleViolation(
+             "title_too_long",
+
+### helpdesk.ticket_rules.x_validate_title__mutmut_10
+# helpdesk.ticket_rules.x_validate_title__mutmut_10: survived
+--- src/helpdesk/ticket_rules.py
++++ src/helpdesk/ticket_rules.py
+@@ -1,7 +1,7 @@
+ def validate_title(title):
+     """Return the stripped title if it is non-empty and at most 200 characters."""
+     if not isinstance(title, str) or not title.strip():
+-        raise RuleViolation("title_required", "Enter a summary of the problem.")
++        raise RuleViolation("title_required", "XXEnter a summary of the problem.XX")
+     if len(title) > TITLE_MAX_LENGTH:
+         raise RuleViolation(
+             "title_too_long",
+
+### helpdesk.ticket_rules.x_validate_title__mutmut_11
+# helpdesk.ticket_rules.x_validate_title__mutmut_11: survived
+--- src/helpdesk/ticket_rules.py
++++ src/helpdesk/ticket_rules.py
+@@ -1,7 +1,7 @@
+ def validate_title(title):
+     """Return the stripped title if it is non-empty and at most 200 characters."""
+     if not isinstance(title, str) or not title.strip():
+-        raise RuleViolation("title_required", "Enter a summary of the problem.")
++        raise RuleViolation("title_required", "enter a summary of the problem.")
+     if len(title) > TITLE_MAX_LENGTH:
+         raise RuleViolation(
+             "title_too_long",
+
+### helpdesk.ticket_rules.x_validate_title__mutmut_12
+# helpdesk.ticket_rules.x_validate_title__mutmut_12: survived
+--- src/helpdesk/ticket_rules.py
++++ src/helpdesk/ticket_rules.py
+@@ -1,7 +1,7 @@
+ def validate_title(title):
+     """Return the stripped title if it is non-empty and at most 200 characters."""
+     if not isinstance(title, str) or not title.strip():
+-        raise RuleViolation("title_required", "Enter a summary of the problem.")
++        raise RuleViolation("title_required", "ENTER A SUMMARY OF THE PROBLEM.")
+     if len(title) > TITLE_MAX_LENGTH:
+         raise RuleViolation(
+             "title_too_long",
+
+### helpdesk.ticket_rules.x_allowed_next_statuses__mutmut_3
+# helpdesk.ticket_rules.x_allowed_next_statuses__mutmut_3: survived
+--- src/helpdesk/ticket_rules.py
++++ src/helpdesk/ticket_rules.py
+@@ -7,7 +7,7 @@
+     Mirrors ``Ticket._get_allowed_status_flow``: a status missing from the
+     flow (or mapped to an empty tuple) may move to any valid status.
+     """
+-    targets = flow.get(current, ())
++    targets = flow.get(current, None)
+     if targets:
+         return tuple(targets)
+     return tuple(all_statuses)
+
+### helpdesk.ticket_rules.x_allowed_next_statuses__mutmut_5
+# helpdesk.ticket_rules.x_allowed_next_statuses__mutmut_5: survived
+--- src/helpdesk/ticket_rules.py
++++ src/helpdesk/ticket_rules.py
+@@ -7,7 +7,7 @@
+     Mirrors ``Ticket._get_allowed_status_flow``: a status missing from the
+     flow (or mapped to an empty tuple) may move to any valid status.
+     """
+-    targets = flow.get(current, ())
++    targets = flow.get(current, )
+     if targets:
+         return tuple(targets)
+     return tuple(all_statuses)
+
+### helpdesk.ticket_rules.x_check_status_change__mutmut_18
+# helpdesk.ticket_rules.x_check_status_change__mutmut_18: survived
+--- src/helpdesk/ticket_rules.py
++++ src/helpdesk/ticket_rules.py
+@@ -12,7 +12,7 @@
+     if new != current and has_open_dependencies:
+         raise RuleViolation(
+             "dependencies_open",
+-            "This ticket depends on tickets that are still open: resolve "
++            "this ticket depends on tickets that are still open: resolve "
+             "those first, then change this ticket's status.",
+         )
+     if not is_transition_allowed(current, new, flow, all_statuses):
+
+### helpdesk.ticket_rules.x_check_status_change__mutmut_37
+# helpdesk.ticket_rules.x_check_status_change__mutmut_37: survived
+--- src/helpdesk/ticket_rules.py
++++ src/helpdesk/ticket_rules.py
+@@ -16,7 +16,7 @@
+             "those first, then change this ticket's status.",
+         )
+     if not is_transition_allowed(current, new, flow, all_statuses):
+-        allowed = sorted(set(allowed_next_statuses(current, flow, all_statuses)) | {current})
++        allowed = sorted(set(allowed_next_statuses(current, flow, None)) | {current})
+         raise RuleViolation(
+             "transition_not_allowed",
+             f"A ticket cannot move from status {current} to {new}: "
+

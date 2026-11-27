@@ -1,0 +1,30 @@
+Performance diagnosis, 2026-11-21 (after the first k6 runs missed the read target)
+
+1) k6 per-endpoint breakdown, 1 virtual user, 30 s (run "diag_1u"):
+   GET submit form              avg     39 ms  p95     43 ms
+   POST submit form             avg    184 ms  p95    287 ms
+   GET open tickets (API)       avg   1913 ms  p95   1983 ms
+   POST follow-up resolve (API) avg   1205 ms  p95   1259 ms
+   GET ticket read-back (API)   avg   3929 ms  p95   4207 ms
+   -> HTML pages are fast; every API call is slow.
+
+2) curl, same server, 322 tickets in the database (HTTP Basic auth):
+   GET /api/tickets/115/        200  3.82 s, 3.67 s, 3.60 s
+   GET /api/tickets/?status=1   200  1.74 s, 1.75 s
+   GET /api/tickets/1/          200  3.73 s
+
+3) Cost split measured in `manage.py shell` (scratch script diag2.sh):
+   check_password (PBKDF2-SHA256, 1,500,000 iterations)   0.966 s   (once per Basic-auth request)
+   TicketViewSet.get_queryset() loop over 322 tickets      2.651 s, 1289 SQL queries
+   same custom-field work for the one ticket requested     0.011 s,    5 SQL queries
+
+Conclusion
+- DEF-16: TicketViewSet.get_queryset() calls set_custom_field_values() on every
+  accessible ticket (about 4 queries each) before filtering to one object or
+  paginating. Cost grows linearly with the number of tickets: a detail request
+  does 1289 queries to return one ticket. Fix: call it only on the objects
+  being serialised (in get_object() and on the paginated page).
+- Basic auth re-hashes the password on every request by design (~1 s).
+  API clients should use session or token authentication instead.
+- Because each k6 iteration creates a ticket, response times rise during a run;
+  the runner therefore resets the demo data before each run (RESET_CMD).

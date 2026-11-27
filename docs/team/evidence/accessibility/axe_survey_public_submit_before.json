@@ -1,0 +1,13 @@
+[
+  {
+    "rule": "list",
+    "impact": "serious",
+    "nodes": 1,
+    "targets": [
+      [
+        ".navbar-nav"
+      ]
+    ],
+    "help": "<ul> and <ol> must only directly contain <li>, <script> or <template> elements"
+  }
+]

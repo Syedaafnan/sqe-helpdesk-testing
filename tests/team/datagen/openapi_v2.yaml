@@ -1,0 +1,153 @@
+openapi: 3.0.3
+info:
+  title: django-helpdesk Ticket API (team test subset)
+  version: "1.1.0-constraints-changed"
+  description: >
+    Endpoints used by Workflow 1 (Submit Ticket) and Workflow 2 (Update / Resolve
+    Ticket). Written by the team from docs/api.rst, src/helpdesk/serializers.py,
+    src/helpdesk/models.py and src/helpdesk/settings.py at baseline 7bf832c.
+    The generator (generate.py) reads every requestBody property and its
+    constraints (type, required, enum, minimum/maximum, minLength/maxLength,
+    format) to produce EP classes and 3-point BVA values.
+servers:
+  - url: http://localhost:8080
+security:
+  - basicAuth: []
+  - sessionAuth: []
+paths:
+  /api/tickets/:
+    get:
+      operationId: listTickets
+      summary: List tickets the staff user can access
+      parameters:
+        - name: status
+          in: query
+          required: false
+          schema: { type: string, example: "1,3" }
+      responses:
+        "200": { description: Paginated list of tickets }
+        "401": { description: Not authenticated }
+        "403": { description: Not staff }
+    post:
+      operationId: createTicket
+      summary: "W1 Submit Ticket (staff API). New tickets always start as Open (1)."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/TicketCreate" }
+      responses:
+        "201": { description: Ticket created with status 1 }
+        "400": { description: Validation error }
+        "401": { description: Not authenticated }
+        "403": { description: Not staff }
+  /api/tickets/{id}/:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema: { type: integer, minimum: 1 }
+    get:
+      operationId: getTicket
+      summary: Read back one ticket (shared record)
+      responses:
+        "200": { description: Ticket }
+        "404": { description: Not found or not accessible }
+    patch:
+      operationId: updateTicket
+      summary: "W2 Update ticket fields (status follows BR-3)"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/TicketUpdate" }
+      responses:
+        "200": { description: Updated }
+        "400": { description: Validation or business-rule error }
+  /api/followups/:
+    post:
+      operationId: createFollowUp
+      summary: "W2 Update / Resolve Ticket by adding a follow-up (BR-2, BR-3)"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/FollowUpCreate" }
+      responses:
+        "201": { description: Follow-up created, ticket status changed }
+        "400": { description: Validation or business-rule error }
+        "403": { description: Not staff }
+  /api/user_tickets/:
+    get:
+      operationId: listOwnTickets
+      summary: Tickets whose submitter_email equals the caller's non-empty email
+      responses:
+        "200": { description: Paginated list }
+        "403": { description: Not authenticated }
+components:
+  securitySchemes:
+    basicAuth: { type: http, scheme: basic }
+    sessionAuth: { type: apiKey, in: cookie, name: sessionid }
+  schemas:
+    TicketCreate:
+      type: object
+      required: [queue, title, description]
+      properties:
+        queue:
+          type: integer
+          minimum: 1
+          x-reference: Queue
+          description: ID of an existing queue the user can access
+        title:
+          type: string
+          minLength: 1
+          maxLength: 150
+          example: Printer on floor 2 is jammed
+        description:
+          type: string
+          minLength: 1
+          example: Paper is stuck in tray 2.
+        submitter_email:
+          type: string
+          format: email
+          maxLength: 254
+          example: sam.rivera@example.com
+        priority:
+          type: integer
+          minimum: 1
+          maximum: 4
+          default: 3
+          description: "BR-1: 1 Critical .. 5 Very Low"
+    TicketUpdate:
+      type: object
+      properties:
+        status:
+          type: integer
+          enum: [1, 2, 3, 4, 5]
+          description: "BR-3: must be allowed from the current status"
+        priority:
+          type: integer
+          minimum: 1
+          maximum: 5
+    FollowUpCreate:
+      type: object
+      required: [ticket]
+      properties:
+        ticket:
+          type: integer
+          minimum: 1
+          x-reference: Ticket
+        title:
+          type: string
+          maxLength: 200
+          example: Investigated
+        comment:
+          type: string
+          example: Replaced the toner.
+        public:
+          type: boolean
+          default: false
+        new_status:
+          type: integer
+          enum: [1, 2, 3, 4, 5]
+          description: "BR-2/BR-3: allowed from the current status, no open dependencies"

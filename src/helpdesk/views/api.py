@@ -6,6 +6,7 @@ from rest_framework import viewsets
 from rest_framework.mixins import CreateModelMixin
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import (
+    BasePermission,
     DjangoModelPermissions,
     IsAdminUser,
     IsAuthenticated,
@@ -13,6 +14,7 @@ from rest_framework.permissions import (
 from rest_framework.viewsets import GenericViewSet
 
 from helpdesk import settings as helpdesk_settings
+from helpdesk import ticket_rules
 from helpdesk.models import FollowUp, FollowUpAttachment, Ticket
 from helpdesk.serializers import (
     FollowUpAttachmentSerializer,
@@ -48,6 +50,18 @@ def restrict_relation(serializer, field_name, queryset):
             "so it cannot be restricted to a queryset."
         )
     field.queryset = queryset
+
+
+class IsActiveStaffUser(BasePermission):
+    """BR-4: only an authenticated, active staff account may use the ticket API."""
+
+    def has_permission(self, request, view):
+        user = request.user
+        return ticket_rules.can_use_staff_api(
+            bool(user and user.is_authenticated),
+            bool(getattr(user, "is_active", False)),
+            bool(getattr(user, "is_staff", False)),
+        )
 
 
 class ConservativePagination(PageNumberPagination):
@@ -96,7 +110,7 @@ class TicketViewSet(viewsets.ModelViewSet):
     queryset = Ticket.objects.all()
     serializer_class = TicketSerializer
     pagination_class = ConservativePagination
-    permission_classes: ClassVar[list] = [IsAdminUser]
+    permission_classes: ClassVar[list] = [IsActiveStaffUser]
 
     def get_queryset(self):
         tickets = HelpdeskUser(self.request.user).accessible_tickets()
@@ -146,7 +160,7 @@ class FollowUpViewSet(viewsets.ModelViewSet):
     queryset = FollowUp.objects.all()
     serializer_class = FollowUpSerializer
     pagination_class = ConservativePagination
-    permission_classes: ClassVar[list] = [IsAdminUser]
+    permission_classes: ClassVar[list] = [IsActiveStaffUser]
 
     def get_queryset(self):
         return FollowUp.objects.filter(

@@ -1,0 +1,11 @@
+Availability failure and recovery (1 VU, 90 s; server stopped at ~30 s, restarted at ~45 s)
+requests: 110, failed: 32
+server killed at   t=  30.0 s
+server restarted   t=  45.1 s
+server ready       t=  47.2 s
+first failure      t=  31.0 s  (GET submit form)
+last failure       t=  46.0 s
+user-visible outage: 15.0 s
+first success after restart t=  47.2 s -> recovery 2.1 s after restart
+requests after recovery: 48, failed after recovery: 0
+functional checks after recovery: 39/39 passed
