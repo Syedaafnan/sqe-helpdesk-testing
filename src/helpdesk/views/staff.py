@@ -44,6 +44,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 
 from helpdesk import settings as helpdesk_settings
+from helpdesk import ticket_rules
 from helpdesk.copy_followup import copy_followup
 from helpdesk.decorators import (
     helpdesk_staff_member_required,
@@ -1538,6 +1539,19 @@ class UpdateTicketView(
             )
         except PermissionDenied:
             return redirect_to_login(self.request.path, settings.LOGIN_URL)
+        # DEF-10: the page only disables or hides the status choices that are
+        # not allowed, so the rules must also hold for the request itself.
+        try:
+            ticket_rules.check_status_change(
+                current=self.ticket.status,
+                new=int(form.data.get("new_status", self.ticket.status)),
+                has_open_dependencies=not self.ticket.can_be_resolved,
+                flow=Ticket.STATUS_CHOICES_FLOW,
+                all_statuses=[code for code, _label in Ticket.STATUS_CHOICES],
+            )
+        except (ticket_rules.RuleViolation, ValueError) as violation:
+            messages.error(self.request, getattr(violation, "message", str(violation)))
+            return return_to_ticket(self.request.user, self.ticket)
         # Avoid calling super as it will call the save() method on the form
         save_ticket_update(form, self.ticket, self.request.user)
         return return_to_ticket(self.request.user, self.ticket)
