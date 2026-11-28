@@ -10,7 +10,7 @@ tested and mutation tested in isolation. Callers pass in the configured status
 flow (``Ticket.STATUS_CHOICES_FLOW``) and the valid status codes.
 """
 
-PRIORITY_MIN = 1
+PRIORITY_MIN = 0
 PRIORITY_MAX = 5
 TITLE_MAX_LENGTH = 200
 
