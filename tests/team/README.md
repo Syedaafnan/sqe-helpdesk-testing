@@ -32,4 +32,41 @@ python tests/team/seed/seed_butter_bean.py  # our scenario on top (safe to re-ru
 The upstream demo accounts stay in place, so the k6 performance runs, which use
 them, are unchanged.
 
-Setup: see Appendix A of the final report (docs/team/SE3002_Final_Report.docx).
+## Baseline
+
+- Upstream: https://github.com/django-helpdesk/django-helpdesk (BSD-3-Clause)
+- Baseline commit: `7bf832c` (git tag `baseline`)
+- Tested on Ubuntu 24.04 (WSL2), Python 3.12, Django 6.1.3, DRF 3.18.3, Node 22, Chromium (Playwright 1.55)
+
+## Setup
+
+```bash
+python3.12 -m venv ~/venvs/helpdesk && source ~/venvs/helpdesk/bin/activate
+pip install -e .
+pip install -r tests/team/requirements.txt
+python -m playwright install --with-deps chromium
+npm install --no-package-lock && make static-vendor
+python manage.py migrate
+python manage.py loaddata emailtemplate.json demo.json
+```
+
+## Seed, start and reset
+
+```bash
+python manage.py demo_data --reset            # reset: same 141 demo tickets every time (seed 1476)
+python tests/team/seed/seed_butter_bean.py    # our scenario on top
+python manage.py runserver 0.0.0.0:8080       # http://localhost:8080, all test accounts use Pa33w0rd
+```
+
+## Run the tests
+
+```bash
+pytest -m "not e2e" --cov=src/helpdesk --cov=tests/team/datagen --cov-branch   # unit, API, recovery
+pytest tests/team/e2e -m e2e                                                    # Playwright (site running)
+bash tests/team/mutation/run_mutmut.sh 90                                       # mutation gate
+bash tests/team/perf/run_k6.sh                                                  # k6 load runs (site running)
+python tests/team/e2e/lighthouse_screens.py                                     # Lighthouse, 4 key screens
+```
+
+CI runs the same steps on every pull request: `.github/workflows/quality-gate.yml`.
+Full details and results: the final report (submitted as PDF).
